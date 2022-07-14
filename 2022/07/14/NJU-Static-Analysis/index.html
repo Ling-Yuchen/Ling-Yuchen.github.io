@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <link rel="alternate icon" type="image/png" href="/img/favicon.png">
+    <title>Yoson&#39;s Blog | </title>
+    
+<link rel="stylesheet" href="/css/reset.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/markdown.css">
+
+    
+<link rel="stylesheet" href="/css/fonts.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+    <body>
+        <div class="paper">
+            <div class="paper-main">
+                
+                    <div class="post-header">
+    <a class="logo" href="/">Yoson&#39;s Blog</a>
+    <a class="go-home" href="/">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#000" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+</div>
+                
+                <div class="post-main">
+
+    
+        <div class="post-main-title">
+            南京大学《软件分析》课程笔记
+        </div>
+        <div class="post-meta">
+            2022-07-14
+        </div>
+    
+
+    <div class="post-md">
+        <h1 id="南京大学《软件分析》课程"><a href="#南京大学《软件分析》课程" class="headerlink" title="南京大学《软件分析》课程"></a>南京大学《软件分析》课程</h1><h2 id="01-Introduction"><a href="#01-Introduction" class="headerlink" title="01 - Introduction"></a>01 - Introduction</h2><h4 id="静态分析：运行前对程序进行分析"><a href="#静态分析：运行前对程序进行分析" class="headerlink" title="静态分析：运行前对程序进行分析"></a>静态分析：运行前对程序进行分析</h4><p>​        是否存在私有信息泄露？</p>
+<p>​        是否存在空指针异常？</p>
+<p>​        是否存在强制类型转换异常？</p>
+<p>​        是否允许存在指向同一内存块的指针？</p>
+<p>​        是否存在 fail 的 <em>assert</em> 语句？</p>
+<p>​        是否存在可以删除的死代码？</p>
+<p>​        ……</p>
+<h4 id="Rice’s-Theorem（莱斯定理）"><a href="#Rice’s-Theorem（莱斯定理）" class="headerlink" title="Rice’s Theorem（莱斯定理）"></a>Rice’s Theorem（莱斯定理）</h4><p><em>Any non-trivial property of the behavior of programs in a r.e. language is undecidable.</em></p>
+<p>通俗来讲就是，以平时常用的编程语言写的程序，对于其有用的动态运行时性质，无法做出准确判断</p>
+<p>——不存在完美的（<em>sound &amp; complete</em>）静态分析</p>
+<p>对 soundness 妥协：产生漏报（<em>false negatives</em>）（可以接受）</p>
+<p>对 completeness 妥协：产生误报（<em>false positive</em>s）（不希望发生）</p>
+<p>静态分析：在确保 <em>soundness</em> 的前提下，在分析的准确度和速度之间做出有效的平衡</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207132057151.png" alt="img" style="zoom:50%;" />
+
+
+
+<h4 id="静态分析技术：抽象（abstraction）-近似（Over-approximation）"><a href="#静态分析技术：抽象（abstraction）-近似（Over-approximation）" class="headerlink" title="静态分析技术：抽象（abstraction）+近似（Over-approximation）"></a>静态分析技术：抽象（<em>abstraction</em>）+近似（Over-approximation）</h4><p>抽象：把具体域的值映射到抽象域的值</p>
+<p>近似：在抽象层面定义转移函数；由于无法枚举所有路径，所以使用  <em>flow merging</em> 处理  <em>control flow</em></p>
+<h4 id="本节重点"><a href="#本节重点" class="headerlink" title="本节重点"></a>本节重点</h4><ul>
+<li>静态分析与（动态）测试的区别？</li>
+<li>理解 soundness, completeness, false negatives 和 false positives 的概念</li>
+<li>为什么静态分析需要保证 soundness？</li>
+<li>怎样理解 abstraction 和 over-approximation？</li>
+</ul>
+<h2 id="02-Intermediate-Representation"><a href="#02-Intermediate-Representation" class="headerlink" title="02 - Intermediate Representation"></a>02 - Intermediate Representation</h2><h4 id="编译器（Compiler）与静态分析（Static-Analysis）"><a href="#编译器（Compiler）与静态分析（Static-Analysis）" class="headerlink" title="编译器（Compiler）与静态分析（Static Analysis）"></a>编译器（<em>Compiler</em>）与静态分析（<em>Static Analysis</em>）</h4><p>编译器：源码 =&gt;（词法分析器 Scanner）=&gt; Tokens =&gt;（语法分析器 Parser）=&gt; AST =&gt;（类型检查 Type Checker）=&gt; Decorated AST =&gt;（Translator）=&gt; IR =&gt;（Code Generator）=&gt; 机器码</p>
+<p>静态分析需要在编译器前端生成的 IR 的基础上进行，e.g. 代码优化</p>
+<h4 id="抽象语法树（AST）-vs-中间表示（IR）"><a href="#抽象语法树（AST）-vs-中间表示（IR）" class="headerlink" title="抽象语法树（AST） vs. 中间表示（IR）"></a>抽象语法树（<em>AST</em>） vs. 中间表示（<em>IR</em>）</h4><p>抽象语法树：贴近语法结构；依赖于不同语言；适合做快速的类型检查；缺少控制流信息</p>
+<p>中间表示：贴近机器码；具有语言无关性；简洁而统一；包含控制流信息；通常作为静态分析的基础</p>
+<h4 id="中间表示（三地址码）"><a href="#中间表示（三地址码）" class="headerlink" title="中间表示（三地址码）"></a>中间表示（三地址码）</h4><p>右侧最多只有一个操作符；每种指令都有对应的三地址码</p>
+<ul>
+<li>x = y <em>bop</em> z</li>
+<li>x = <em>uop</em> y</li>
+<li>x = y</li>
+<li>goto L</li>
+<li>if x goto L</li>
+<li>if x <em>rop</em> y goto L</li>
+</ul>
+<h4 id="真实的静态分析器中的三地址码：Soot’s-IP"><a href="#真实的静态分析器中的三地址码：Soot’s-IP" class="headerlink" title="真实的静态分析器中的三地址码：Soot’s IP"></a>真实的静态分析器中的三地址码：Soot’s IP</h4><p>关于 JVM 的补充：</p>
+<p>invoke-special:    call constructor，call superclass methods，call private methods</p>
+<p>invoke-virtual:    call instance methods（virtual dispatch）</p>
+<p>invoke-interface:    cannot optimize，checking interface implementation</p>
+<p>invoke-static:    call static methods</p>
+<p>method signature:    class name，return type，method name，parameter type</p>
+<h4 id="控制流分析"><a href="#控制流分析" class="headerlink" title="控制流分析"></a>控制流分析</h4><p>输入三地址码，输出控制流图</p>
+<p>Basic Block 定义：有且仅有一个入口和一个出口的指令块</p>
+<p>确定 Basic Block 的算法：</p>
+<ul>
+<li>第一条指令是基本块的入口</li>
+<li>所有跳转的目标指令是基本块的入口</li>
+<li>所有跳转指令的下一条指令是基本块的入口</li>
+<li>从一个入口指令到下一条入口指令的前一条指令构成一个基本块</li>
+</ul>
+<p>控制流图：</p>
+<p>节点为基本块（<em>basic blocks</em>）</p>
+<p>一条从基本块A到基本块B的边表示，存在从A尾部到B首部的有条件或无条件跳转，或者顺序上B紧跟着A且A的最后一条指令不是无条件跳转</p>
+<p>加上 Entry 和 Exit 表示程序的入口和出口（类似哨兵节点）</p>
+<h4 id="本节重点-1"><a href="#本节重点-1" class="headerlink" title="本节重点"></a>本节重点</h4><ul>
+<li>编译器和静态分析器之间的关系？</li>
+<li>理解三地址码及其通常的形式（in IR Jimple）</li>
+<li>怎样在 IR 的基础上构建 basic blocks？</li>
+<li>怎样在 basic blocks 的基础上构建控制流图？</li>
+</ul>
+<h2 id="03-Data-Flow-Analysis（Application）"><a href="#03-Data-Flow-Analysis（Application）" class="headerlink" title="03 - Data Flow Analysis（Application）"></a>03 - Data Flow Analysis（Application）</h2><h4 id="数据流分析概览"><a href="#数据流分析概览" class="headerlink" title="数据流分析概览"></a>数据流分析概览</h4><p>How <em>application-specific Data</em>（abstraction） <em>Flows</em>（safe-approximation） through the <em>Nodes</em> （Transfer function）and <em>Edges</em>（Control-flow handling） of CFG？</p>
+<p>may analysis：输出信息可能是正确的（over-approximation）</p>
+<p>must analysis：输出信息必须是正确的（under-approximation）</p>
+<h4 id="数据流分析前驱知识"><a href="#数据流分析前驱知识" class="headerlink" title="数据流分析前驱知识"></a>数据流分析前驱知识</h4><p>Input and Output States</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207141511690.png" alt="img" style="zoom:50%;" />
+
+<p>在数据流分析应用中，将每一个 <em>program point</em> 与一个 表示该点所有观测到的 <em>program states</em> 的集合的抽象的<em>数据流值（data-flow value）</em> 联系起来</p>
+<p>数据流分析是对所有的语句，通过解析 safe-approximation 的约束规则，得到一个 solution（给每个 <em>program point</em> 一个 <em>data-flow value</em>）</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207141528212.png" alt="img" style="zoom: 50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207141533764.png" alt="img" style="zoom: 50%;" />
+
+<h4 id="定义可达性分析（Reaching-Definition-Analysis）"><a href="#定义可达性分析（Reaching-Definition-Analysis）" class="headerlink" title="定义可达性分析（Reaching Definition Analysis）"></a>定义可达性分析（<em>Reaching Definition Analysis</em>）</h4><p>定义可达性：A definition <em>d</em> at program point <em>p</em> reaches a point <em>q</em> if there is a path from <em>p</em> to <em>q</em> such that <em>d</em> is not killed along the path.</p>
+<p>定义可达性可以用于 <em>侦测可能的未定义的变量</em></p>
+<h5 id="理解定义可达性："><a href="#理解定义可达性：" class="headerlink" title="理解定义可达性："></a>理解定义可达性：</h5><p>用一个比特表示某个变量在某一点的定义可达性</p>
+<p>用一个n维向量表示n个变量在某一点的定义可达性</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207141559532.png" alt="1" style="zoom:50%;" />
+
+<h5 id="定义可达性分析算法："><a href="#定义可达性分析算法：" class="headerlink" title="定义可达性分析算法："></a>定义可达性分析算法：</h5><p>注意：</p>
+<p>在算法模板中边界条件（OUT[entry]）单独初始化</p>
+<p>对于 OUT[B]，may analysis 一般初始化为空；must analysis 一般初始化为 top</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207141602719.png" alt="img" style="zoom:50%;" />
+
+<p>为什么该迭代算法最终会停下来？</p>
+<p>对于 Transfer Function，OUT[S] 只受 IN[S] 的影响，当个更多的 facts 流入 IN[S] 时，要么被 kill 要么存活下来并永远被保留，故 OUT[S] 永远不会缩减（e.g. 0 =&gt; 1 或 1 =&gt; 1），又因为定义的变量数量是有限的，故该迭代一定会停下来（实际上到达了一个不动点）</p>
+<h4 id="Live-Variable-Analysis"><a href="#Live-Variable-Analysis" class="headerlink" title="Live Variable Analysis"></a>Live Variable Analysis</h4><h4 id="Available-Expressions-Analysis"><a href="#Available-Expressions-Analysis" class="headerlink" title="Available Expressions Analysis"></a>Available Expressions Analysis</h4>
+    </div>
+
+</div>
+                <div class="footer">
+    <span>Copyright © 2022 Yoson&#39;s Blog</span>
+    <span>Theme Designed By <a target="_blank" href="https://zheli.design/one-paper">這Li</a></span>
+</div>
+
+
+<link rel="stylesheet" href="/css/a11y-dark.min.css">
+
+
+<script src="/js/highlight.min.js"></script>
+
+
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+            </div>
+        </div>
+    </body>
+</html>
