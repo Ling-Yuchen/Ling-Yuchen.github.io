@@ -45,7 +45,7 @@
     <div class="post-md">
         <p>课程内容来源：<a target="_blank" rel="noopener" href="https://tai-e.pascal-lab.net/">https://tai-e.pascal-lab.net/</a></p>
 <p>实验作业的实现：<a target="_blank" rel="noopener" href="https://github.com/Ling-Yuchen/Tai-e-assignments">https://github.com/Ling-Yuchen/Tai-e-assignments</a></p>
-<h4 id="01-Introduction"><a href="#01-Introduction" class="headerlink" title="01 - Introduction"></a>01 - Introduction</h4><h5 id="静态分析：运行前对程序进行分析"><a href="#静态分析：运行前对程序进行分析" class="headerlink" title="静态分析：运行前对程序进行分析"></a>静态分析：运行前对程序进行分析</h5><p>​        是否存在私有信息泄露？</p>
+<h3 id="01-Introduction"><a href="#01-Introduction" class="headerlink" title="01 - Introduction"></a>01 - Introduction</h3><h5 id="静态分析：运行前对程序进行分析"><a href="#静态分析：运行前对程序进行分析" class="headerlink" title="静态分析：运行前对程序进行分析"></a>静态分析：运行前对程序进行分析</h5><p>​        是否存在私有信息泄露？</p>
 <p>​        是否存在空指针异常？</p>
 <p>​        是否存在强制类型转换异常？</p>
 <p>​        是否允许存在指向同一内存块的指针？</p>
@@ -70,7 +70,7 @@
 <li>为什么静态分析需要保证 soundness？</li>
 <li>怎样理解 abstraction 和 over-approximation？</li>
 </ul>
-<h4 id="02-Intermediate-Representation"><a href="#02-Intermediate-Representation" class="headerlink" title="02 - Intermediate Representation"></a>02 - Intermediate Representation</h4><h5 id="编译器（Compiler）与静态分析（Static-Analysis）"><a href="#编译器（Compiler）与静态分析（Static-Analysis）" class="headerlink" title="编译器（Compiler）与静态分析（Static Analysis）"></a>编译器（<em>Compiler</em>）与静态分析（<em>Static Analysis</em>）</h5><p>编译器：源码 =&gt;（词法分析器 Scanner）=&gt; Tokens =&gt;（语法分析器 Parser）=&gt; AST =&gt;（类型检查 Type Checker）=&gt; Decorated AST =&gt;（Translator）=&gt; IR =&gt;（Code Generator）=&gt; 机器码</p>
+<h3 id="02-Intermediate-Representation"><a href="#02-Intermediate-Representation" class="headerlink" title="02 - Intermediate Representation"></a>02 - Intermediate Representation</h3><h5 id="编译器（Compiler）与静态分析（Static-Analysis）"><a href="#编译器（Compiler）与静态分析（Static-Analysis）" class="headerlink" title="编译器（Compiler）与静态分析（Static Analysis）"></a>编译器（<em>Compiler</em>）与静态分析（<em>Static Analysis</em>）</h5><p>编译器：源码 =&gt;（词法分析器 Scanner）=&gt; Tokens =&gt;（语法分析器 Parser）=&gt; AST =&gt;（类型检查 Type Checker）=&gt; Decorated AST =&gt;（Translator）=&gt; IR =&gt;（Code Generator）=&gt; 机器码</p>
 <p>静态分析需要在编译器前端生成的 IR 的基础上进行，e.g. 代码优化</p>
 <h5 id="抽象语法树（AST）-vs-中间表示（IR）"><a href="#抽象语法树（AST）-vs-中间表示（IR）" class="headerlink" title="抽象语法树（AST） vs. 中间表示（IR）"></a>抽象语法树（<em>AST</em>） vs. 中间表示（<em>IR</em>）</h5><p>抽象语法树：贴近语法结构；依赖于不同语言；适合做快速的类型检查；缺少控制流信息</p>
 <p>中间表示：贴近机器码；具有语言无关性；简洁而统一；包含控制流信息；通常作为静态分析的基础</p>
@@ -108,7 +108,7 @@
 <li>怎样在 IR 的基础上构建 basic blocks？</li>
 <li>怎样在 basic blocks 的基础上构建控制流图？</li>
 </ul>
-<h4 id="03-Data-Flow-Analysis（Application）"><a href="#03-Data-Flow-Analysis（Application）" class="headerlink" title="03 - Data Flow Analysis（Application）"></a>03 - Data Flow Analysis（Application）</h4><h5 id="数据流分析概览"><a href="#数据流分析概览" class="headerlink" title="数据流分析概览"></a>数据流分析概览</h5><p>How <em>application-specific Data</em>（abstraction） <em>Flows</em>（safe-approximation） through the <em>Nodes</em> （Transfer function）and <em>Edges</em>（Control-flow handling） of CFG？</p>
+<h3 id="03-Data-Flow-Analysis（Application）"><a href="#03-Data-Flow-Analysis（Application）" class="headerlink" title="03 - Data Flow Analysis（Application）"></a>03 - Data Flow Analysis（Application）</h3><h5 id="数据流分析概览"><a href="#数据流分析概览" class="headerlink" title="数据流分析概览"></a>数据流分析概览</h5><p>How <em>application-specific Data</em>（abstraction） <em>Flows</em>（safe-approximation） through the <em>Nodes</em> （Transfer function）and <em>Edges</em>（Control-flow handling） of CFG？</p>
 <p>may analysis：输出信息可能是正确的（over-approximation）</p>
 <p>must analysis：输出信息必须是正确的（under-approximation）</p>
 <h5 id="数据流分析前驱知识"><a href="#数据流分析前驱知识" class="headerlink" title="数据流分析前驱知识"></a>数据流分析前驱知识</h5><p>Input and Output States</p>
@@ -120,7 +120,7 @@
 
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207141533764.png" alt="img" style="zoom: 50%;" />
 
-<h5 id="定义可达性分析（Reaching-Definition-Analysis）"><a href="#定义可达性分析（Reaching-Definition-Analysis）" class="headerlink" title="定义可达性分析（Reaching Definition Analysis）"></a>定义可达性分析（<em>Reaching Definition Analysis</em>）</h5><p>定义可达性：A definition <em>d</em> at program point <em>p</em> reaches a point <em>q</em> if there is a path from <em>p</em> to <em>q</em> such that <em>d</em> is not killed along the path.</p>
+<h4 id="定义可达性分析（Reaching-Definition-Analysis）"><a href="#定义可达性分析（Reaching-Definition-Analysis）" class="headerlink" title="定义可达性分析（Reaching Definition Analysis）"></a>定义可达性分析（<em>Reaching Definition Analysis</em>）</h4><p>定义可达性：A definition <em>d</em> at program point <em>p</em> reaches a point <em>q</em> if there is a path from <em>p</em> to <em>q</em> such that <em>d</em> is not killed along the path.</p>
 <p>定义可达性可以用于 <em>侦测可能的未定义的变量</em></p>
 <p><strong>理解定义可达性分析：</strong></p>
 <p>用一个比特表示某个变量在某一点的定义可达性</p>
@@ -135,7 +135,7 @@
 
 <p>为什么该迭代算法最终会停下来？</p>
 <p>对于 Transfer Function，OUT[S] 只受 IN[S] 的影响，当个更多的 facts 流入 IN[S] 时，要么被 kill 要么存活下来并永远被保留，故 OUT[S] 永远不会缩减（e.g. 0 =&gt; 1 或 1 =&gt; 1），又因为定义的变量数量是有限的，故该迭代一定会停下来（实际上到达了一个不动点）</p>
-<h5 id="活跃变量分析（Live-Variable-Analysis）"><a href="#活跃变量分析（Live-Variable-Analysis）" class="headerlink" title="活跃变量分析（Live Variable Analysis）"></a>活跃变量分析（<em>Live Variable Analysis</em>）</h5><p>Live variable analysis tells whether the value of <em>variable v</em> at <em>program point p</em> could be used along some path in CFG starting at <em>p</em>（AND <em>v</em> should not be redefined before usage）. If so, <em>v</em> is live at <em>p</em>. Otherwise, <em>v</em> is dead at <em>p</em>.</p>
+<h4 id="活跃变量分析（Live-Variable-Analysis）"><a href="#活跃变量分析（Live-Variable-Analysis）" class="headerlink" title="活跃变量分析（Live Variable Analysis）"></a>活跃变量分析（<em>Live Variable Analysis</em>）</h4><p>Live variable analysis tells whether the value of <em>variable v</em> at <em>program point p</em> could be used along some path in CFG starting at <em>p</em>（AND <em>v</em> should not be redefined before usage）. If so, <em>v</em> is live at <em>p</em>. Otherwise, <em>v</em> is dead at <em>p</em>.</p>
 <p>活跃变量信息可用于寄存器分配（倾向于使用存有 dead value 的寄存器来存新数据）</p>
 <p><strong>理解活跃变量分析：</strong></p>
 <p>用一个比特表示某个变量在某一点是否活跃</p>
@@ -149,7 +149,31 @@
 <p>对于 IN[B]，may analysis 一般初始化为空；must analysis 一般初始化为 top</p>
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207141826606.png" alt="img" style="zoom:50%;" />
 
-<h5 id="可用表达式分析（Available-Expressions-Analysis）"><a href="#可用表达式分析（Available-Expressions-Analysis）" class="headerlink" title="可用表达式分析（Available Expressions Analysis）"></a>可用表达式分析（<em>Available Expressions Analysis</em>）</h5><h4 id="实验作业部分"><a href="#实验作业部分" class="headerlink" title="实验作业部分"></a>实验作业部分</h4><h5 id="A1"><a href="#A1" class="headerlink" title="A1"></a>A1</h5><ul>
+<h4 id="可用表达式分析（Available-Expressions-Analysis）"><a href="#可用表达式分析（Available-Expressions-Analysis）" class="headerlink" title="可用表达式分析（Available Expressions Analysis）"></a>可用表达式分析（<em>Available Expressions Analysis</em>）</h4><p>一个表达式，形如 <em>x op y</em>，在某个 <em>program point p</em> 是可用的，需要满足：</p>
+<ul>
+<li>从 <em>ENTRY</em> 到 <em>p</em> 的所有路径都必须计算过 <em>x op y</em> 的值</li>
+<li>在这些路径各自最后一次计算该表达式的值之后没有修改过 <em>x</em> 或 <em>y</em> 的值</li>
+</ul>
+<p><strong>理解可用表达式分析</strong></p>
+<p>用一个比特表示某个表达式在某点是否可用</p>
+<p>用一个n维比特向量表示n个表达式在某点是否可用</p>
+<p>注意这是一个 must analysis</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207171149946.png" alt="1" style="zoom:50%;" />
+
+
+
+<p><strong>可用表达式分析算法</strong></p>
+<p>注意在 must analysis 中的初始化方式</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207171151583.png" alt="img" style="zoom:50%;" />
+
+<h5 id="不同数据流分析应用的对比"><a href="#不同数据流分析应用的对比" class="headerlink" title="不同数据流分析应用的对比"></a>不同数据流分析应用的对比</h5><p><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207171210734.png" alt="1"></p>
+<h5 id="本节重点-2"><a href="#本节重点-2" class="headerlink" title="本节重点"></a>本节重点</h5><ul>
+<li>理解三种数据流分析</li>
+<li>能说出三种数据流分析的相似与不同</li>
+<li>理解迭代算法为什么最终能停下来</li>
+</ul>
+<h3 id="04-Data-Flow-Analysis（Foundations）"><a href="#04-Data-Flow-Analysis（Foundations）" class="headerlink" title="04 - Data Flow Analysis（Foundations）"></a>04 - Data Flow Analysis（Foundations）</h3><p>… …</p>
+<h3 id="实验作业部分"><a href="#实验作业部分" class="headerlink" title="实验作业部分"></a>实验作业部分</h3><h4 id="A1"><a href="#A1" class="headerlink" title="A1"></a>A1</h4><ul>
 <li>为 Java 实现一个活跃变量分析（Live Variable Analysis）</li>
 <li>实现一个通用的迭代求解器（Iterative Solver），用于求解数据流分析问题，也就是本次作业中的活跃变量分析</li>
 </ul>
