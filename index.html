@@ -1,90 +1,169 @@
 <!DOCTYPE html>
-<html>
-    <head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
-    <link rel="alternate icon" type="image/png" href="/img/favicon.png">
-    <title>Yoson&#39;s Blog | </title>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Yoson Ling">
+
+
+
+
+
+<title>Yoson&#39;s Blog</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
     
-<link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
 
     
-<link rel="stylesheet" href="/css/style.css">
-
     
-<link rel="stylesheet" href="/css/markdown.css">
-
+        
     
-<link rel="stylesheet" href="/css/fonts.css">
+
 
 <meta name="generator" content="Hexo 5.4.2"></head>
-    <body>
-        <div class="paper">
-            <div class="paper-main">
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Yoson&#39;s Blog</a></div>
+            <div class="menu navbar-right">
                 
-                    <div class="header">
-    <a class="logo" href="/">Yoson&#39;s Blog</a>
-    <ul class="nav">
-        
-        <li><a href="/">首页</a></li>
-        
-        <li><a href="/archives">归档</a></li>
-        
-        <li><a href="/about">关于</a></li>
-        
-    </ul>
-</div>
+                    <a class="menu-item" href="/archives">Posts</a>
                 
-                <div class="post-list">
-    
-    <div class="post">
-        <a class="post-title" href="/2022/07/14/NJU-Static-Analysis/">南京大学《软件分析》课程笔记（更新中）</a>
-        <div class="post-except">
-            课程内容来源：https://tai-e.pascal-lab.net/
-实验作业的实现：https://github.com/Ling-Yuchen/Tai-e-assignments
-01 - Introduction静态分析：运行前对程序进行分析​        是否存在私有信息泄露？
-​        是否存在空指针异常？
-​        是否存在强制类型转换异常？
-​        是否允许存在指向同一内存块的指针？
-​        是否存在 fail 的 as
-            <a class="read-more" href="/2022/07/14/NJU-Static-Analysis/"> ... </a>
-        </div>
-        <div class="post-date">2022.07.14</div>
-    </div>
-    
-    <div class="post">
-        <a class="post-title" href="/2022/07/11/hello-world/">Hello World</a>
-        <div class="post-except">
-            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick StartCreate a new post1$ hexo new &quot
-            <a class="read-more" href="/2022/07/11/hello-world/"> ... </a>
-        </div>
-        <div class="post-date">2022.07.11</div>
-    </div>
-    
-</div>
-
-                <div class="footer">
-    <span>Copyright © 2022 Yoson&#39;s Blog</span>
-    <span>Theme Designed By <a target="_blank" href="https://zheli.design/one-paper">這Li</a></span>
-</div>
-
-
-<link rel="stylesheet" href="/css/a11y-dark.min.css">
-
-
-<script src="/js/highlight.min.js"></script>
-
-
-<script src="/js/highlightjs-line-numbers.js"></script>
-
-
-<script>
-    hljs.initHighlightingOnLoad();
-    hljs.initLineNumbersOnLoad();
-</script>
-
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
             </div>
         </div>
-    </body>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Yoson&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                
+    <div class="container profile-container">
+    <div class="intro">
+        <div class="avatar">
+            <a href="/archives"><img src="/image/cat.jpeg"></a>
+        </div>
+        <div class="nickname"><b>Yoson Ling</b></div>
+        <div class="description"><p><b>马孔多在下雨 …</b></p>
+</div>
+        <div class="links">
+            
+                
+                    <a class="link-item" title="Blog" href="/archives">
+                        
+                        
+                            <i class="iconfont icon-blog"></i>
+                        
+                    </a>
+                
+                    <a class="link-item" title="Github" target="_blank" rel="noopener" href="https://github.com/Ling-Yuchen">
+                        
+                        
+                            <i class="iconfont icon-github"></i>
+                        
+                    </a>
+                
+            
+        </div>
+    </div>
+</div>
+
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Yoson Ling | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
 </html>

@@ -1,58 +1,236 @@
 <!DOCTYPE html>
-<html>
-    <head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
-    <link rel="alternate icon" type="image/png" href="/img/favicon.png">
-    <title>Yoson&#39;s Blog | </title>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Yoson Ling">
+
+
+
+
+
+<title>南京大学《软件分析》课程笔记（更新中） | Yoson&#39;s Blog</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
     
-<link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
 
     
-<link rel="stylesheet" href="/css/style.css">
-
     
-<link rel="stylesheet" href="/css/markdown.css">
-
+        
     
-<link rel="stylesheet" href="/css/fonts.css">
+
 
 <meta name="generator" content="Hexo 5.4.2"></head>
-    <body>
-        <div class="paper">
-            <div class="paper-main">
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Yoson&#39;s Blog</a></div>
+            <div class="menu navbar-right">
                 
-                    <div class="post-header">
-    <a class="logo" href="/">Yoson&#39;s Blog</a>
-    <a class="go-home" href="/">
-        <svg width="8" height="14" viewBox="0 0 8 14">
-            <path d="M7 1L1 7l6 6" stroke="#000" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    </a>
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Yoson&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
 </div>
-                
-                <div class="post-main">
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
 
     
-        <div class="post-main-title">
-            南京大学《软件分析》课程笔记（更新中）
-        </div>
-        <div class="post-meta">
-            2022-07-14
-        </div>
-    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">南京大学《软件分析》课程笔记（更新中）</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Yoson Ling</a>
+                    
 
-    <div class="post-md">
-        <p>课程内容来源：<a target="_blank" rel="noopener" href="https://tai-e.pascal-lab.net/">https://tai-e.pascal-lab.net/</a></p>
+                    
+                        <span class="post-time">
+                        Date: <a href="#">七月 14, 2022&nbsp;&nbsp;0:00:00</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Learning/">Learning</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>课程内容来源：<a target="_blank" rel="noopener" href="https://tai-e.pascal-lab.net/">https://tai-e.pascal-lab.net/</a></p>
 <p>实验作业的实现：<a target="_blank" rel="noopener" href="https://github.com/Ling-Yuchen/Tai-e-assignments">https://github.com/Ling-Yuchen/Tai-e-assignments</a></p>
-<h3 id="01-Introduction"><a href="#01-Introduction" class="headerlink" title="01 - Introduction"></a>01 - Introduction</h3><h5 id="静态分析：运行前对程序进行分析"><a href="#静态分析：运行前对程序进行分析" class="headerlink" title="静态分析：运行前对程序进行分析"></a>静态分析：运行前对程序进行分析</h5><p>​        是否存在私有信息泄露？</p>
+<h2 id="01-Introduction"><a href="#01-Introduction" class="headerlink" title="01 - Introduction"></a>01 - Introduction</h2><h4 id="静态分析：运行前对程序进行分析"><a href="#静态分析：运行前对程序进行分析" class="headerlink" title="静态分析：运行前对程序进行分析"></a>静态分析：运行前对程序进行分析</h4><p>​        是否存在私有信息泄露？</p>
 <p>​        是否存在空指针异常？</p>
 <p>​        是否存在强制类型转换异常？</p>
 <p>​        是否允许存在指向同一内存块的指针？</p>
 <p>​        是否存在 fail 的 <em>assert</em> 语句？</p>
 <p>​        是否存在可以删除的死代码？</p>
 <p>​        ……</p>
-<h5 id="Rice’s-Theorem（莱斯定理）"><a href="#Rice’s-Theorem（莱斯定理）" class="headerlink" title="Rice’s Theorem（莱斯定理）"></a>Rice’s Theorem（莱斯定理）</h5><p><em>Any non-trivial property of the behavior of programs in a r.e. language is undecidable.</em></p>
+<h4 id="莱斯定理（Rice’s-Theorem）"><a href="#莱斯定理（Rice’s-Theorem）" class="headerlink" title="莱斯定理（Rice’s Theorem）"></a>莱斯定理（<em>Rice’s Theorem</em>）</h4><p><em>Any non-trivial property of the behavior of programs in a r.e. language is undecidable.</em></p>
 <p>通俗来讲就是，以平时常用的编程语言写的程序，对于其有用的动态运行时性质，无法做出准确判断</p>
 <p>——不存在完美的（<em>sound &amp; complete</em>）静态分析</p>
 <p>对 soundness 妥协：产生漏报（<em>false negatives</em>）（可以接受）</p>
@@ -62,19 +240,19 @@
 
 
 
-<h5 id="静态分析技术：抽象（abstraction）-近似（Over-approximation）"><a href="#静态分析技术：抽象（abstraction）-近似（Over-approximation）" class="headerlink" title="静态分析技术：抽象（abstraction）+近似（Over-approximation）"></a>静态分析技术：抽象（<em>abstraction</em>）+近似（Over-approximation）</h5><p>抽象：把具体域的值映射到抽象域的值</p>
+<h4 id="静态分析技术：抽象（abstraction）-近似（Over-approximation）"><a href="#静态分析技术：抽象（abstraction）-近似（Over-approximation）" class="headerlink" title="静态分析技术：抽象（abstraction）+近似（Over-approximation）"></a>静态分析技术：抽象（<em>abstraction</em>）+近似（Over-approximation）</h4><p>抽象：把具体域的值映射到抽象域的值</p>
 <p>近似：在抽象层面定义转移函数；由于无法枚举所有路径，所以使用  <em>flow merging</em> 处理  <em>control flow</em></p>
-<h5 id="本节重点"><a href="#本节重点" class="headerlink" title="本节重点"></a>本节重点</h5><ul>
+<h4 id="本节重点"><a href="#本节重点" class="headerlink" title="本节重点"></a>本节重点</h4><ul>
 <li>静态分析与（动态）测试的区别？</li>
 <li>理解 soundness, completeness, false negatives 和 false positives 的概念</li>
 <li>为什么静态分析需要保证 soundness？</li>
 <li>怎样理解 abstraction 和 over-approximation？</li>
 </ul>
-<h3 id="02-Intermediate-Representation"><a href="#02-Intermediate-Representation" class="headerlink" title="02 - Intermediate Representation"></a>02 - Intermediate Representation</h3><h5 id="编译器（Compiler）与静态分析（Static-Analysis）"><a href="#编译器（Compiler）与静态分析（Static-Analysis）" class="headerlink" title="编译器（Compiler）与静态分析（Static Analysis）"></a>编译器（<em>Compiler</em>）与静态分析（<em>Static Analysis</em>）</h5><p>编译器：源码 =&gt;（词法分析器 Scanner）=&gt; Tokens =&gt;（语法分析器 Parser）=&gt; AST =&gt;（类型检查 Type Checker）=&gt; Decorated AST =&gt;（Translator）=&gt; IR =&gt;（Code Generator）=&gt; 机器码</p>
+<h2 id="02-Intermediate-Representation"><a href="#02-Intermediate-Representation" class="headerlink" title="02 - Intermediate Representation"></a>02 - Intermediate Representation</h2><h4 id="编译器（Compiler）与静态分析（Static-Analysis）"><a href="#编译器（Compiler）与静态分析（Static-Analysis）" class="headerlink" title="编译器（Compiler）与静态分析（Static Analysis）"></a>编译器（<em>Compiler</em>）与静态分析（<em>Static Analysis</em>）</h4><p>编译器：源码 =&gt;（词法分析器 Scanner）=&gt; Tokens =&gt;（语法分析器 Parser）=&gt; AST =&gt;（类型检查 Type Checker）=&gt; Decorated AST =&gt;（Translator）=&gt; IR =&gt;（Code Generator）=&gt; 机器码</p>
 <p>静态分析需要在编译器前端生成的 IR 的基础上进行，e.g. 代码优化</p>
-<h5 id="抽象语法树（AST）-vs-中间表示（IR）"><a href="#抽象语法树（AST）-vs-中间表示（IR）" class="headerlink" title="抽象语法树（AST） vs. 中间表示（IR）"></a>抽象语法树（<em>AST</em>） vs. 中间表示（<em>IR</em>）</h5><p>抽象语法树：贴近语法结构；依赖于不同语言；适合做快速的类型检查；缺少控制流信息</p>
+<h4 id="抽象语法树（AST）-vs-中间表示（IR）"><a href="#抽象语法树（AST）-vs-中间表示（IR）" class="headerlink" title="抽象语法树（AST） vs. 中间表示（IR）"></a>抽象语法树（<em>AST</em>） vs. 中间表示（<em>IR</em>）</h4><p>抽象语法树：贴近语法结构；依赖于不同语言；适合做快速的类型检查；缺少控制流信息</p>
 <p>中间表示：贴近机器码；具有语言无关性；简洁而统一；包含控制流信息；通常作为静态分析的基础</p>
-<h5 id="中间表示（三地址码）"><a href="#中间表示（三地址码）" class="headerlink" title="中间表示（三地址码）"></a>中间表示（三地址码）</h5><p>右侧最多只有一个操作符；每种指令都有对应的三地址码</p>
+<h4 id="中间表示（三地址码）"><a href="#中间表示（三地址码）" class="headerlink" title="中间表示（三地址码）"></a>中间表示（三地址码）</h4><p>右侧最多只有一个操作符；每种指令都有对应的三地址码</p>
 <ul>
 <li>x = y <em>bop</em> z</li>
 <li>x = <em>uop</em> y</li>
@@ -83,13 +261,13 @@
 <li>if x goto L</li>
 <li>if x <em>rop</em> y goto L</li>
 </ul>
-<h5 id="真实的静态分析器中的三地址码：Soot’s-IP"><a href="#真实的静态分析器中的三地址码：Soot’s-IP" class="headerlink" title="真实的静态分析器中的三地址码：Soot’s IP"></a>真实的静态分析器中的三地址码：Soot’s IP</h5><p>关于 JVM 的补充：</p>
+<h4 id="真实的静态分析器中的三地址码：Soot’s-IP"><a href="#真实的静态分析器中的三地址码：Soot’s-IP" class="headerlink" title="真实的静态分析器中的三地址码：Soot’s IP"></a>真实的静态分析器中的三地址码：Soot’s IP</h4><p>关于 JVM 的补充：</p>
 <p>invoke-special:    call constructor，call superclass methods，call private methods</p>
 <p>invoke-virtual:    call instance methods（virtual dispatch）</p>
 <p>invoke-interface:    cannot optimize，checking interface implementation</p>
 <p>invoke-static:    call static methods</p>
 <p>method signature:    class name，return type，method name，parameter type</p>
-<h5 id="控制流分析"><a href="#控制流分析" class="headerlink" title="控制流分析"></a>控制流分析</h5><p>输入三地址码，输出控制流图</p>
+<h4 id="控制流分析"><a href="#控制流分析" class="headerlink" title="控制流分析"></a>控制流分析</h4><p>输入三地址码，输出控制流图</p>
 <p>Basic Block 定义：有且仅有一个入口和一个出口的指令块</p>
 <p>确定 Basic Block 的算法：</p>
 <ul>
@@ -102,16 +280,16 @@
 <p>节点为基本块（<em>basic blocks</em>）</p>
 <p>一条从基本块A到基本块B的边表示，存在从A尾部到B首部的有条件或无条件跳转，或者顺序上B紧跟着A且A的最后一条指令不是无条件跳转</p>
 <p>加上 Entry 和 Exit 表示程序的入口和出口（类似哨兵节点）</p>
-<h5 id="本节重点-1"><a href="#本节重点-1" class="headerlink" title="本节重点"></a>本节重点</h5><ul>
+<h4 id="本节重点-1"><a href="#本节重点-1" class="headerlink" title="本节重点"></a>本节重点</h4><ul>
 <li>编译器和静态分析器之间的关系？</li>
 <li>理解三地址码及其通常的形式（in IR Jimple）</li>
 <li>怎样在 IR 的基础上构建 basic blocks？</li>
 <li>怎样在 basic blocks 的基础上构建控制流图？</li>
 </ul>
-<h3 id="03-Data-Flow-Analysis（Application）"><a href="#03-Data-Flow-Analysis（Application）" class="headerlink" title="03 - Data Flow Analysis（Application）"></a>03 - Data Flow Analysis（Application）</h3><h5 id="数据流分析概览"><a href="#数据流分析概览" class="headerlink" title="数据流分析概览"></a>数据流分析概览</h5><p>How <em>application-specific Data</em>（abstraction） <em>Flows</em>（safe-approximation） through the <em>Nodes</em> （Transfer function）and <em>Edges</em>（Control-flow handling） of CFG？</p>
+<h2 id="03-Data-Flow-Analysis（Application）"><a href="#03-Data-Flow-Analysis（Application）" class="headerlink" title="03 - Data Flow Analysis（Application）"></a>03 - Data Flow Analysis（Application）</h2><h4 id="数据流分析概览"><a href="#数据流分析概览" class="headerlink" title="数据流分析概览"></a>数据流分析概览</h4><p>How <em>application-specific Data</em>（abstraction） <em>Flows</em>（safe-approximation） through the <em>Nodes</em> （Transfer function）and <em>Edges</em>（Control-flow handling） of CFG？</p>
 <p>may analysis：输出信息可能是正确的（over-approximation）</p>
 <p>must analysis：输出信息必须是正确的（under-approximation）</p>
-<h5 id="数据流分析前驱知识"><a href="#数据流分析前驱知识" class="headerlink" title="数据流分析前驱知识"></a>数据流分析前驱知识</h5><p>Input and Output States</p>
+<h4 id="数据流分析前驱知识"><a href="#数据流分析前驱知识" class="headerlink" title="数据流分析前驱知识"></a>数据流分析前驱知识</h4><p>Input and Output States</p>
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207141511690.png" alt="img" style="zoom:50%;" />
 
 <p>在数据流分析应用中，将每一个 <em>program point</em> 与一个 表示该点所有观测到的 <em>program states</em> 的集合的抽象的<em>数据流值（data-flow value）</em> 联系起来</p>
@@ -124,7 +302,7 @@
 <p>定义可达性可以用于 <em>侦测可能的未定义的变量</em></p>
 <p><strong>理解定义可达性分析：</strong></p>
 <p>用一个比特表示某个变量在某一点的定义可达性</p>
-<p>用一个n维比特向量表示n个变量在某一点的定义可达性</p>
+<p>用一个 n 维比特向量表示 n 个变量在某一点的定义可达性</p>
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207141559532.png" alt="1" style="zoom:50%;" />
 
 <p><strong>定义可达性分析算法：</strong></p>
@@ -139,7 +317,7 @@
 <p>活跃变量信息可用于寄存器分配（倾向于使用存有 dead value 的寄存器来存新数据）</p>
 <p><strong>理解活跃变量分析：</strong></p>
 <p>用一个比特表示某个变量在某一点是否活跃</p>
-<p>用一个n维比特向量表示n个变量在某一点是否活跃</p>
+<p>用一个 n 维比特向量表示 n 个变量在某一点是否活跃</p>
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207141823269.png" alt="1" style="zoom:50%;" />
 
 <p>注意 use 的定义为：在重定义之前被使用</p>
@@ -154,26 +332,63 @@
 <li>从 <em>ENTRY</em> 到 <em>p</em> 的所有路径都必须计算过 <em>x op y</em> 的值</li>
 <li>在这些路径各自最后一次计算该表达式的值之后没有修改过 <em>x</em> 或 <em>y</em> 的值</li>
 </ul>
-<p><strong>理解可用表达式分析</strong></p>
+<p><strong>理解可用表达式分析：</strong></p>
 <p>用一个比特表示某个表达式在某点是否可用</p>
-<p>用一个n维比特向量表示n个表达式在某点是否可用</p>
+<p>用一个 n 维比特向量表示 n 个表达式在某点是否可用</p>
 <p>注意这是一个 must analysis</p>
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207171149946.png" alt="1" style="zoom:50%;" />
 
 
 
-<p><strong>可用表达式分析算法</strong></p>
+<p><strong>可用表达式分析算法：</strong></p>
 <p>注意在 must analysis 中的初始化方式</p>
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207171151583.png" alt="img" style="zoom:50%;" />
 
-<h5 id="不同数据流分析应用的对比"><a href="#不同数据流分析应用的对比" class="headerlink" title="不同数据流分析应用的对比"></a>不同数据流分析应用的对比</h5><p><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207171210734.png" alt="1"></p>
-<h5 id="本节重点-2"><a href="#本节重点-2" class="headerlink" title="本节重点"></a>本节重点</h5><ul>
+<h4 id="不同数据流分析应用的对比"><a href="#不同数据流分析应用的对比" class="headerlink" title="不同数据流分析应用的对比"></a>不同数据流分析应用的对比</h4><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207171210734.png" alt="1" style="zoom:50%;" />
+
+<h4 id="本节重点-2"><a href="#本节重点-2" class="headerlink" title="本节重点"></a>本节重点</h4><ul>
 <li>理解三种数据流分析</li>
 <li>能说出三种数据流分析的相似与不同</li>
 <li>理解迭代算法为什么最终能停下来</li>
 </ul>
-<h3 id="04-Data-Flow-Analysis（Foundations）"><a href="#04-Data-Flow-Analysis（Foundations）" class="headerlink" title="04 - Data Flow Analysis（Foundations）"></a>04 - Data Flow Analysis（Foundations）</h3><p>… …</p>
-<h3 id="实验作业部分"><a href="#实验作业部分" class="headerlink" title="实验作业部分"></a>实验作业部分</h3><h4 id="A1"><a href="#A1" class="headerlink" title="A1"></a>A1</h4><ul>
+<h2 id="04-Data-Flow-Analysis（Foundations）"><a href="#04-Data-Flow-Analysis（Foundations）" class="headerlink" title="04 - Data Flow Analysis（Foundations）"></a>04 - Data Flow Analysis（Foundations）</h2><h4 id="从另一个角度来看迭代算法"><a href="#从另一个角度来看迭代算法" class="headerlink" title="从另一个角度来看迭代算法"></a>从另一个角度来看迭代算法</h4><p>假设给定的 CFG 有 <em>k</em> 个节点，迭代算法每次迭代更新每个节点的 OUT[n]</p>
+<p>定义 <em>k-tuple</em> (OUT[n1], … , OUT[nk])，则该元组为集合 V^k 的一个元素（V 是数据流分析的值的域）</p>
+<p>那么每次迭代可以视作作用了转移函数和流控制处理的一次映射，即：F:  V^k —&gt; V^k</p>
+<p>整个算法就是在不断地输出这样的 <em>k-tuple</em> 直到出现连续两个相同的为止</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207171602188.png" alt="img" style="zoom:50%;" />
+
+<p>迭代算法会在 X = F(X) 处停下来，即数学定义上的一个不动点（<em>fixed point</em>）</p>
+<p>思考：</p>
+<ul>
+<li>算法能保证到达不动点吗？</li>
+<li>如果能，那么只有一个不动点吗？若超过一个不动点，那么我们能到达最优解的不动点吗？</li>
+<li>算法要多久才能到达不动点？（时间复杂度）</li>
+</ul>
+<h4 id="偏序（Partial-Order）"><a href="#偏序（Partial-Order）" class="headerlink" title="偏序（Partial Order）"></a>偏序（<em>Partial Order</em>）</h4><p><strong>几个概念：</strong></p>
+<p>偏序关系满足自反性、反对称性、传递性</p>
+<p>一个偏序集（<em>poset</em>）中的任意两个元素之间不一定满足偏序关系</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207171807638.png" alt="img" style="zoom:50%;" />
+
+<p>上界（<em>upper bound</em>）和下界（<em>lower bound</em>）</p>
+<p>最小上界（<em>least upper bound</em>）和最大下界（<em>greatest lower bound</em>）</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207171809088.png" alt="img" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207171809056.png" alt="img" style="zoom:50%;" />
+
+<p>不是每个偏序集都有最小上界（最大下界）；若偏序集存在最小上界（最大下界），则是唯一的</p>
+<p>格（<em>Lattice</em>）</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207181246948.png" alt="img" style="zoom:50%;" />
+
+<p>半格（<em>Semilattice</em>）</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207181251145.png" alt="1" style="zoom:50%;" />
+
+<p>全格（<em>Complete Lattice</em>）</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207181253998.png" alt="img" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207181257563.png" alt="1" style="zoom:50%;" />
+
+<p>有穷格一定是全格，全格不一定是有穷格</p>
+<h2 id="实验作业部分"><a href="#实验作业部分" class="headerlink" title="实验作业部分"></a>实验作业部分</h2><h4 id="A1"><a href="#A1" class="headerlink" title="A1"></a>A1</h4><ul>
 <li>为 Java 实现一个活跃变量分析（Live Variable Analysis）</li>
 <li>实现一个通用的迭代求解器（Iterative Solver），用于求解数据流分析问题，也就是本次作业中的活跃变量分析</li>
 </ul>
@@ -183,30 +398,63 @@
 <p>注意作业中为了简化实现难度没有使用 basic blocks，以单条语句为单位处理</p>
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207151730781.png" alt="1" style="zoom:50%;" />
 
-    </div>
+        </div>
 
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Yoson Ling</span>
+                    </p>
+                
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/NJU/"># NJU</a>
+                    
+                        <a href="/tags/%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90/"># 静态分析</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+        </section>
+
+
+    </article>
 </div>
-                <div class="footer">
-    <span>Copyright © 2022 Yoson&#39;s Blog</span>
-    <span>Theme Designed By <a target="_blank" href="https://zheli.design/one-paper">這Li</a></span>
-</div>
-
-
-<link rel="stylesheet" href="/css/a11y-dark.min.css">
-
-
-<script src="/js/highlight.min.js"></script>
-
-
-<script src="/js/highlightjs-line-numbers.js"></script>
-
-
-<script>
-    hljs.initHighlightingOnLoad();
-    hljs.initLineNumbersOnLoad();
-</script>
 
             </div>
-        </div>
-    </body>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Yoson Ling | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
 </html>

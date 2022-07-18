@@ -1,146 +1,87 @@
-$(function(){
-    var activeItem = null;
-    var toTop = document.getElementById("to-top");
-    var scrollDistance = {y: 'undefined'}, scrollDirection;
-
-    $("#to-top").hide();
-    $(".catalog-dropdown").hide();
-    $("a").focus(function(){this.blur()});
-
-    $('pre').addClass('linenums');
-    $('pre').addClass('prettyprint');
-    prettyPrint();
-
-    $('.archive-wrapper').find('a').addClass('activeColor');
-    $('.pagination-btn').find('a').addClass('deactiveColor');
-    $('.footer-banner').find('a').addClass('activeColor');
-    $('.post-wrapper').find('a').addClass('activeColor');
-    $('.index-post-title').addClass('deactiveColor');
-    $('.header-title').addClass('deactiveColor');
-    $('.post-date').addClass('deactiveColor');
-    $('.author-name').addClass('deactiveColor');
-    $('.toTop').addClass('deactiveColor');
-
-    
-    //Show More Info in Index
-    $(".index-post-wrapper").on("touchstart", postDetail);
-    $(".index-post-wrapper").on("mouseenter", postDetail);
-    $(".index-post-wrapper").on("mouseleave", postTitle);
-    
-    //Show Catalog
-    $(".catalog-btn").on("click", toggleCatalog);
-    $(".catalog-dropdown").on("click", function(e){
-        e.stopPropagation();
-    });
-
-    //Back To Top
-    $("a.toTop").click(function() {
-        $("html, body").animate({
-            scrollTop: $($(this).attr("href")).offset().top + "px"
-        }, {
-            duration: 500,
-            easing: "swing"
-        });
-        return false;
-    });
-
-    //Show or Hide Gallery Photo
-    $(".gallery-thumbnail").on("click",showGalleryPhoto);
-
-    //Show or Hide Article Lightbox
-    $(".post-content img").on("click",showGalleryPhoto);
-    $(".gallery-photo").on("click",function(e){
-        e.stopPropagation();
-    });
-    $(".close-gallery").on("click",closeGallery);
-    $(".lightbox").on("click",closeGallery);
-    
-    function postDetail(){
-        if (activeItem != $(this)){
-            postTitle.call(activeItem);
-            activeItem = $(this);
-        }
-        $(this).children(".index-post-info").fadeTo(500,1);
-        $(this).find(".index-post-title").removeClass('deactiveColor');
-        $(this).find(".index-post-title").addClass('activeColor');
-        $(this).find(".index-post-categories").children("a").removeClass('deactiveColor');
-        $(this).find(".index-post-categories").children("a").addClass('activeColor');
-    }
-
-    function postTitle(){
-        $(this).children(".index-post-info").fadeTo(500,0);
-        $(this).children(".index-post-info").fadeTo(500,0);
-        $(this).find(".index-post-title").addClass('deactiveColor');
-        $(this).find(".index-post-title").removeClass('activeColor');
-        $(this).find(".index-post-categories").children("a").addClass('deactiveColor');
-        $(this).find(".index-post-categories").children("a").removeClass('activeColor');
-    }
+// declaraction of document.ready() function.
+(function () {
+    var ie = !!(window.attachEvent && !window.opera);
+    var wk = /webkit\/(\d+)/i.test(navigator.userAgent) && (RegExp.$1 < 525);
+    var fn = [];
+    var run = function () {
+        for (var i = 0; i < fn.length; i++) fn[i]();
+    };
+    var d = document;
+    d.ready = function (f) {
+        if (!ie && !wk && d.addEventListener)
+            return d.addEventListener('DOMContentLoaded', f, false);
+        if (fn.push(f) > 1) return;
+        if (ie)
+            (function () {
+                try {
+                    d.documentElement.doScroll('left');
+                    run();
+                } catch (err) {
+                    setTimeout(arguments.callee, 0);
+                }
+            })();
+        else if (wk)
+            var t = setInterval(function () {
+                if (/^(loaded|complete)$/.test(d.readyState))
+                    clearInterval(t), run();
+            }, 0);
+    };
+})();
 
 
-    function toggleCatalog(e){
-        if($(".catalog-dropdown").is(":hidden")){
-            $(".catalog-dropdown").fadeIn();
-        }else{
-            $(".catalog-dropdown").fadeOut();
-        }
-
-        $(document).one("click", function(){
-            $(".catalog-dropdown").fadeOut();
-        });
-        e.stopPropagation();
-    }
-
-    //Toggle 'To Top' Button State
-    window.onscroll = function(e){
-        checkScrollDirec();
-
-        if(scrollDirection == 'down'){
-            $("#to-top").animate({
-                opacity: 'hide'
-            }, {
-                duration: 500,
-                easing: "swing"
-            });
-        }
-        else if(scrollDirection == 'up'){
-            $("#to-top").animate({
-                opacity: 'show'
-            }, {
-                duration: 500,
-                easing: "swing"
-            });
-        }
-    }
-    
-    function checkScrollDirec() {
-        if (typeof scrollDistance.y == 'undefined') {
-          scrollDistance.y = window.pageYOffset;
-        }
-        var diffY = scrollDistance.y - window.pageYOffset;
-        if (diffY < 0) {
-          scrollDirection = 'down';
-        } else if (diffY > 0) {
-          scrollDirection = 'up';
+document.ready(
+    // toggleTheme function.
+    // this script shouldn't be changed.
+    () => {
+        var _Blog = window._Blog || {};
+        const currentTheme = window.localStorage && window.localStorage.getItem('theme');
+        const isDark = currentTheme === 'dark';
+        const pagebody = document.getElementsByTagName('body')[0]
+        if (isDark) {
+            document.getElementById("switch_default").checked = true;
+            // mobile
+            document.getElementById("mobile-toggle-theme").innerText = "· Dark"
         } else {
+            document.getElementById("switch_default").checked = false;
+            // mobile
+            document.getElementById("mobile-toggle-theme").innerText = "· Dark"
         }
-        scrollDistance.y = window.pageYOffset;
-      }
+        _Blog.toggleTheme = function () {
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+            document.getElementsByClassName('toggleBtn')[0].addEventListener('click', () => {
+                if (pagebody.classList.contains('dark-theme')) {
+                    pagebody.classList.remove('dark-theme');
+                } else {
+                    pagebody.classList.add('dark-theme');
+                }
+                window.localStorage &&
+                window.localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light',)
+            })
+            // moblie
+            document.getElementById('mobile-toggle-theme').addEventListener('click', () => {
+                if (pagebody.classList.contains('dark-theme')) {
+                    pagebody.classList.remove('dark-theme');
+                    // mobile
+                    document.getElementById("mobile-toggle-theme").innerText = "· Light"
 
-    function showGalleryPhoto(){
-        $(".lightbox").fadeIn(500);
-        $(".lightbox").attr("style","display: flex");
-        if($(this).attr("value"))
-            //Gallery Photo
-            $(".gallery-photo").attr("src",$(this).attr("value"));
-        else
-            //Article Photo
-            $(".gallery-photo").attr("src",$(this).attr("src"));
-
-        $('body').addClass("hideoverflow");
+                } else {
+                    pagebody.classList.add('dark-theme');
+                    // mobile
+                    document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+                }
+                window.localStorage &&
+                window.localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light',)
+            })
+        };
+        _Blog.toggleTheme();
+        // ready function.
     }
-
-    function closeGallery(){
-        $(".lightbox").fadeOut(500);
-        $('body').removeClass("hideoverflow");
-    }
-});
+);
