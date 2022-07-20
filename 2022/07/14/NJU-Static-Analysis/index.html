@@ -17,7 +17,7 @@
 
 
 
-    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="/FisherGirl.ico">
 
 
 
@@ -223,14 +223,14 @@
         <div class="post-content">
             <p>课程内容来源：<a target="_blank" rel="noopener" href="https://tai-e.pascal-lab.net/">https://tai-e.pascal-lab.net/</a></p>
 <p>实验作业的实现：<a target="_blank" rel="noopener" href="https://github.com/Ling-Yuchen/Tai-e-assignments">https://github.com/Ling-Yuchen/Tai-e-assignments</a></p>
-<h2 id="01-Introduction"><a href="#01-Introduction" class="headerlink" title="01 - Introduction"></a>01 - Introduction</h2><h4 id="静态分析：运行前对程序进行分析"><a href="#静态分析：运行前对程序进行分析" class="headerlink" title="静态分析：运行前对程序进行分析"></a>静态分析：运行前对程序进行分析</h4><p>​        是否存在私有信息泄露？</p>
+<h2 id="01-Introduction"><a href="#01-Introduction" class="headerlink" title="01 - Introduction"></a>01 - Introduction</h2><h4 id="1-静态分析：运行前对程序进行分析"><a href="#1-静态分析：运行前对程序进行分析" class="headerlink" title="1. 静态分析：运行前对程序进行分析"></a>1. 静态分析：运行前对程序进行分析</h4><p>​        是否存在私有信息泄露？</p>
 <p>​        是否存在空指针异常？</p>
 <p>​        是否存在强制类型转换异常？</p>
 <p>​        是否允许存在指向同一内存块的指针？</p>
 <p>​        是否存在 fail 的 <em>assert</em> 语句？</p>
 <p>​        是否存在可以删除的死代码？</p>
 <p>​        ……</p>
-<h4 id="莱斯定理（Rice’s-Theorem）"><a href="#莱斯定理（Rice’s-Theorem）" class="headerlink" title="莱斯定理（Rice’s Theorem）"></a>莱斯定理（<em>Rice’s Theorem</em>）</h4><p><em>Any non-trivial property of the behavior of programs in a r.e. language is undecidable.</em></p>
+<h4 id="2-莱斯定理（Rice’s-Theorem）"><a href="#2-莱斯定理（Rice’s-Theorem）" class="headerlink" title="2. 莱斯定理（Rice’s Theorem）"></a>2. 莱斯定理（<em>Rice’s Theorem</em>）</h4><p><em>Any non-trivial property of the behavior of programs in a r.e. language is undecidable.</em></p>
 <p>通俗来讲就是，以平时常用的编程语言写的程序，对于其有用的动态运行时性质，无法做出准确判断</p>
 <p>——不存在完美的（<em>sound &amp; complete</em>）静态分析</p>
 <p>对 soundness 妥协：产生漏报（<em>false negatives</em>）（可以接受）</p>
@@ -240,19 +240,19 @@
 
 
 
-<h4 id="静态分析技术：抽象（abstraction）-近似（Over-approximation）"><a href="#静态分析技术：抽象（abstraction）-近似（Over-approximation）" class="headerlink" title="静态分析技术：抽象（abstraction）+近似（Over-approximation）"></a>静态分析技术：抽象（<em>abstraction</em>）+近似（Over-approximation）</h4><p>抽象：把具体域的值映射到抽象域的值</p>
-<p>近似：在抽象层面定义转移函数；由于无法枚举所有路径，所以使用  <em>flow merging</em> 处理  <em>control flow</em></p>
+<h4 id="3-静态分析技术：抽象-近似"><a href="#3-静态分析技术：抽象-近似" class="headerlink" title="3. 静态分析技术：抽象+近似"></a>3. 静态分析技术：抽象+近似</h4><p>抽象（<em>abstraction</em>）：把具体域的值映射到抽象域的值</p>
+<p>近似（Over-approximation）：在抽象层面定义转移函数；由于无法枚举所有路径，所以使用  <em>flow merging</em> 处理  <em>control flow</em></p>
 <h4 id="本节重点"><a href="#本节重点" class="headerlink" title="本节重点"></a>本节重点</h4><ul>
 <li>静态分析与（动态）测试的区别？</li>
 <li>理解 soundness, completeness, false negatives 和 false positives 的概念</li>
 <li>为什么静态分析需要保证 soundness？</li>
 <li>怎样理解 abstraction 和 over-approximation？</li>
 </ul>
-<h2 id="02-Intermediate-Representation"><a href="#02-Intermediate-Representation" class="headerlink" title="02 - Intermediate Representation"></a>02 - Intermediate Representation</h2><h4 id="编译器（Compiler）与静态分析（Static-Analysis）"><a href="#编译器（Compiler）与静态分析（Static-Analysis）" class="headerlink" title="编译器（Compiler）与静态分析（Static Analysis）"></a>编译器（<em>Compiler</em>）与静态分析（<em>Static Analysis</em>）</h4><p>编译器：源码 =&gt;（词法分析器 Scanner）=&gt; Tokens =&gt;（语法分析器 Parser）=&gt; AST =&gt;（类型检查 Type Checker）=&gt; Decorated AST =&gt;（Translator）=&gt; IR =&gt;（Code Generator）=&gt; 机器码</p>
+<h2 id="02-Intermediate-Representation"><a href="#02-Intermediate-Representation" class="headerlink" title="02 - Intermediate Representation"></a>02 - Intermediate Representation</h2><h4 id="1-编译器（Compiler）与静态分析（Static-Analysis）"><a href="#1-编译器（Compiler）与静态分析（Static-Analysis）" class="headerlink" title="1. 编译器（Compiler）与静态分析（Static Analysis）"></a>1. 编译器（<em>Compiler</em>）与静态分析（<em>Static Analysis</em>）</h4><p>编译器：源码 =&gt;（词法分析器 Scanner）=&gt; Tokens =&gt;（语法分析器 Parser）=&gt; AST =&gt;（类型检查 Type Checker）=&gt; Decorated AST =&gt;（Translator）=&gt; IR =&gt;（Code Generator）=&gt; 机器码</p>
 <p>静态分析需要在编译器前端生成的 IR 的基础上进行，e.g. 代码优化</p>
-<h4 id="抽象语法树（AST）-vs-中间表示（IR）"><a href="#抽象语法树（AST）-vs-中间表示（IR）" class="headerlink" title="抽象语法树（AST） vs. 中间表示（IR）"></a>抽象语法树（<em>AST</em>） vs. 中间表示（<em>IR</em>）</h4><p>抽象语法树：贴近语法结构；依赖于不同语言；适合做快速的类型检查；缺少控制流信息</p>
+<h4 id="2-抽象语法树（AST）-vs-中间表示（IR）"><a href="#2-抽象语法树（AST）-vs-中间表示（IR）" class="headerlink" title="2. 抽象语法树（AST） vs. 中间表示（IR）"></a>2. 抽象语法树（<em>AST</em>） vs. 中间表示（<em>IR</em>）</h4><p>抽象语法树：贴近语法结构；依赖于不同语言；适合做快速的类型检查；缺少控制流信息</p>
 <p>中间表示：贴近机器码；具有语言无关性；简洁而统一；包含控制流信息；通常作为静态分析的基础</p>
-<h4 id="中间表示（三地址码）"><a href="#中间表示（三地址码）" class="headerlink" title="中间表示（三地址码）"></a>中间表示（三地址码）</h4><p>右侧最多只有一个操作符；每种指令都有对应的三地址码</p>
+<h4 id="3-中间表示（三地址码）"><a href="#3-中间表示（三地址码）" class="headerlink" title="3. 中间表示（三地址码）"></a>3. 中间表示（三地址码）</h4><p>右侧最多只有一个操作符；每种指令都有对应的三地址码</p>
 <ul>
 <li>x = y <em>bop</em> z</li>
 <li>x = <em>uop</em> y</li>
@@ -261,13 +261,13 @@
 <li>if x goto L</li>
 <li>if x <em>rop</em> y goto L</li>
 </ul>
-<h4 id="真实的静态分析器中的三地址码：Soot’s-IP"><a href="#真实的静态分析器中的三地址码：Soot’s-IP" class="headerlink" title="真实的静态分析器中的三地址码：Soot’s IP"></a>真实的静态分析器中的三地址码：Soot’s IP</h4><p>关于 JVM 的补充：</p>
+<h4 id="4-真实的静态分析器中的三地址码：Soot’s-IP"><a href="#4-真实的静态分析器中的三地址码：Soot’s-IP" class="headerlink" title="4. 真实的静态分析器中的三地址码：Soot’s IP"></a>4. 真实的静态分析器中的三地址码：Soot’s IP</h4><p>关于 JVM 的补充：</p>
 <p>invoke-special:    call constructor，call superclass methods，call private methods</p>
 <p>invoke-virtual:    call instance methods（virtual dispatch）</p>
 <p>invoke-interface:    cannot optimize，checking interface implementation</p>
 <p>invoke-static:    call static methods</p>
 <p>method signature:    class name，return type，method name，parameter type</p>
-<h4 id="控制流分析"><a href="#控制流分析" class="headerlink" title="控制流分析"></a>控制流分析</h4><p>输入三地址码，输出控制流图</p>
+<h4 id="5-控制流分析"><a href="#5-控制流分析" class="headerlink" title="5. 控制流分析"></a>5. 控制流分析</h4><p>输入三地址码，输出控制流图</p>
 <p>Basic Block 定义：有且仅有一个入口和一个出口的指令块</p>
 <p>确定 Basic Block 的算法：</p>
 <ul>
@@ -286,10 +286,10 @@
 <li>怎样在 IR 的基础上构建 basic blocks？</li>
 <li>怎样在 basic blocks 的基础上构建控制流图？</li>
 </ul>
-<h2 id="03-Data-Flow-Analysis（Application）"><a href="#03-Data-Flow-Analysis（Application）" class="headerlink" title="03 - Data Flow Analysis（Application）"></a>03 - Data Flow Analysis（Application）</h2><h4 id="数据流分析概览"><a href="#数据流分析概览" class="headerlink" title="数据流分析概览"></a>数据流分析概览</h4><p>How <em>application-specific Data</em>（abstraction） <em>Flows</em>（safe-approximation） through the <em>Nodes</em> （Transfer function）and <em>Edges</em>（Control-flow handling） of CFG？</p>
+<h2 id="03-Data-Flow-Analysis（Application）"><a href="#03-Data-Flow-Analysis（Application）" class="headerlink" title="03 - Data Flow Analysis（Application）"></a>03 - Data Flow Analysis（Application）</h2><h4 id="1-数据流分析概览"><a href="#1-数据流分析概览" class="headerlink" title="1. 数据流分析概览"></a>1. 数据流分析概览</h4><p>How <em>application-specific Data</em>（abstraction） <em>Flows</em>（safe-approximation） through the <em>Nodes</em> （Transfer function）and <em>Edges</em>（Control-flow handling） of CFG？</p>
 <p>may analysis：输出信息可能是正确的（over-approximation）</p>
 <p>must analysis：输出信息必须是正确的（under-approximation）</p>
-<h4 id="数据流分析前驱知识"><a href="#数据流分析前驱知识" class="headerlink" title="数据流分析前驱知识"></a>数据流分析前驱知识</h4><p>Input and Output States</p>
+<h4 id="2-数据流分析前驱知识"><a href="#2-数据流分析前驱知识" class="headerlink" title="2. 数据流分析前驱知识"></a>2. 数据流分析前驱知识</h4><p>Input and Output States</p>
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207141511690.png" alt="img" style="zoom:50%;" />
 
 <p>在数据流分析应用中，将每一个 <em>program point</em> 与一个 表示该点所有观测到的 <em>program states</em> 的集合的抽象的<em>数据流值（data-flow value）</em> 联系起来</p>
@@ -298,7 +298,7 @@
 
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207141533764.png" alt="img" style="zoom: 50%;" />
 
-<h4 id="定义可达性分析（Reaching-Definition-Analysis）"><a href="#定义可达性分析（Reaching-Definition-Analysis）" class="headerlink" title="定义可达性分析（Reaching Definition Analysis）"></a>定义可达性分析（<em>Reaching Definition Analysis</em>）</h4><p>定义可达性：A definition <em>d</em> at program point <em>p</em> reaches a point <em>q</em> if there is a path from <em>p</em> to <em>q</em> such that <em>d</em> is not killed along the path.</p>
+<h4 id="2-定义可达性分析（Reaching-Definition-Analysis）"><a href="#2-定义可达性分析（Reaching-Definition-Analysis）" class="headerlink" title="2. 定义可达性分析（Reaching Definition Analysis）"></a>2. 定义可达性分析（<em>Reaching Definition Analysis</em>）</h4><p>定义可达性：A definition <em>d</em> at program point <em>p</em> reaches a point <em>q</em> if there is a path from <em>p</em> to <em>q</em> such that <em>d</em> is not killed along the path.</p>
 <p>定义可达性可以用于 <em>侦测可能的未定义的变量</em></p>
 <p><strong>理解定义可达性分析：</strong></p>
 <p>用一个比特表示某个变量在某一点的定义可达性</p>
@@ -313,7 +313,7 @@
 
 <p>为什么该迭代算法最终会停下来？</p>
 <p>对于 Transfer Function，OUT[S] 只受 IN[S] 的影响，当个更多的 facts 流入 IN[S] 时，要么被 kill 要么存活下来并永远被保留，故 OUT[S] 永远不会缩减（e.g. 0 =&gt; 1 或 1 =&gt; 1），又因为定义的变量数量是有限的，故该迭代一定会停下来（实际上到达了一个不动点）</p>
-<h4 id="活跃变量分析（Live-Variable-Analysis）"><a href="#活跃变量分析（Live-Variable-Analysis）" class="headerlink" title="活跃变量分析（Live Variable Analysis）"></a>活跃变量分析（<em>Live Variable Analysis</em>）</h4><p>Live variable analysis tells whether the value of <em>variable v</em> at <em>program point p</em> could be used along some path in CFG starting at <em>p</em>（AND <em>v</em> should not be redefined before usage）. If so, <em>v</em> is live at <em>p</em>. Otherwise, <em>v</em> is dead at <em>p</em>.</p>
+<h4 id="4-活跃变量分析（Live-Variable-Analysis）"><a href="#4-活跃变量分析（Live-Variable-Analysis）" class="headerlink" title="4. 活跃变量分析（Live Variable Analysis）"></a>4. 活跃变量分析（<em>Live Variable Analysis</em>）</h4><p>Live variable analysis tells whether the value of <em>variable v</em> at <em>program point p</em> could be used along some path in CFG starting at <em>p</em>（AND <em>v</em> should not be redefined before usage）. If so, <em>v</em> is live at <em>p</em>. Otherwise, <em>v</em> is dead at <em>p</em>.</p>
 <p>活跃变量信息可用于寄存器分配（倾向于使用存有 dead value 的寄存器来存新数据）</p>
 <p><strong>理解活跃变量分析：</strong></p>
 <p>用一个比特表示某个变量在某一点是否活跃</p>
@@ -327,7 +327,7 @@
 <p>对于 IN[B]，may analysis 一般初始化为空；must analysis 一般初始化为 top</p>
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207141826606.png" alt="img" style="zoom:50%;" />
 
-<h4 id="可用表达式分析（Available-Expressions-Analysis）"><a href="#可用表达式分析（Available-Expressions-Analysis）" class="headerlink" title="可用表达式分析（Available Expressions Analysis）"></a>可用表达式分析（<em>Available Expressions Analysis</em>）</h4><p>一个表达式，形如 <em>x op y</em>，在某个 <em>program point p</em> 是可用的，需要满足：</p>
+<h4 id="5-可用表达式分析（Available-Expressions-Analysis）"><a href="#5-可用表达式分析（Available-Expressions-Analysis）" class="headerlink" title="5. 可用表达式分析（Available Expressions Analysis）"></a>5. 可用表达式分析（<em>Available Expressions Analysis</em>）</h4><p>一个表达式，形如 <em>x op y</em>，在某个 <em>program point p</em> 是可用的，需要满足：</p>
 <ul>
 <li>从 <em>ENTRY</em> 到 <em>p</em> 的所有路径都必须计算过 <em>x op y</em> 的值</li>
 <li>在这些路径各自最后一次计算该表达式的值之后没有修改过 <em>x</em> 或 <em>y</em> 的值</li>
@@ -344,14 +344,14 @@
 <p>注意在 must analysis 中的初始化方式</p>
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207171151583.png" alt="img" style="zoom:50%;" />
 
-<h4 id="不同数据流分析应用的对比"><a href="#不同数据流分析应用的对比" class="headerlink" title="不同数据流分析应用的对比"></a>不同数据流分析应用的对比</h4><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207171210734.png" alt="1" style="zoom:50%;" />
+<h4 id="6-不同数据流分析应用的对比"><a href="#6-不同数据流分析应用的对比" class="headerlink" title="6. 不同数据流分析应用的对比"></a>6. 不同数据流分析应用的对比</h4><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207171210734.png" alt="1" style="zoom:50%;" />
 
 <h4 id="本节重点-2"><a href="#本节重点-2" class="headerlink" title="本节重点"></a>本节重点</h4><ul>
 <li>理解三种数据流分析</li>
 <li>能说出三种数据流分析的相似与不同</li>
 <li>理解迭代算法为什么最终能停下来</li>
 </ul>
-<h2 id="04-Data-Flow-Analysis（Foundations）"><a href="#04-Data-Flow-Analysis（Foundations）" class="headerlink" title="04 - Data Flow Analysis（Foundations）"></a>04 - Data Flow Analysis（Foundations）</h2><h4 id="从另一个角度来看迭代算法"><a href="#从另一个角度来看迭代算法" class="headerlink" title="从另一个角度来看迭代算法"></a>从另一个角度来看迭代算法</h4><p>假设给定的 CFG 有 <em>k</em> 个节点，迭代算法每次迭代更新每个节点的 OUT[n]</p>
+<h2 id="04-Data-Flow-Analysis（Foundations）"><a href="#04-Data-Flow-Analysis（Foundations）" class="headerlink" title="04 - Data Flow Analysis（Foundations）"></a>04 - Data Flow Analysis（Foundations）</h2><h4 id="1-从另一个角度来看迭代算法"><a href="#1-从另一个角度来看迭代算法" class="headerlink" title="1. 从另一个角度来看迭代算法"></a>1. 从另一个角度来看迭代算法</h4><p>假设给定的 CFG 有 <em>k</em> 个节点，迭代算法每次迭代更新每个节点的 OUT[n]</p>
 <p>定义 <em>k-tuple</em> (OUT[n1], … , OUT[nk])，则该元组为集合 V^k 的一个元素（V 是数据流分析的值的域）</p>
 <p>那么每次迭代可以视作作用了转移函数和流控制处理的一次映射，即：F:  V^k —&gt; V^k</p>
 <p>整个算法就是在不断地输出这样的 <em>k-tuple</em> 直到出现连续两个相同的为止</p>
@@ -364,19 +364,19 @@
 <li>如果能，那么只有一个不动点吗？若超过一个不动点，那么我们能到达最优解的不动点吗？</li>
 <li>算法要多久才能到达不动点？（时间复杂度）</li>
 </ul>
-<h4 id="偏序（Partial-Order）"><a href="#偏序（Partial-Order）" class="headerlink" title="偏序（Partial Order）"></a>偏序（<em>Partial Order</em>）</h4><p><strong>几个概念：</strong></p>
-<p>偏序关系满足自反性、反对称性、传递性</p>
+<h4 id="2-偏序"><a href="#2-偏序" class="headerlink" title="2. 偏序"></a>2. 偏序</h4><p>偏序关系（<em>Partial Order</em>）满足自反性、反对称性、传递性</p>
 <p>一个偏序集（<em>poset</em>）中的任意两个元素之间不一定满足偏序关系</p>
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207171807638.png" alt="img" style="zoom:50%;" />
 
-<p>上界（<em>upper bound</em>）和下界（<em>lower bound</em>）</p>
+<h4 id="3-上界和下界"><a href="#3-上界和下界" class="headerlink" title="3. 上界和下界"></a>3. 上界和下界</h4><p>上界（<em>upper bound</em>）和下界（<em>lower bound</em>）</p>
 <p>最小上界（<em>least upper bound</em>）和最大下界（<em>greatest lower bound</em>）</p>
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207171809088.png" alt="img" style="zoom:50%;" />
 
+<p>最小上界（<em>least upper bound</em>）和最大下界（<em>greatest lower bound</em>）</p>
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207171809056.png" alt="img" style="zoom:50%;" />
 
 <p>不是每个偏序集都有最小上界（最大下界）；若偏序集存在最小上界（最大下界），则是唯一的</p>
-<p>格（<em>Lattice</em>）</p>
+<h4 id="4-格、半格、全格、格的积"><a href="#4-格、半格、全格、格的积" class="headerlink" title="4. 格、半格、全格、格的积"></a>4. 格、半格、全格、格的积</h4><p>格（<em>Lattice</em>）</p>
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207181246948.png" alt="img" style="zoom:50%;" />
 
 <p>半格（<em>Semilattice</em>）</p>
@@ -388,7 +388,37 @@
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207181257563.png" alt="1" style="zoom:50%;" />
 
 <p>有穷格一定是全格，全格不一定是有穷格</p>
-<h2 id="实验作业部分"><a href="#实验作业部分" class="headerlink" title="实验作业部分"></a>实验作业部分</h2><h4 id="A1"><a href="#A1" class="headerlink" title="A1"></a>A1</h4><ul>
+<p>格的积（<em>Product Lattice</em>）</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207181811085.png" alt="img" style="zoom:50%;" />
+
+<h4 id="5-通过格来表达数据流分析框架"><a href="#5-通过格来表达数据流分析框架" class="headerlink" title="5. 通过格来表达数据流分析框架"></a>5. 通过格来表达数据流分析框架</h4><p>数据流分析框架（D, L, F）：</p>
+<ul>
+<li>D：数据流的方向（<em>forward</em> 或 <em>backward</em>）</li>
+<li>L：一个包含分析域（<em>domain</em>）以及 <em>join</em> 和 <em>meet</em> 操作的格</li>
+<li>F：一组定义在在域（<em>domain</em>）上的转移函数（<em>transfer function</em>）</li>
+</ul>
+<p>数据流分析可以视作：对格的值迭代地作用转移函数（<em>transfer function</em>）和 <em>join</em> 或 <em>meet</em> 操作</p>
+<h4 id="6-单调性与不动点定理"><a href="#6-单调性与不动点定理" class="headerlink" title="6. 单调性与不动点定理"></a>6. 单调性与不动点定理</h4><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207181843635.png" alt="img" style="zoom:50%;" />
+
+<p><strong>证明：不动点存在且是最小（大）的</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207181851338.png" alt="img" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207181855231.png" alt="img" style="zoom:50%;" />
+
+<h4 id="7-将迭代算法和不动点定理关联在一起"><a href="#7-将迭代算法和不动点定理关联在一起" class="headerlink" title="7. 将迭代算法和不动点定理关联在一起"></a>7. 将迭代算法和不动点定理关联在一起</h4><p>将迭代算法和不动点定理做出以下关联</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207182103098.png" alt="2" style="zoom:50%;" />
+
+<p>故只要证明 <em>function F</em> 是单调的</p>
+<p>之前已经说明 <em>transfer function</em> 是单调的，故只要证明 <em>join/meet function</em> 是单调的</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207182111913.png" alt="img" style="zoom:50%;" />
+
+<p>到这里为止，我们可以用格的数学概念和不动点定理严格证明：</p>
+<p>数据流分析的迭代算法一定能停下来（到达不动点），并且一定是最大（最小）不动点</p>
+<h4 id="8-格的视角下的-May-Must-Analysis"><a href="#8-格的视角下的-May-Must-Analysis" class="headerlink" title="8. 格的视角下的 May / Must Analysis"></a>8. 格的视角下的 May / Must Analysis</h4><p>无论是 May Analysis 还是 Must Analysis，都是从 unsafe 的情况向 safe but useless 的情况迭代</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207182148271.png" alt="3" style="zoom:50%;" />
+
+<h4 id="9-分配性和-MOP"><a href="#9-分配性和-MOP" class="headerlink" title="9. 分配性和 MOP"></a>9. 分配性和 MOP</h4><p>Meet-Over-All-Paths Solution（MOP）</p>
+<h4 id="10-常量传播"><a href="#10-常量传播" class="headerlink" title="10. 常量传播"></a>10. 常量传播</h4><h4 id="11-工作列表算法"><a href="#11-工作列表算法" class="headerlink" title="11. 工作列表算法"></a>11. 工作列表算法</h4><h2 id="实验作业部分"><a href="#实验作业部分" class="headerlink" title="实验作业部分"></a>实验作业部分</h2><h4 id="A1"><a href="#A1" class="headerlink" title="A1"></a>A1</h4><ul>
 <li>为 Java 实现一个活跃变量分析（Live Variable Analysis）</li>
 <li>实现一个通用的迭代求解器（Iterative Solver），用于求解数据流分析问题，也就是本次作业中的活跃变量分析</li>
 </ul>
@@ -396,7 +426,7 @@
 <p><em>Solver</em> 类执行整个算法流程（大致分为初始化和循环体两个模块），分析结果以一个 <em>DataflowResult</em> 类的对象返回</p>
 <p>注意 <em>LiveVariableAnalysis</em> 类只关注逻辑，IN, OUT, EXIT, ENTRY 等信息由 <em>DataflowResult</em> 类通过 <em>inFacts</em> 和 <em>outFacts</em> 两个 Map 管理</p>
 <p>注意作业中为了简化实现难度没有使用 basic blocks，以单条语句为单位处理</p>
-<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207151730781.png" alt="1" style="zoom:50%;" />
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207151730781.png" alt="1" style="zoom: 40%;" />
 
         </div>
 
