@@ -417,8 +417,46 @@
 <h4 id="8-格的视角下的-May-Must-Analysis"><a href="#8-格的视角下的-May-Must-Analysis" class="headerlink" title="8. 格的视角下的 May / Must Analysis"></a>8. 格的视角下的 May / Must Analysis</h4><p>无论是 May Analysis 还是 Must Analysis，都是从 unsafe 的情况向 safe but useless 的情况迭代</p>
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207182148271.png" alt="3" style="zoom:50%;" />
 
-<h4 id="9-分配性和-MOP"><a href="#9-分配性和-MOP" class="headerlink" title="9. 分配性和 MOP"></a>9. 分配性和 MOP</h4><p>Meet-Over-All-Paths Solution（MOP）</p>
-<h4 id="10-常量传播"><a href="#10-常量传播" class="headerlink" title="10. 常量传播"></a>10. 常量传播</h4><h4 id="11-工作列表算法"><a href="#11-工作列表算法" class="headerlink" title="11. 工作列表算法"></a>11. 工作列表算法</h4><h2 id="实验作业部分"><a href="#实验作业部分" class="headerlink" title="实验作业部分"></a>实验作业部分</h2><h4 id="A1"><a href="#A1" class="headerlink" title="A1"></a>A1</h4><ul>
+<h4 id="9-MOP"><a href="#9-MOP" class="headerlink" title="9. MOP"></a>9. MOP</h4><p>Meet-Over-All-Paths Solution（MOP）</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207242025411.png" alt="img" style="zoom:50%;" />
+
+<p>迭代算法与 MOP 的比较：</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207242036375.png" alt="img" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207242037852.png" alt="1" style="zoom:50%;" />
+
+<p>迭代算法得到的结果没有 MOP 准确，但当 <em>Transfer Function</em> 满足分配律的时候，迭代算法可以做到和 MOP 一样准确（可以用集合的交并进行操作的 <em>Transfer Function</em> 都是满足分配律的）</p>
+<h4 id="10-常量传播分析"><a href="#10-常量传播分析" class="headerlink" title="10. 常量传播分析"></a>10. 常量传播分析</h4><p>常量传播（<em>Constant Propagation</em>）：对于给定的变量 <em>x</em>，在某一个 <em>program point p</em>，确定该变量是否确保持有一个常量值（<em>must analysis</em> ）</p>
+<p>与之前的数据流分析不同，常量传播 CFG 中每个节点的 IN 和 OUT 都是键值对 <em>(x, v)</em> 的集合（<em>x</em> 表示变量名， <em>v</em> 表示变量持有的值）</p>
+<p>根据数据流分析框架 (D, L, F) 来对常量传播分析进行定义：</p>
+<ul>
+<li>常量传播分析的数据流是正向的（<em>forward</em>）</li>
+<li>常量传播分析的格模型</li>
+</ul>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207242130437.png" alt="img" style="zoom: 50%;" />
+
+<ul>
+<li>常量传播分析的转移函数</li>
+</ul>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207242113532.png" alt="1" style="zoom:50%;" />
+
+<p>常量传播分析的 <em>Transfer Function</em> 不满足分配律</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207242139017.png" alt="img" style="zoom:50%;" />
+
+<h4 id="11-工作列表算法"><a href="#11-工作列表算法" class="headerlink" title="11. 工作列表算法"></a>11. 工作列表算法</h4><p>工作列表算法（<em>Worklist Algorithm</em>）是迭代算法的一种优化，在实际场景中更常用</p>
+<p>迭代算法的主体操作流程清晰直观但有很多冗余步骤，工作列表算法可以做到每次仅对有变化的部分施加转移函数</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207242145947.png" alt="img" style="zoom:50%;" />
+
+<h4 id="本节重点-3"><a href="#本节重点-3" class="headerlink" title="本节重点"></a>本节重点</h4><ul>
+<li>从函数的角度理解迭代算法</li>
+<li>理解格的概念</li>
+<li>理解不动点定理</li>
+<li>用格来概括 <em>may/must analysis</em></li>
+<li>理解 MOP 和迭代算法之间的联系</li>
+<li>常量传播分析</li>
+<li>工作列表算法</li>
+</ul>
+<h2 id="实验作业部分"><a href="#实验作业部分" class="headerlink" title="实验作业部分"></a>实验作业部分</h2><h4 id="A1"><a href="#A1" class="headerlink" title="A1"></a>A1</h4><ul>
 <li>为 Java 实现一个活跃变量分析（Live Variable Analysis）</li>
 <li>实现一个通用的迭代求解器（Iterative Solver），用于求解数据流分析问题，也就是本次作业中的活跃变量分析</li>
 </ul>
@@ -427,6 +465,11 @@
 <p>注意 <em>LiveVariableAnalysis</em> 类只关注逻辑，IN, OUT, EXIT, ENTRY 等信息由 <em>DataflowResult</em> 类通过 <em>inFacts</em> 和 <em>outFacts</em> 两个 Map 管理</p>
 <p>注意作业中为了简化实现难度没有使用 basic blocks，以单条语句为单位处理</p>
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207151730781.png" alt="1" style="zoom: 40%;" />
+
+<h4 id="A2"><a href="#A2" class="headerlink" title="A2"></a>A2</h4><ul>
+<li>为 Java 实现常量传播算法。</li>
+<li>实现一个通用的 worklist 求解器，并用它来解决一些数据流分析问题，例如本次的常量传播。</li>
+</ul>
 
         </div>
 
