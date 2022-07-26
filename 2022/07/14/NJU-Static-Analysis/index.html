@@ -470,6 +470,14 @@
 <li>为 Java 实现常量传播算法。</li>
 <li>实现一个通用的 worklist 求解器，并用它来解决一些数据流分析问题，例如本次的常量传播。</li>
 </ul>
+<p>与 A1 的任务总体结构相同，理解常量传播和 worklist 的实现方式并读懂提供的框架源码即可</p>
+<p>注意 newBoundryFact() 需要将方法的参数初始化为 NAC（参数不由方法本身决定，故必不是常量）</p>
+<p>注意 transferNode() 的返回值为一个布尔类型，worklist 算法中不需要重复判断 OUT 是否被改变</p>
+<p>注意 CPFact 类的设计，变量不在某个 CPFact 对象中视为 UNDEF</p>
+<p>（有部分隐藏用例没有通过，大概猜测是在 evaluate() 方法中一些除了 Var, IntLiteral 和 BinaryExp 其他一些特殊类型的 expression 没有考虑的缘故，暂且搁置）</p>
+<p>关于 debug：在 IntelliJ IDEA 中进行断点调试的时候，出现 ”<em>Skipped breakpoint at … because it happened inside debugger evaluation</em>“，打条件断点的地方被跳过，是由于测试时使用了多线程，将断点设置中 <em>Suspend</em> 选项的 <em>All</em> 改成 <em>Thread</em> 即可（如图所示）</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207261829825.png" alt="1" style="zoom:50%;" />
+
 
         </div>
 
