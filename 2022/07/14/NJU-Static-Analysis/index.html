@@ -426,7 +426,7 @@
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207242037852.png" alt="1" style="zoom:50%;" />
 
 <p>迭代算法得到的结果没有 MOP 准确，但当 <em>Transfer Function</em> 满足分配律的时候，迭代算法可以做到和 MOP 一样准确（可以用集合的交并进行操作的 <em>Transfer Function</em> 都是满足分配律的）</p>
-<h4 id="10-常量传播分析"><a href="#10-常量传播分析" class="headerlink" title="10. 常量传播分析"></a>10. 常量传播分析</h4><p>常量传播（<em>Constant Propagation</em>）：对于给定的变量 <em>x</em>，在某一个 <em>program point p</em>，确定该变量是否确保持有一个常量值（<em>must analysis</em> ）</p>
+<h4 id="10-常量传播分析（Constant-Propagation-Analysis）"><a href="#10-常量传播分析（Constant-Propagation-Analysis）" class="headerlink" title="10. 常量传播分析（Constant Propagation Analysis）"></a>10. 常量传播分析（<em>Constant Propagation Analysis</em>）</h4><p>常量传播（<em>Constant Propagation</em>）：对于给定的变量 <em>x</em>，在某一个 <em>program point p</em>，确定该变量是否确保持有一个常量值（<em>must analysis</em> ）</p>
 <p>与之前的数据流分析不同，常量传播 CFG 中每个节点的 IN 和 OUT 都是键值对 <em>(x, v)</em> 的集合（<em>x</em> 表示变量名， <em>v</em> 表示变量持有的值）</p>
 <p>根据数据流分析框架 (D, L, F) 来对常量传播分析进行定义：</p>
 <ul>
@@ -456,6 +456,76 @@
 <li>常量传播分析</li>
 <li>工作列表算法</li>
 </ul>
+<h2 id="05-Interprocedural-Analysis"><a href="#05-Interprocedural-Analysis" class="headerlink" title="05 - Interprocedural Analysis"></a>05 - Interprocedural Analysis</h2><h4 id="1-为什么需要过程间分析"><a href="#1-为什么需要过程间分析" class="headerlink" title="1. 为什么需要过程间分析"></a>1. 为什么需要过程间分析</h4><p>仅对单个方法进行静态分析，若出现了对别的方法的调用，为了确保分析的正确性，只能认为该调用可以做任何事情，从而使得分析结果不够准确。例如，在常量传播分析中，分析 <em>x = fun()</em> 会认为 <em>x</em> 是 NAC，但方法 <em>fun()</em> 可能返回的是一个常数，即 <em>int fun() { return 0; }</em></p>
+<h4 id="2-调用图的构造"><a href="#2-调用图的构造" class="headerlink" title="2. 调用图的构造"></a>2. 调用图的构造</h4><p>调用图：程序中调用关系的表示方式</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207271046525.png" alt="1" style="zoom:50%;" />
+
+<p>调用图的应用：过程间分析的基础，程序的优化、理解、debug、测试 ……</p>
+<p>OO 语言的调用图的构造（以 JAVA 为代表）：</p>
+<ul>
+<li>类层次分析（<em>CHA，Class Hierarchy Analysis</em>）：效率高</li>
+<li>指针分析（<em>k-CFA，Pointer Analysis</em>）：精确度高</li>
+</ul>
+<p>JAVA 中的方法调用共有五种，其中 <em>invokedynamic</em> 在此不做考虑，由于 <em>Virtual Call</em> 的目标方法是运行时动态确定的（多态），故构造调用图的难点和关键在于如何处理 <em>Virtual Call</em></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207271059481.png" alt="1" style="zoom:50%;" />
+
+<p><em>Virtual Call</em> 的方法分派依据 <em>receiver object</em> 的类型 <em>c</em> 和方法的签名 <em>m</em> （形如 *&lt;ClassType：ReturnType MehtodName（ParameterTypes）&gt;*），定义函数 <em>Dispatch(c, m)</em> 去模拟运行时方法分派，总的思路是优先在子类中匹配，匹配不到则递归地到父类中匹配</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207271118454.png" alt="1" style="zoom:50%;" />
+
+<p><strong>类层次分析（<em>Class Hierarchy Analysis</em>）</strong></p>
+<p>适用于 IDE 等场景，快速分析并对准确性没有较高的要求</p>
+<p>定义函数 <em>Resolve(cs)</em> 解析方法调用的可能的目标方法，分别处理 <em>static call</em>，<em>special call</em> 和 <em>virtual call</em></p>
+<p>注意 <em>special call</em> 中调用父类方法的时候需要递归寻找，为了形式统一使用用 <em>Dispatch</em> 函数</p>
+<p>注意 <em>virtual call</em> 需要对对象的声明类型及其所有子类做 <em>Dispatch</em>（可能产生假的目标方法，不够准确）</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207271158826.png" alt="1" style="zoom:50%;" />
+
+<p>下面是 CHA 的一个例子，注意理解 <em>Resolve( b.foo() )</em></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207271210904.png" alt="1" style="zoom:50%;" />
+
+<p>通过 CHA 来构造调用图：从入口方法（<em>main</em>）开始，对每一个可达的方法 <em>m</em> 中的每一个调用点 <em>cs</em>，解析目标方法（*Resolve(cs)*），重复该过程知道没有新的方法被发现。具体算法如下：</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207271234192.png" alt="img" style="zoom:50%;" />
+
+<h4 id="3-过程间控制流图"><a href="#3-过程间控制流图" class="headerlink" title="3. 过程间控制流图"></a>3. 过程间控制流图</h4><p>回顾：控制流图（<em>CFG</em>）可以表示一个独立的方法的结构</p>
+<p>过程间控制流图（<em>ICFG，Interprocedural Control-Flow Graph</em>）可以表示整个程序的结构，包含程序中每个方法自己的控制流图以及两类额外的边：从调用点指向被调用方法的 <em>Call edges</em> 和从被调用方法的返回语句指向返回点（即调用点的下一条语句）的 <em>Return edges</em>，额外的边的信息从构造的调用图中可以获取。概述如下图：</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207271459841.png" alt="img" style="zoom:50%;" />
+
+<h4 id="4-过程间数据流分析"><a href="#4-过程间数据流分析" class="headerlink" title="4. 过程间数据流分析"></a>4. 过程间数据流分析</h4><p>基于 ICFG 进行程序分析，其 <em>Transfer Function</em> 不仅需要正常的 <em>Node Transfer</em> 还要处理 <em>Call Edge Transfer</em>（用于传参） 和 <em>Return Edge Transfer</em>（用于传递返回值）</p>
+<p><strong>过程间常量传播分析（<em>Interprocedural Constant Propagation</em>）</strong></p>
+<p>在 ICFG 中保留了调用点到返回点之间相连的边（<em>call-to-return edge</em>），能使得 ICFG 能够传递本地数据流（单个 CFG 内产生的数据流）</p>
+<p>在本地方法的 CFG 中的 <em>Node Transfer</em> 需要把调用点的左值变量 <em>kill</em> 掉（<em>Return Edge Transfer</em> 会覆盖这些变量的值）</p>
+<p>下面是一个详细示例：</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207271523413.png" alt="1" style="zoom:50%;" />
+
+<h4 id="本节重点-4"><a href="#本节重点-4" class="headerlink" title="本节重点"></a>本节重点</h4><ul>
+<li>如何通过 CHA 构建调用图</li>
+<li>过程间控制流图的概念</li>
+<li>过程间数据流分析的概念</li>
+<li>过程间常量传播分析</li>
+</ul>
+<h2 id="06-Pointer-Analysis"><a href="#06-Pointer-Analysis" class="headerlink" title="06 - Pointer Analysis"></a>06 - Pointer Analysis</h2><h4 id="1-为什么需要指针分析"><a href="#1-为什么需要指针分析" class="headerlink" title="1. 为什么需要指针分析"></a>1. 为什么需要指针分析</h4><p>基于指向关系进行分析，能有效避免 CHA 中出现 <em>fake target</em> 的问题</p>
+<p>例如：针对语句 { A a = new A(); a.fun(); }，CHA 在解析 <em>a.fun()</em> 时会得到所有 A 类型及其子类的签名为 <em>fun()</em> 的方法，而使用指针分析则可以找到唯一的一个目标方法，提高分析的准确性</p>
+<h4 id="2-指针分析的介绍"><a href="#2-指针分析的介绍" class="headerlink" title="2. 指针分析的介绍"></a>2. 指针分析的介绍</h4><h4 id="3-影响指针分析的关键要素"><a href="#3-影响指针分析的关键要素" class="headerlink" title="3. 影响指针分析的关键要素"></a>3. 影响指针分析的关键要素</h4><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207271601082.png" alt="img" style="zoom:50%;" />
+
+<p><strong>堆抽象（<em>Heap Abstraction</em>）</strong></p>
+<p>为了保证静态分析能够终止，对堆内存进行建模，把 <em>动态分配的无限的具体对象</em>  构建成 <em>有限的抽象的对象</em></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207271611034.png" alt="1" style="zoom:50%;" />
+
+<p>调用点抽象技术（<em>Allocation-Site Abstraction</em>）</p>
+<p>将实例对象抽象成创建点，每个创建点建立一个抽象对象，用来表示该创建点分配的具体对象（在循环中的同一个创建点实际运行时会创建多个具体对象，但由于只有一个创建点只会创建一个抽象对象）</p>
+<p><strong>上下文敏感（<em>Context Sensitivity</em>）</strong></p>
+<p>上下文敏感的分析中，对同一个方法的不同调用进行区分，对每一个上下文都分析一次目标方法</p>
+<p>上下文不敏感的分析中，对同一个方法的不同调用做数据流的合并处理，只分析一次，可能丢失精度</p>
+<p><strong>流敏感（<em>Flow Sensitivity</em>）</strong></p>
+<p>待补充</p>
+<p><strong>分析域（<em>Analysis Scope</em>）</strong></p>
+<p>待补充</p>
+<h4 id="4-指针分析需要分析的语句"><a href="#4-指针分析需要分析的语句" class="headerlink" title="4. 指针分析需要分析的语句"></a>4. 指针分析需要分析的语句</h4><p>待补充</p>
+<h2 id="07-Pointer-Analysis（Foundations）"><a href="#07-Pointer-Analysis（Foundations）" class="headerlink" title="07 - Pointer Analysis（Foundations）"></a>07 - Pointer Analysis（Foundations）</h2><p>待补充</p>
+<h2 id="08-Pointer-Analysis（Context-Sensitivity）"><a href="#08-Pointer-Analysis（Context-Sensitivity）" class="headerlink" title="08 - Pointer Analysis（Context Sensitivity）"></a>08 - Pointer Analysis（Context Sensitivity）</h2><p>待补充</p>
+<h2 id="09-Static-Analysis-For-Security"><a href="#09-Static-Analysis-For-Security" class="headerlink" title="09 - Static Analysis For Security"></a>09 - Static Analysis For Security</h2><p>待补充</p>
+<h2 id="10-Datalog-Based-Program-Analysis"><a href="#10-Datalog-Based-Program-Analysis" class="headerlink" title="10 - Datalog-Based Program Analysis"></a>10 - Datalog-Based Program Analysis</h2><p>待补充</p>
+<h2 id="11-CFL-Reachability-and-IFDS"><a href="#11-CFL-Reachability-and-IFDS" class="headerlink" title="11 - CFL-Reachability and IFDS"></a>11 - CFL-Reachability and IFDS</h2><p>待补充</p>
+<h2 id="12-Soundness-and-Soundiness"><a href="#12-Soundness-and-Soundiness" class="headerlink" title="12 - Soundness and Soundiness"></a>12 - Soundness and Soundiness</h2><p>待补充</p>
 <h2 id="实验作业部分"><a href="#实验作业部分" class="headerlink" title="实验作业部分"></a>实验作业部分</h2><h4 id="A1"><a href="#A1" class="headerlink" title="A1"></a>A1</h4><ul>
 <li>为 Java 实现一个活跃变量分析（Live Variable Analysis）</li>
 <li>实现一个通用的迭代求解器（Iterative Solver），用于求解数据流分析问题，也就是本次作业中的活跃变量分析</li>
@@ -478,6 +548,12 @@
 <p>关于 debug：在 IntelliJ IDEA 中进行断点调试的时候，出现 ”<em>Skipped breakpoint at … because it happened inside debugger evaluation</em>“，打条件断点的地方被跳过，是由于测试时使用了多线程，将断点设置中 <em>Suspend</em> 选项的 <em>All</em> 改成 <em>Thread</em> 即可（如图所示）</p>
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207261829825.png" alt="1" style="zoom:50%;" />
 
+<h4 id="A3"><a href="#A3" class="headerlink" title="A3"></a>A3</h4><p>待补充</p>
+<h4 id="A4"><a href="#A4" class="headerlink" title="A4"></a>A4</h4><p>待补充</p>
+<h4 id="A5"><a href="#A5" class="headerlink" title="A5"></a>A5</h4><p>待补充</p>
+<h4 id="A6"><a href="#A6" class="headerlink" title="A6"></a>A6</h4><p>待补充</p>
+<h4 id="A7"><a href="#A7" class="headerlink" title="A7"></a>A7</h4><p>待补充</p>
+<h4 id="A8"><a href="#A8" class="headerlink" title="A8"></a>A8</h4><p>待补充</p>
 
         </div>
 
