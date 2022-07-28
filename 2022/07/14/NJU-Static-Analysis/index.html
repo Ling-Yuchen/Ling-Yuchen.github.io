@@ -504,7 +504,16 @@
 </ul>
 <h2 id="06-Pointer-Analysis"><a href="#06-Pointer-Analysis" class="headerlink" title="06 - Pointer Analysis"></a>06 - Pointer Analysis</h2><h4 id="1-为什么需要指针分析"><a href="#1-为什么需要指针分析" class="headerlink" title="1. 为什么需要指针分析"></a>1. 为什么需要指针分析</h4><p>基于指向关系进行分析，能有效避免 CHA 中出现 <em>fake target</em> 的问题</p>
 <p>例如：针对语句 { A a = new A(); a.fun(); }，CHA 在解析 <em>a.fun()</em> 时会得到所有 A 类型及其子类的签名为 <em>fun()</em> 的方法，而使用指针分析则可以找到唯一的一个目标方法，提高分析的准确性</p>
-<h4 id="2-指针分析的介绍"><a href="#2-指针分析的介绍" class="headerlink" title="2. 指针分析的介绍"></a>2. 指针分析的介绍</h4><h4 id="3-影响指针分析的关键要素"><a href="#3-影响指针分析的关键要素" class="headerlink" title="3. 影响指针分析的关键要素"></a>3. 影响指针分析的关键要素</h4><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207271601082.png" alt="img" style="zoom:50%;" />
+<h4 id="2-指针分析的介绍"><a href="#2-指针分析的介绍" class="headerlink" title="2. 指针分析的介绍"></a>2. 指针分析的介绍</h4><p>指针分析是基础的静态分析，计算一个指针能够指向内存中的哪些地址</p>
+<p>对于面向对象语言，以 JAVA 为例，指针分析计算一个指针（<em>variable or field</em>）能够指向哪些对象</p>
+<p>指针分析可以看作一种 <em>may analysis</em>，计算结果是一个 <em>over-approximation</em></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207281010951.png" alt="img" style="zoom:50%;" />
+
+<p>概念辨析：指针分析 vs. 别名分析</p>
+<p>指针分析回答的问题：Which objects a pointer can point to ?</p>
+<p>别名分析回答的问题：Can two pointers point to the same object ?</p>
+<p>别名分析的结果可由指针分析的结果推到而来</p>
+<h4 id="3-影响指针分析的关键要素"><a href="#3-影响指针分析的关键要素" class="headerlink" title="3. 影响指针分析的关键要素"></a>3. 影响指针分析的关键要素</h4><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207271601082.png" alt="img" style="zoom:50%;" />
 
 <p><strong>堆抽象（<em>Heap Abstraction</em>）</strong></p>
 <p>为了保证静态分析能够终止，对堆内存进行建模，把 <em>动态分配的无限的具体对象</em>  构建成 <em>有限的抽象的对象</em></p>
@@ -516,11 +525,46 @@
 <p>上下文敏感的分析中，对同一个方法的不同调用进行区分，对每一个上下文都分析一次目标方法</p>
 <p>上下文不敏感的分析中，对同一个方法的不同调用做数据流的合并处理，只分析一次，可能丢失精度</p>
 <p><strong>流敏感（<em>Flow Sensitivity</em>）</strong></p>
-<p>待补充</p>
+<p>流敏感的分析是尊重语句的执行顺序的，程序中每个位置都维护了一个包含指向关系的 map</p>
+<p>流不敏感的分析是忽视控制流的顺序的，整个程序只维护了一个包含指向关系的 map</p>
 <p><strong>分析域（<em>Analysis Scope</em>）</strong></p>
-<p>待补充</p>
-<h4 id="4-指针分析需要分析的语句"><a href="#4-指针分析需要分析的语句" class="headerlink" title="4. 指针分析需要分析的语句"></a>4. 指针分析需要分析的语句</h4><p>待补充</p>
-<h2 id="07-Pointer-Analysis（Foundations）"><a href="#07-Pointer-Analysis（Foundations）" class="headerlink" title="07 - Pointer Analysis（Foundations）"></a>07 - Pointer Analysis（Foundations）</h2><p>待补充</p>
+<p>全程序分析：计算程序中所有指针的信息，服务所有可能的应用</p>
+<p>需求驱动分析：只计算需要用到的指针的信息，服务特定的应用</p>
+<h4 id="4-指针分析需要分析的语句"><a href="#4-指针分析需要分析的语句" class="headerlink" title="4. 指针分析需要分析的语句"></a>4. 指针分析需要分析的语句</h4><p>指针分析只关注 <em>Pointer-Affecting Statements</em></p>
+<p>JAVA 中的指针：</p>
+<ul>
+<li>本地变量（<em>local variable</em>）<em>e.g.</em>  x</li>
+<li>静态字段（<em>static field</em>）<em>e.g.</em>  C.f</li>
+<li>实例字段（<em>instance field</em>）<em>e.g.</em>  x.f</li>
+<li>数组元素（<em>array element</em>）<em>e.g.</em>  array[i]</li>
+</ul>
+<p>在数组元素的指针分析中，忽略数组下标，把整个数组视作一个单独的 <em>field</em></p>
+<p>处理静态字段的方式与处理本地变量相似，处理数组元素的方式与处理实例字段相似</p>
+<p>JAVA 中的 <em>pointer-affecting statements</em>：</p>
+<ul>
+<li>创建 New    <em>x = new T()</em></li>
+<li>赋值 Assign    <em>x = y</em></li>
+<li>存储 Store    <em>x.f = y</em></li>
+<li>加载 Load    <em>y = x.f</em></li>
+<li>调用 Call    <em>r = x.k(a, …)</em></li>
+</ul>
+<h4 id="本节重点-5"><a href="#本节重点-5" class="headerlink" title="本节重点"></a>本节重点</h4><ul>
+<li>什么是指针分析</li>
+<li>理解影响指针分析的关键要素</li>
+<li>理解指针分析需要分析哪些内容</li>
+</ul>
+<h2 id="07-Pointer-Analysis（Foundations）"><a href="#07-Pointer-Analysis（Foundations）" class="headerlink" title="07 - Pointer Analysis（Foundations）"></a>07 - Pointer Analysis（Foundations）</h2><h4 id="1-指针分析的规则"><a href="#1-指针分析的规则" class="headerlink" title="1. 指针分析的规则"></a>1. 指针分析的规则</h4><p>在 JAVA 的指针分析中，常用流不敏感的方式（效率高，精度损失可接受）</p>
+<p>指针分析的域及其表示：</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207281054043.png" alt="img" style="zoom:50%;" />
+
+<p>不同语句的指针分析规则：</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207281059426.png" alt="1" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207281109304.png" alt="img" style="zoom:50%;" />
+
+<h4 id="2-指针分析的实现"><a href="#2-指针分析的实现" class="headerlink" title="2. 指针分析的实现"></a>2. 指针分析的实现</h4><p>待补充</p>
+<h4 id="3-指针分析的算法"><a href="#3-指针分析的算法" class="headerlink" title="3. 指针分析的算法"></a>3. 指针分析的算法</h4><p>待补充</p>
+<h4 id="4-带有方法调用的指针分析"><a href="#4-带有方法调用的指针分析" class="headerlink" title="4. 带有方法调用的指针分析"></a>4. 带有方法调用的指针分析</h4><p>待补充</p>
 <h2 id="08-Pointer-Analysis（Context-Sensitivity）"><a href="#08-Pointer-Analysis（Context-Sensitivity）" class="headerlink" title="08 - Pointer Analysis（Context Sensitivity）"></a>08 - Pointer Analysis（Context Sensitivity）</h2><p>待补充</p>
 <h2 id="09-Static-Analysis-For-Security"><a href="#09-Static-Analysis-For-Security" class="headerlink" title="09 - Static Analysis For Security"></a>09 - Static Analysis For Security</h2><p>待补充</p>
 <h2 id="10-Datalog-Based-Program-Analysis"><a href="#10-Datalog-Based-Program-Analysis" class="headerlink" title="10 - Datalog-Based Program Analysis"></a>10 - Datalog-Based Program Analysis</h2><p>待补充</p>
@@ -537,8 +581,8 @@
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207151730781.png" alt="1" style="zoom: 40%;" />
 
 <h4 id="A2"><a href="#A2" class="headerlink" title="A2"></a>A2</h4><ul>
-<li>为 Java 实现常量传播算法。</li>
-<li>实现一个通用的 worklist 求解器，并用它来解决一些数据流分析问题，例如本次的常量传播。</li>
+<li>为 Java 实现常量传播算法</li>
+<li>实现一个通用的 worklist 求解器，并用它来解决一些数据流分析问题，例如本次的常量传播</li>
 </ul>
 <p>与 A1 的任务总体结构相同，理解常量传播和 worklist 的实现方式并读懂提供的框架源码即可</p>
 <p>注意 newBoundryFact() 需要将方法的参数初始化为 NAC（参数不由方法本身决定，故必不是常量）</p>
@@ -548,7 +592,14 @@
 <p>关于 debug：在 IntelliJ IDEA 中进行断点调试的时候，出现 ”<em>Skipped breakpoint at … because it happened inside debugger evaluation</em>“，打条件断点的地方被跳过，是由于测试时使用了多线程，将断点设置中 <em>Suspend</em> 选项的 <em>All</em> 改成 <em>Thread</em> 即可（如图所示）</p>
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207261829825.png" alt="1" style="zoom:50%;" />
 
-<h4 id="A3"><a href="#A3" class="headerlink" title="A3"></a>A3</h4><p>待补充</p>
+<h4 id="A3"><a href="#A3" class="headerlink" title="A3"></a>A3</h4><ul>
+<li>为 Java 实现一个死代码（dead code）检测算法</li>
+</ul>
+<p>该死代码检测作业需要找出两种死代码：不可达代码和无用赋值</p>
+<p>不可达代码又分为控制流不可达（e.g. Return 语句之后的代码）和分支不可达（e.g. 条件跳转处的条件为常量）</p>
+<p>本次作业需要用到 A1 中实现的活跃变量分析（寻找无用赋值）和 A2 中实现的常量传播分析（寻找分支不可达的代码），并新补充实现 <em>DeadCodeDetection</em> 类中的 <em>analyse</em> 方法</p>
+<p>在 <em>analyse</em> 方法中，已经构建了程序的控制流图、常量传播分析结果和活跃变量分析结果，需要以此为据找出可以被判定为死代码的语句，以一个集合的形式返回</p>
+<p>一开始的思路是直接寻找死代码语句，但发现由于在数据流不向后继续传递，在确定一条语句为死代码后难以判断其后继语句是否为死代码，故转换思路，通过确定活代码来反推死代码，总体思路为从程序入口处开始，借助常量传播分析结果和活跃变量分析结果，在控制流图上遍历所有可能被执行的活代码并标记，没有被标记到的节点即为死代码</p>
 <h4 id="A4"><a href="#A4" class="headerlink" title="A4"></a>A4</h4><p>待补充</p>
 <h4 id="A5"><a href="#A5" class="headerlink" title="A5"></a>A5</h4><p>待补充</p>
 <h4 id="A6"><a href="#A6" class="headerlink" title="A6"></a>A6</h4><p>待补充</p>
