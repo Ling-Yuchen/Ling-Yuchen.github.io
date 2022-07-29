@@ -222,7 +222,8 @@
 
         <div class="post-content">
             <p>课程内容来源：<a target="_blank" rel="noopener" href="https://tai-e.pascal-lab.net/">https://tai-e.pascal-lab.net/</a></p>
-<p>实验作业的实现：<a target="_blank" rel="noopener" href="https://github.com/Ling-Yuchen/Tai-e-assignments">https://github.com/Ling-Yuchen/Tai-e-assignments</a></p>
+<p>实验作业的实现：<a target="_blank" rel="noopener" href="https://github.com/Ling-Yuchen/Tai-e-assignments/">https://github.com/Ling-Yuchen/Tai-e-assignments/</a></p>
+<p>部分实验作业思路参考：<a target="_blank" rel="noopener" href="https://vgalaxy.gitee.io/2022/05/05/static-analysis/">https://vgalaxy.gitee.io/2022/05/05/static-analysis/</a></p>
 <h2 id="01-Introduction"><a href="#01-Introduction" class="headerlink" title="01 - Introduction"></a>01 - Introduction</h2><h4 id="1-静态分析：运行前对程序进行分析"><a href="#1-静态分析：运行前对程序进行分析" class="headerlink" title="1. 静态分析：运行前对程序进行分析"></a>1. 静态分析：运行前对程序进行分析</h4><p>​        是否存在私有信息泄露？</p>
 <p>​        是否存在空指针异常？</p>
 <p>​        是否存在强制类型转换异常？</p>
@@ -600,7 +601,33 @@
 <p>本次作业需要用到 A1 中实现的活跃变量分析（寻找无用赋值）和 A2 中实现的常量传播分析（寻找分支不可达的代码），并新补充实现 <em>DeadCodeDetection</em> 类中的 <em>analyse</em> 方法</p>
 <p>在 <em>analyse</em> 方法中，已经构建了程序的控制流图、常量传播分析结果和活跃变量分析结果，需要以此为据找出可以被判定为死代码的语句，以一个集合的形式返回</p>
 <p>一开始的思路是直接寻找死代码语句，但发现由于在数据流不向后继续传递，在确定一条语句为死代码后难以判断其后继语句是否为死代码，故转换思路，通过确定活代码来反推死代码，总体思路为从程序入口处开始，借助常量传播分析结果和活跃变量分析结果，在控制流图上遍历所有可能被执行的活代码并标记，没有被标记到的节点即为死代码</p>
-<h4 id="A4"><a href="#A4" class="headerlink" title="A4"></a>A4</h4><p>待补充</p>
+<h4 id="A4"><a href="#A4" class="headerlink" title="A4"></a>A4</h4><ul>
+<li>为 Java 实现一个类层次结构分析（Class Hierarchy Analysis，CHA）</li>
+<li>实现过程间常量传播</li>
+<li>实现过程间数据流传播的 worklist 求解器</li>
+</ul>
+<p>类层次结构分析部分需要实现 <em>buildCallGraph</em>、<em>resolve</em> 和 <em>dispatch</em> 三个方法，课件中已经给出了相应的算法流程，模拟实现即可</p>
+<ul>
+<li><em>callSite.getMethodRef().getDeclaringClass()</em> 获取调用点的对象的声明类型</li>
+<li><em>callSite.getMethodRef().getSubsignature()</em> 获取调用点方法的子签名（一个方法的子签名只包含它的方法名和方法签名的描述符）</li>
+<li>成员变量 <em>hierarchy</em> 中包含了所有类和接口的继承和实现关系</li>
+</ul>
+<p>过程间的常量传播需要考虑 <em>transferNode</em> 和 <em>transferEdge</em> 两种情况：</p>
+<ul>
+<li><em>transferNode</em> 分为 <em>transferCallNode</em> 和 <em>transfeNonCallNode</em>：由于调用由 <em>transferEdge</em> 处理，<em>transferCallNode</em> 只需要做恒等传播；而 <em>transfeNonCallNode</em> 与 A2 中的非过程间常量传播的 <em>transferNode</em> 相同</li>
+<li><em>transferEdge</em> 分为 <em>transferCallToReturnEdge</em>、<em>transferCallEdge</em> 和 <em>transferReturnEdge</em>：<em>transferCallToReturnEdge</em> 需要将调用点的左值 kill 掉（如果存在的话）；<em>transferCallEdge</em> 需要完成参数的值的传递；<em>transferReturnEdge</em> 需要完成返回值向调用点左值的赋值（如果存在的话）</li>
+</ul>
+<p>（注意 <em>transferEdge</em> 的返回值是一个新的 <em>Fact</em>，不改变已有的 <em>Fact</em>）</p>
+<p>e.g. 下图中蓝色虚线箭头为 <em>callEdge</em>，红色虚线箭头为 <em>returnEdge</em>，黑色虚线箭头为 <em>callToReturnEdge</em></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207292143391.png" alt="image-20220729214359229" style="zoom: 33%;" />
+
+<p>在实现 worklist 求解器时，注意与之前实现的不同之处有：</p>
+<ul>
+<li><p>初始化时，需要对所有的 <em>entry method</em> 的 <em>entry</em> 节点进行 <em>newBoundaryFact</em>（可使用 <em>icfg.entryMethods().toList()</em> 获取所有的 <em>entry method</em>）</p>
+</li>
+<li><p>执行算法流程时，每个节点的 <em>inFact</em> 不再是和所有前驱节点的 <em>outFact</em> 做 <em>meet</em> 操作获得，而是和所有汇入的边所带来的 <em>Fact</em> 做 <em>meet</em> 操作获得</p>
+</li>
+</ul>
 <h4 id="A5"><a href="#A5" class="headerlink" title="A5"></a>A5</h4><p>待补充</p>
 <h4 id="A6"><a href="#A6" class="headerlink" title="A6"></a>A6</h4><p>待补充</p>
 <h4 id="A7"><a href="#A7" class="headerlink" title="A7"></a>A7</h4><p>待补充</p>
