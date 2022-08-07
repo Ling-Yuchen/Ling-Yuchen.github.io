@@ -563,9 +563,46 @@
 
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207281109304.png" alt="img" style="zoom:50%;" />
 
-<h4 id="2-指针分析的实现"><a href="#2-指针分析的实现" class="headerlink" title="2. 指针分析的实现"></a>2. 指针分析的实现</h4><p>待补充</p>
-<h4 id="3-指针分析的算法"><a href="#3-指针分析的算法" class="headerlink" title="3. 指针分析的算法"></a>3. 指针分析的算法</h4><p>待补充</p>
-<h4 id="4-带有方法调用的指针分析"><a href="#4-带有方法调用的指针分析" class="headerlink" title="4. 带有方法调用的指针分析"></a>4. 带有方法调用的指针分析</h4><p>待补充</p>
+<h4 id="2-指针分析的实现"><a href="#2-指针分析的实现" class="headerlink" title="2. 指针分析的实现"></a>2. 指针分析的实现</h4><p>指针分析要在指针间传播指向信息，指针分析解决的是指针间的包含约束系统的问题</p>
+<p>实现指针分析的关键在于：当指针集 <em>pt(x)</em> 改变时，要把更新的信息传播给其他与 <em>x</em> 相关的指针</p>
+<p>实现方式：用图去连接相关联的指针，当指针集 <em>pt(x)</em> 改变时，把更新的信息传播给 <em>x</em> 的后继</p>
+<h5 id="指针流图（Pointer-Flow-Graph，PFG）"><a href="#指针流图（Pointer-Flow-Graph，PFG）" class="headerlink" title="指针流图（Pointer Flow Graph，PFG）"></a>指针流图（<em>Pointer Flow Graph，PFG</em>）</h5><p>指针流图的节点为 <em>Pointer</em> = *V ∪ (O × F)*，可能是变量或抽象对象的字段</p>
+<p>指针流图的边为 <em>Pointer × Pointer</em>，由 <em>x</em> 指向 <em>y</em> 的边表示 <em>x</em> 指向的对象有可能被 <em>y</em> 指向</p>
+<p>指针流图的边由程序中的语句和处理指针分析的规则来确定：</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208061225160.png" alt="image-20220806122505050" style="zoom:50%;" />
+
+<p>通过指针流图，指针分析问题可以转化为在指针流图上求解传递闭包的问题</p>
+<p>指针分析的复杂性在于构建指针流图和传播指向信息相互依赖（在指针分析的过程中，指针流图也在不断更新迭代，从而再次影响指针分析的过程）：</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208061238046.png" alt="image-20220806123814992" style="zoom:50%;" />
+
+<h4 id="3-指针分析的算法"><a href="#3-指针分析的算法" class="headerlink" title="3. 指针分析的算法"></a>3. 指针分析的算法</h4><h5 id="完整的算法过程："><a href="#完整的算法过程：" class="headerlink" title="完整的算法过程："></a>完整的算法过程：</h5><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208061242284.png" alt="image-20220806124226182" style="zoom:50%;" />
+
+<p>关于算法中 <em>WL</em>，即 <em>Worklist</em> 的解释：</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208061248121.png" alt="image-20220806124824952" style="zoom:50%;" />
+
+<h4 id="4-带有方法调用的指针分析"><a href="#4-带有方法调用的指针分析" class="headerlink" title="4. 带有方法调用的指针分析"></a>4. 带有方法调用的指针分析</h4><p>过程间的指针分析需要构建调用图，使用 <em>CHA</em> 基于声明类型解析目标方法可能产生 <em>fake target</em>，在指针分析中，可以基于变量的指针集进行解析，得到更准确的调用图（<em>on-the fly call graph construnction</em>）</p>
+<h5 id="方法调用的指针分析规则："><a href="#方法调用的指针分析规则：" class="headerlink" title="方法调用的指针分析规则："></a>方法调用的指针分析规则：</h5><p>一个方法调用要做的四件事：Dispatch；传 receiver object；传参数；传返回值</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208061604497.png" alt="image-20220806160402337" style="zoom:50%;" />
+
+<p>思考：为什么不在 <em>PFG</em> 中添加由 <em>x</em> 到 <em>m_this</em> 的边？</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208061653145.png" alt="image-20220806165315061" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208061653241.png" alt="image-20220806165343145" style="zoom:50%;" />
+
+<p>过程间指针分析和调用图的构建相互依赖，同时进行</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208061726888.png" alt="image-20220806172637806" style="zoom:50%;" />
+
+<h5 id="带有方法调用的指针分析的算法实现："><a href="#带有方法调用的指针分析的算法实现：" class="headerlink" title="带有方法调用的指针分析的算法实现："></a>带有方法调用的指针分析的算法实现：</h5><p>（黄底内容为新增部分）</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208061729060.png" alt="image-20220806172859940" style="zoom:50%;" />
+
+<h4 id="本节重点-6"><a href="#本节重点-6" class="headerlink" title="本节重点"></a>本节重点</h4><ul>
+<li>理解指针分析的规则</li>
+<li>理解指针流图</li>
+<li>理解指针分析的方法</li>
+<li>理解指针分析处理方法调用的规则</li>
+<li>理解过程间指针分析算法</li>
+<li>理解即时调用图构建</li>
+</ul>
 <h2 id="08-Pointer-Analysis（Context-Sensitivity）"><a href="#08-Pointer-Analysis（Context-Sensitivity）" class="headerlink" title="08 - Pointer Analysis（Context Sensitivity）"></a>08 - Pointer Analysis（Context Sensitivity）</h2><p>待补充</p>
 <h2 id="09-Static-Analysis-For-Security"><a href="#09-Static-Analysis-For-Security" class="headerlink" title="09 - Static Analysis For Security"></a>09 - Static Analysis For Security</h2><p>待补充</p>
 <h2 id="10-Datalog-Based-Program-Analysis"><a href="#10-Datalog-Based-Program-Analysis" class="headerlink" title="10 - Datalog-Based Program Analysis"></a>10 - Datalog-Based Program Analysis</h2><p>待补充</p>
@@ -628,7 +665,21 @@
 <li><p>执行算法流程时，每个节点的 <em>inFact</em> 不再是和所有前驱节点的 <em>outFact</em> 做 <em>meet</em> 操作获得，而是和所有汇入的边所带来的 <em>Fact</em> 做 <em>meet</em> 操作获得</p>
 </li>
 </ul>
-<h4 id="A5"><a href="#A5" class="headerlink" title="A5"></a>A5</h4><p>待补充</p>
+<h4 id="A5"><a href="#A5" class="headerlink" title="A5"></a>A5</h4><ul>
+<li>为 Java 实现非上下文敏感的指针分析</li>
+<li>为指针分析实现一个调用图的实时构建算法</li>
+</ul>
+<p>作业文档足够详细，难度不大，按照算法流程实现即可，注意：</p>
+<ol>
+<li>每个方法可能有多个返回值，也有可能没有返回值</li>
+<li>处理方法调用时需要的 dispatch 方法已经给出（*resolveCallee()*）可直接调用</li>
+<li>新引入的静态字段、静态方法调用和数组在需要算法中进行处理的位置</li>
+<li><em>var.getStoreFields()、var.getLoadArrays()、var.getInvokes()</em> 等接口可直接获取变量相关的语句</li>
+<li><em>AddReachable</em> 方法使用了<a target="_blank" rel="noopener" href="https://refactoringguru.cn/design-patterns/visitor">访问者设计模式 </a></li>
+</ol>
+<p>参考算法流程：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">Solve(m_entry):</span><br><span class="line">	WL=[], PFG=&#123;&#125;, S=&#123;&#125;, RM=&#123;&#125;, CG=&#123;&#125;</span><br><span class="line">	addReachable(m_entry)</span><br><span class="line">	while WL is not empty do</span><br><span class="line">		remove &lt;n, pts&gt; from WL</span><br><span class="line">		Δ = pts - pt(n)</span><br><span class="line">		Propagate(n, Δ)</span><br><span class="line">		if n represents a variable x then</span><br><span class="line">			foreach o ∈ Δ do</span><br><span class="line">				foreach x.f = y ∈ S do</span><br><span class="line">					AddEdge(y, o.f)</span><br><span class="line">				foreach y = x.f ∈ S do</span><br><span class="line">					AddEdge(o.f, y)</span><br><span class="line">				foreach x[*] = y ∈ S do</span><br><span class="line">					AddEdge(y, o[*])</span><br><span class="line">				foreach y = x[*] ∈ S do</span><br><span class="line">					AddEdge(o[*], y)</span><br><span class="line">				ProcessCall(x, o)</span><br><span class="line">				</span><br><span class="line">AddReachable(m):</span><br><span class="line">	if m ∉ RM then</span><br><span class="line">		add m to RM</span><br><span class="line">		S ∪= S_m</span><br><span class="line">		foreach i: x = new T() ∈ S_m do</span><br><span class="line">			add &lt;x, &#123;o_i&#125;&gt; to WL</span><br><span class="line">		foreach x = y ∈ S_m do</span><br><span class="line">			AddEdge(y, x)</span><br><span class="line">		foreach T.f = y ∈ S_m do</span><br><span class="line">			AddEdge(y, T.f)</span><br><span class="line">		foreach y = T.f ∈ S_m do</span><br><span class="line">			AddEdge(T.f, y)</span><br><span class="line">		foreach l: x = T.k(a1,...,an) ∈ S_m do</span><br><span class="line">			f = Dispatch(_, k)</span><br><span class="line">			if l → f ∉ CG then</span><br><span class="line">				add l → f to CG</span><br><span class="line">				AddReachable(f)</span><br><span class="line">				foreach parameter p_i of f do</span><br><span class="line">					AddEdge(a_i, p_i)</span><br><span class="line">				AddEdge(f_ret, x)</span><br><span class="line">				</span><br><span class="line">ProcessCall(x, o):</span><br><span class="line">	foreach l: r = x.k(a1,...,an) ∈ S_m do</span><br><span class="line">		m = Dispatch(o, k)</span><br><span class="line">		add &lt;m_this, &#123;o&#125;&gt; to WL</span><br><span class="line">		if l → m ∉ CG then</span><br><span class="line">			add l → f to CG</span><br><span class="line">				AddReachable(m)</span><br><span class="line">				foreach parameter p_i of m do</span><br><span class="line">					AddEdge(a_i, p_i)</span><br><span class="line">				AddEdge(m_ret, r)</span><br><span class="line">				</span><br><span class="line">AddEdge(s, t):</span><br><span class="line">	if s → t ∉ PFG then</span><br><span class="line">		add s → t to PFG</span><br><span class="line">		if pt(s) is not empty then</span><br><span class="line">			add &lt;t, pt(s)&gt; to WL</span><br><span class="line">			</span><br><span class="line">Propagate(n, pts):</span><br><span class="line">	if pts is not empty then</span><br><span class="line">		pt(n) ∪= pts</span><br><span class="line">		foreach n → s ∈ PFG do</span><br><span class="line">			add &lt;s, pts&gt; to WL</span><br></pre></td></tr></table></figure>
+
 <h4 id="A6"><a href="#A6" class="headerlink" title="A6"></a>A6</h4><p>待补充</p>
 <h4 id="A7"><a href="#A7" class="headerlink" title="A7"></a>A7</h4><p>待补充</p>
 <h4 id="A8"><a href="#A8" class="headerlink" title="A8"></a>A8</h4><p>待补充</p>
