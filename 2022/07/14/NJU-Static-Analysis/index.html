@@ -554,7 +554,10 @@
 <li>理解影响指针分析的关键要素</li>
 <li>理解指针分析需要分析哪些内容</li>
 </ul>
-<h2 id="07-Pointer-Analysis（Foundations）"><a href="#07-Pointer-Analysis（Foundations）" class="headerlink" title="07 - Pointer Analysis（Foundations）"></a>07 - Pointer Analysis（Foundations）</h2><h4 id="1-指针分析的规则"><a href="#1-指针分析的规则" class="headerlink" title="1. 指针分析的规则"></a>1. 指针分析的规则</h4><p>在 JAVA 的指针分析中，常用流不敏感的方式（效率高，精度损失可接受）</p>
+<h2 id="07-Pointer-Analysis（Foundations）"><a href="#07-Pointer-Analysis（Foundations）" class="headerlink" title="07 - Pointer Analysis（Foundations）"></a>07 - Pointer Analysis（Foundations）</h2><blockquote>
+<p>本章节介绍使用调用点抽象技术、上下文不敏感、流不敏感的全程序指针分析</p>
+</blockquote>
+<h4 id="1-指针分析的规则"><a href="#1-指针分析的规则" class="headerlink" title="1. 指针分析的规则"></a>1. 指针分析的规则</h4><p>在 JAVA 的指针分析中，常用流不敏感的方式（效率高，精度损失可接受）</p>
 <p>指针分析的域及其表示：</p>
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202207281054043.png" alt="img" style="zoom:50%;" />
 
@@ -603,7 +606,65 @@
 <li>理解过程间指针分析算法</li>
 <li>理解即时调用图构建</li>
 </ul>
-<h2 id="08-Pointer-Analysis（Context-Sensitivity）"><a href="#08-Pointer-Analysis（Context-Sensitivity）" class="headerlink" title="08 - Pointer Analysis（Context Sensitivity）"></a>08 - Pointer Analysis（Context Sensitivity）</h2><p>待补充</p>
+<h2 id="08-Pointer-Analysis（Context-Sensitivity）"><a href="#08-Pointer-Analysis（Context-Sensitivity）" class="headerlink" title="08 - Pointer Analysis（Context Sensitivity）"></a>08 - Pointer Analysis（Context Sensitivity）</h2><blockquote>
+<p>本章节介绍使用调用点抽象技术、上下文敏感、流不敏感的全程序指针分析</p>
+</blockquote>
+<h4 id="1-上下文敏感指针分析介绍"><a href="#1-上下文敏感指针分析介绍" class="headerlink" title="1. 上下文敏感指针分析介绍"></a>1. 上下文敏感指针分析介绍</h4><h5 id="为什么需要上下文敏感技术："><a href="#为什么需要上下文敏感技术：" class="headerlink" title="为什么需要上下文敏感技术："></a>为什么需要上下文敏感技术：</h5><p>在动态执行的时候，一个方法可能被调用多次，而不同调用的上下文不同（传参不同、返回点不同），故在上下文不敏感的指针分析中，不同调用上下文混合的数据流在程序中传播，产生假的数据流，影响程序分析的精度；引入上下文敏感技术，区分不同上下文之间的数据流，可以提升程序分析的精度</p>
+<h5 id="上下文的表示方式："><a href="#上下文的表示方式：" class="headerlink" title="上下文的表示方式："></a>上下文的表示方式：</h5><p>使用调用点来作为上下文：用一系列调用点来链式表示每个上下文（栈抽象）</p>
+<h5 id="上下文敏感的实现："><a href="#上下文敏感的实现：" class="headerlink" title="上下文敏感的实现："></a>上下文敏感的实现：</h5><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208081252673.png" alt="image-20220808125210400" style="zoom:50%;" />
+
+<h5 id="上下文敏感的堆抽象："><a href="#上下文敏感的堆抽象：" class="headerlink" title="上下文敏感的堆抽象："></a>上下文敏感的堆抽象：</h5><p>在 <em>OO</em> 程序中，经常需要修改堆上对象，因此在实际情况中，上下文敏感技术需要应用于堆抽象</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208081300289.png" alt="image-20220808130043102" style="zoom:50%;" />
+
+<p>为什么上下文敏感的堆抽象能够提升分析精度：</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208081302280.png" alt="image-20220808130257124" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208081538904.png" alt="image-20220808153838733" style="zoom:50%;" />
+
+<h4 id="2-上下文敏感指针分析规则"><a href="#2-上下文敏感指针分析规则" class="headerlink" title="2. 上下文敏感指针分析规则"></a>2. 上下文敏感指针分析规则</h4><h5 id="上下文敏感指针分析的域及其表示："><a href="#上下文敏感指针分析的域及其表示：" class="headerlink" title="上下文敏感指针分析的域及其表示："></a>上下文敏感指针分析的域及其表示：</h5><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208081542619.png" alt="image-20220808154228430" style="zoom:50%;" />
+
+<h5 id="上下文敏感指针分析的规则："><a href="#上下文敏感指针分析的规则：" class="headerlink" title="上下文敏感指针分析的规则："></a>上下文敏感指针分析的规则：</h5><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208081554195.png" alt="image-20220808155432112" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208081609672.png" alt="image-20220808160955460" style="zoom:50%;" />
+
+<h4 id="3-上下文敏感指针分析算法"><a href="#3-上下文敏感指针分析算法" class="headerlink" title="3. 上下文敏感指针分析算法"></a>3. 上下文敏感指针分析算法</h4><p>基本思路和上下文不敏感的指针分析相似，即：</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208081847583.png" alt="image-20220808184754519" style="zoom:50%;" />
+
+<p>其中 <em>PFG with C.S.</em> 是一个有向图，定义如下：</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208081850174.png" alt="image-20220808185051069" style="zoom:50%;" />
+
+<p><em>PFG with C.S.</em> 边的建立：</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208081854521.png" alt="image-20220808185440449" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208081856242.png" alt="image-20220808185605023" style="zoom:50%;" />
+
+<p>上下文敏感指针分析完整算法：</p>
+<p><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208082003685.png" alt="image-20220808200312549"></p>
+<h4 id="4-上下文敏感技术的变种"><a href="#4-上下文敏感技术的变种" class="headerlink" title="4. 上下文敏感技术的变种"></a>4. 上下文敏感技术的变种</h4><blockquote>
+<p>上下文敏感指针分析算法中 <em>Select</em> 方法的具体实现方式</p>
+</blockquote>
+<h5 id="调用点敏感（Call-site-Sensitivity）"><a href="#调用点敏感（Call-site-Sensitivity）" class="headerlink" title="调用点敏感（Call-site Sensitivity）"></a>调用点敏感（<em>Call-site Sensitivity</em>）</h5><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208082233180.png" alt="image-20220808223352053" style="zoom:50%;" />
+
+<p>为了避免产生过多的上下文，保证指针分析在合理的时间内完成，需要对调用链的长度进行限制（<em>e.g.</em> 递归调用能够产生很长的调用链），故引入 <em>k-Limiting Context Abstraction</em>，即选用最后的 <em>k</em> 个调用点作为上下文：</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208091134010.png" alt="image-20220809113401843" style="zoom:50%;" />
+
+<h5 id="调用对象敏感（Object-Sensitivity）"><a href="#调用对象敏感（Object-Sensitivity）" class="headerlink" title="调用对象敏感（Object Sensitivity）"></a>调用对象敏感（<em>Object Sensitivity</em>）</h5><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208091220974.png" alt="image-20220809122016842" style="zoom:50%;" />
+
+<p>在 <em>OO</em> 语言的实际应用中，调用对象敏感效果比调用点敏感速度更快、效果更好</p>
+<h5 id="调用类型敏感（Type-Sensitivity）"><a href="#调用类型敏感（Type-Sensitivity）" class="headerlink" title="调用类型敏感（Type Sensitivity）"></a>调用类型敏感（<em>Type Sensitivity</em>）</h5><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208091409784.png" alt="image-20220809140913638" style="zoom:50%;" />
+
+<p>调用类型敏感是对调用对象敏感的一种粗粒度的抽象，获取了更快的分析速度，牺牲了精度</p>
+<h5 id="三种上下文敏感技术变体的对比"><a href="#三种上下文敏感技术变体的对比" class="headerlink" title="三种上下文敏感技术变体的对比"></a>三种上下文敏感技术变体的对比</h5><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208091415141.png" alt="image-20220809141528031" style="zoom:50%;" />
+
+<h4 id="本节重点-7"><a href="#本节重点-7" class="headerlink" title="本节重点"></a>本节重点</h4><ul>
+<li>上下文敏感的概念</li>
+<li>上下文敏感的堆抽象的概念</li>
+<li>为什么上下文敏感和上下文敏感的堆抽象能够提升分析的精度</li>
+<li>上下文敏感的指针分析的规则</li>
+<li>上下文敏感指针分析的算法</li>
+<li>常见的上下文敏感技术的变体</li>
+<li>常见的上下文敏感技术的变体的不同与联系</li>
+</ul>
 <h2 id="09-Static-Analysis-For-Security"><a href="#09-Static-Analysis-For-Security" class="headerlink" title="09 - Static Analysis For Security"></a>09 - Static Analysis For Security</h2><p>待补充</p>
 <h2 id="10-Datalog-Based-Program-Analysis"><a href="#10-Datalog-Based-Program-Analysis" class="headerlink" title="10 - Datalog-Based Program Analysis"></a>10 - Datalog-Based Program Analysis</h2><p>待补充</p>
 <h2 id="11-CFL-Reachability-and-IFDS"><a href="#11-CFL-Reachability-and-IFDS" class="headerlink" title="11 - CFL-Reachability and IFDS"></a>11 - CFL-Reachability and IFDS</h2><p>待补充</p>
@@ -681,7 +742,12 @@
 <p>参考算法流程：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">Solve(m_entry):</span><br><span class="line">	WL=[], PFG=&#123;&#125;, S=&#123;&#125;, RM=&#123;&#125;, CG=&#123;&#125;</span><br><span class="line">	addReachable(m_entry)</span><br><span class="line">	while WL is not empty do</span><br><span class="line">		remove &lt;n, pts&gt; from WL</span><br><span class="line">		Δ = pts - pt(n)</span><br><span class="line">		Propagate(n, Δ)</span><br><span class="line">		if n represents a variable x then</span><br><span class="line">			foreach o ∈ Δ do</span><br><span class="line">				foreach x.f = y ∈ S do</span><br><span class="line">					AddEdge(y, o.f)</span><br><span class="line">				foreach y = x.f ∈ S do</span><br><span class="line">					AddEdge(o.f, y)</span><br><span class="line">				foreach x[*] = y ∈ S do</span><br><span class="line">					AddEdge(y, o[*])</span><br><span class="line">				foreach y = x[*] ∈ S do</span><br><span class="line">					AddEdge(o[*], y)</span><br><span class="line">				ProcessCall(x, o)</span><br><span class="line">				</span><br><span class="line">AddReachable(m):</span><br><span class="line">	if m ∉ RM then</span><br><span class="line">		add m to RM</span><br><span class="line">		S ∪= S_m</span><br><span class="line">		foreach i: x = new T() ∈ S_m do</span><br><span class="line">			add &lt;x, &#123;o_i&#125;&gt; to WL</span><br><span class="line">		foreach x = y ∈ S_m do</span><br><span class="line">			AddEdge(y, x)</span><br><span class="line">		foreach T.f = y ∈ S_m do</span><br><span class="line">			AddEdge(y, T.f)</span><br><span class="line">		foreach y = T.f ∈ S_m do</span><br><span class="line">			AddEdge(T.f, y)</span><br><span class="line">		foreach l: x = T.k(a1,...,an) ∈ S_m do</span><br><span class="line">			f = Dispatch(_, k)</span><br><span class="line">			if l → f ∉ CG then</span><br><span class="line">				add l → f to CG</span><br><span class="line">				AddReachable(f)</span><br><span class="line">				foreach parameter p_i of f do</span><br><span class="line">					AddEdge(a_i, p_i)</span><br><span class="line">				AddEdge(f_ret, x)</span><br><span class="line">				</span><br><span class="line">ProcessCall(x, o):</span><br><span class="line">	foreach l: r = x.k(a1,...,an) ∈ S_m do</span><br><span class="line">		m = Dispatch(o, k)</span><br><span class="line">		add &lt;m_this, &#123;o&#125;&gt; to WL</span><br><span class="line">		if l → m ∉ CG then</span><br><span class="line">			add l → f to CG</span><br><span class="line">				AddReachable(m)</span><br><span class="line">				foreach parameter p_i of m do</span><br><span class="line">					AddEdge(a_i, p_i)</span><br><span class="line">				AddEdge(m_ret, r)</span><br><span class="line">				</span><br><span class="line">AddEdge(s, t):</span><br><span class="line">	if s → t ∉ PFG then</span><br><span class="line">		add s → t to PFG</span><br><span class="line">		if pt(s) is not empty then</span><br><span class="line">			add &lt;t, pt(s)&gt; to WL</span><br><span class="line">			</span><br><span class="line">Propagate(n, pts):</span><br><span class="line">	if pts is not empty then</span><br><span class="line">		pt(n) ∪= pts</span><br><span class="line">		foreach n → s ∈ PFG do</span><br><span class="line">			add &lt;s, pts&gt; to WL</span><br></pre></td></tr></table></figure>
 
-<h4 id="A6"><a href="#A6" class="headerlink" title="A6"></a>A6</h4><p>待补充</p>
+<h4 id="A6"><a href="#A6" class="headerlink" title="A6"></a>A6</h4><ul>
+<li>为 Java 实现一个上下文敏感的指针分析框架</li>
+<li>作为指针分析的一部分，随着指针分析一起实现调用图（call graph）构建</li>
+<li>实现几种常见的上下文敏感策略（context sensitivity variants）</li>
+</ul>
+<p>与 A5 相似，注意上下文的正确对应即可</p>
 <h4 id="A7"><a href="#A7" class="headerlink" title="A7"></a>A7</h4><p>待补充</p>
 <h4 id="A8"><a href="#A8" class="headerlink" title="A8"></a>A8</h4><p>待补充</p>
 
