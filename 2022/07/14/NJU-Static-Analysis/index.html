@@ -665,7 +665,53 @@
 <li>常见的上下文敏感技术的变体</li>
 <li>常见的上下文敏感技术的变体的不同与联系</li>
 </ul>
-<h2 id="09-Static-Analysis-For-Security"><a href="#09-Static-Analysis-For-Security" class="headerlink" title="09 - Static Analysis For Security"></a>09 - Static Analysis For Security</h2><p>待补充</p>
+<h2 id="09-Static-Analysis-For-Security"><a href="#09-Static-Analysis-For-Security" class="headerlink" title="09 - Static Analysis For Security"></a>09 - Static Analysis For Security</h2><h4 id="1-信息流安全"><a href="#1-信息流安全" class="headerlink" title="1. 信息流安全"></a>1. 信息流安全</h4><p>与访问控制不同，信息流表示一种端到端的数据流动</p>
+<p>给程序中的变量赋予不同的密级（<em>Security Level</em>）以构建实现信息流安全的策略</p>
+<p>密级可以用格（<em>Lattice</em>）进行建模，虽然二元密级（<em>Low &amp; High</em>）最为常见和常用，但是也可以存在复杂的密级结构：</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208101547940.png" alt="image-20220810154757779" style="zoom: 40%;" />
+
+<p>非干涉策略（<em>Noninterference Policy</em>）：不允许信息从高密级流向低密级</p>
+<h4 id="2-保密性和完整性"><a href="#2-保密性和完整性" class="headerlink" title="2. 保密性和完整性"></a>2. 保密性和完整性</h4><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208101553122.png" alt="image-20220810155305010" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208101557442.png" alt="image-20220810155701257" style="zoom:50%;" />
+
+<h4 id="3-显式流和隐藏信道"><a href="#3-显式流和隐藏信道" class="headerlink" title="3. 显式流和隐藏信道"></a>3. 显式流和隐藏信道</h4><p>显式流（<em>explicit flow</em>）：通过直接拷贝进行的信息流动</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208101837830.png" alt="image-20220810183716782" style="zoom:50%;" />
+
+<p>隐式流（<em>implicit flow</em>）：控制流受到高密级信息的影响，如果产生的副作用能被观测到则会信息泄露</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208101836377.png" alt="image-20220810183644320" style="zoom:50%;" />
+
+<p>隐藏信道（<em>hidden channel</em>）：不是用来传递信息流的内容将信息间接地传递出去，造成信息泄露</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208102026254.png" alt="image-20220810202644130" style="zoom:50%;" />
+
+<p>就保密性而言，隐藏信道泄露的信息量有限，就完整性而言，隐藏信道不会造成什么危害，故应当优先处理显式流中的信息流安全问题</p>
+<h4 id="4-污点分析"><a href="#4-污点分析" class="headerlink" title="4. 污点分析"></a>4. 污点分析</h4><p>污点分析（<em>Taint Analysis</em>）将程序中的数据分为两类：</p>
+<ul>
+<li><em>Data of interest</em>，将某些标签与其进行绑定，称之为污点数据（<em>tainted data</em>）</li>
+<li><em>Other data</em>，称之为非污点数据（<em>untainted data</em>）</li>
+</ul>
+<p>污点数据的源头称为 <em>source</em>，实际情况中，污点数据通常来源于某些方法（<em>sources</em>）的返回值</p>
+<p>污点分析追踪污点数据，观测其是否会流入某个特定的地方（<em>sink</em>） ，实际情况下通常是某些方法传参</p>
+<p>污点分析的两种应用：</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208102046001.png" alt="image-20220810204620890" style="zoom:50%;" />
+
+<p>污点分析和指针分析本质上具有高度一致性，可以依据指针分析来做污点分析：</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208102050227.png" alt="image-20220810205031124" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208102054790.png" alt="image-20220810205425522" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208102058692.png" alt="image-20220810205817421" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208102102679.png" alt="image-20220810210253547" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208102100445.png" alt="image-20220810210049208" style="zoom:50%;" />
+
+<h4 id="本节重点-8"><a href="#本节重点-8" class="headerlink" title="本节重点"></a>本节重点</h4><ul>
+<li>信息流安全的概念</li>
+<li>保密性和完整性的概念</li>
+<li>显式流和隐藏信道的概念</li>
+<li>如何使用污点分析的检测有安全隐患的信息流</li>
+</ul>
 <h2 id="10-Datalog-Based-Program-Analysis"><a href="#10-Datalog-Based-Program-Analysis" class="headerlink" title="10 - Datalog-Based Program Analysis"></a>10 - Datalog-Based Program Analysis</h2><p>待补充</p>
 <h2 id="11-CFL-Reachability-and-IFDS"><a href="#11-CFL-Reachability-and-IFDS" class="headerlink" title="11 - CFL-Reachability and IFDS"></a>11 - CFL-Reachability and IFDS</h2><p>待补充</p>
 <h2 id="12-Soundness-and-Soundiness"><a href="#12-Soundness-and-Soundiness" class="headerlink" title="12 - Soundness and Soundiness"></a>12 - Soundness and Soundiness</h2><p>待补充</p>
@@ -748,8 +794,41 @@
 <li>实现几种常见的上下文敏感策略（context sensitivity variants）</li>
 </ul>
 <p>与 A5 相似，注意上下文的正确对应即可</p>
-<h4 id="A7"><a href="#A7" class="headerlink" title="A7"></a>A7</h4><p>待补充</p>
-<h4 id="A8"><a href="#A8" class="headerlink" title="A8"></a>A8</h4><p>待补充</p>
+<h4 id="A7"><a href="#A7" class="headerlink" title="A7"></a>A7</h4><ul>
+<li>为 Java 实现一个 alias-aware 的过程间常量传播分析</li>
+</ul>
+<p>在 A4 的基础上，利用 A6 中实现的指针分析的分析结果，得到更精确的过程间常量传播分析</p>
+<p>A4 在 A3 的基础上，解决了把所有方法调用的返回值全部置为 <em>NAC</em> 的问题</p>
+<p>A7 在 A4 的基础上，解决了把所有 <em>load</em> 语句（e.g. x = y.f）给变量的赋值全部置为 <em>NAC</em> 的问题</p>
+<p>简言之就是，对于 <em>load</em> 语句 <em>x = y.f</em>，找出所有形如 <em>z.f = w</em>（<em>z.f</em> 满足条件是 <em>y.f</em> 的别名）的 <em>store</em> 语句，将所有变量 <em>w</em> 对应的值做 <em>meet</em> 操作并赋值给 <em>x</em></p>
+<p>满足互为别名的条件：</p>
+<ul>
+<li>实例字段（<em>x.f</em> 和 <em>y.g</em>）<ul>
+<li>字段 <em>f</em> 和字段 <em>g</em> 相同</li>
+<li>变量 <em>x</em> 和变量 <em>y</em> 对应的指针集有交集</li>
+</ul>
+</li>
+<li>静态字段（<em>T.f</em> 和 <em>Q.g</em>）<ul>
+<li>字段 <em>f</em> 和字段 <em>g</em> 相同</li>
+<li>类 <em>T</em> 和类 <em>Q</em> 相同</li>
+</ul>
+</li>
+<li>数组元素（<em>a[i]</em> 和 *b[j]*）<ul>
+<li>变量 <em>a</em> 和变量 <em>b</em> 对应的指针集有交集</li>
+<li>变量 <em>i</em> 和变量 <em>j</em> 都不是 <em>UNDEF</em> 并且变量 <em>i</em> 和变量 <em>j</em> 都是常量时其值相等</li>
+</ul>
+</li>
+</ul>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208101501773.png" alt="image-20220810150109665" style="zoom:50%;" />
+
+<p>修改 <em>transferNonCallNode</em> 方法，对所有 <strong><em>load</em> 语句和 <em>store</em> 语句</strong>进行单独处理：</p>
+<ul>
+<li>对于 <em>load</em> 语句，不做 A4 中的常量传播，找出将所有满足别名关系的 <em>store</em> 语句加以处理</li>
+<li>对于 <em>store</em> 语句，需要将所有满足别名关系的 <em>load</em> 语句加入到 <em>solver</em> 的 <em>worklist</em> 中（本质上来讲，满足别名关系的 <em>load</em> 语句会动态地成为对应 <em>store</em> 语句的后继）</li>
+</ul>
+<h4 id="A8"><a href="#A8" class="headerlink" title="A8"></a>A8</h4><ul>
+<li>为 Java 实现污点分析</li>
+</ul>
 
         </div>
 

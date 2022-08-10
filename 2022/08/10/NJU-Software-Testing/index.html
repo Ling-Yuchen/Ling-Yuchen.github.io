@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Yoson Ling">
+
+
+
+
+
+<title>南京大学《软件测试》课程笔记（更新中） | Yoson&#39;s Blog</title>
+
+
+
+    <link rel="icon" href="/FisherGirl.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Yoson&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Yoson&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">南京大学《软件测试》课程笔记（更新中）</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Yoson Ling</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">八月 10, 2022&nbsp;&nbsp;0:00:00</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Learning/">Learning</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>课程预习资料来源：<a target="_blank" rel="noopener" href="https://www.icourse163.org/learn/NJU-1001773008?tid=1450627499#/">https://www.icourse163.org/learn/NJU-1001773008?tid=1450627499#/</a></p>
+<h2 id="预习"><a href="#预习" class="headerlink" title="预习"></a>预习</h2><h3 id="软件测试基础"><a href="#软件测试基础" class="headerlink" title="软件测试基础"></a>软件测试基础</h3><h4 id="PIE-模型"><a href="#PIE-模型" class="headerlink" title="PIE 模型"></a><em>PIE</em> 模型</h4><p>概念辨析：</p>
+<ul>
+<li><em>Fault</em>：程序中存在的静态错误（编程过程中产生）</li>
+<li><em>Error</em>：程序因运行到其中的 <em>Fault(s)</em> 而进入的错误的中间状态（程序运行时产生）</li>
+<li><em>Failure</em>：<em>Error(s)</em> 传播到程序外部，使得用户观测到与预期不符的错误行为（程序行为完成时产生）</li>
+</ul>
+<p><em>PIE</em> 模型：</p>
+<ul>
+<li>Execution/Reachability：程序中含有 <em>fault</em> 的地方必须被执行到</li>
+<li>Infection：程序必须进入错误的中间状态（<em>error</em>）</li>
+<li>Propagation：被感染的状态必须传播到程序外部，即导致程序错误的输出结果（产生 <em>failure</em>）</li>
+</ul>
+<p>针对 <em>PIE</em> 模型的分析：</p>
+<ul>
+<li>测试不一定能执行到带有 <em>fault</em> 的语句</li>
+<li>测试执行到带有 <em>fault</em> 的语句，不一定会触发 <em>error</em></li>
+<li>测试执行到带有 <em>fault</em> 的语句并触发 <em>error</em>，不一定会产生 <em>failure</em></li>
+</ul>
+<h4 id="软件测试术语"><a href="#软件测试术语" class="headerlink" title="软件测试术语"></a>软件测试术语</h4><p>测试用例（<em>test case</em>）：</p>
+<ul>
+<li>测试输入（<em>test input</em>）：<em>test data</em></li>
+<li>测试预言（<em>test oracle</em>）：<em>expected output</em></li>
+<li>其他（<em>others</em>）：<em>environment</em></li>
+</ul>
+<p>测试（<em>testing</em>）：执行测试并观测 <em>failure</em>（发现 <em>bug</em>）</p>
+<p>调试（<em>debugging</em>）：定位、理解并改正 <em>fault</em>（修复 <em>bug</em>）</p>
+<p>确认（<em>validation</em>）：确认规格文档是否与用户需求相符</p>
+<p>确认（<em>verification</em>）：确认最终实现是否满足规格文档</p>
+<p>静态测试（<em>static testing</em>）：不运行程序</p>
+<p>动态测试（<em>dynamic testing</em>）：运行程序</p>
+<p>黑盒测试（<em>black-box testing</em>）：不需要源代码</p>
+<p>白盒测试（<em>white-box testing</em>）：需要源代码</p>
+<p>灰盒测试（<em>gray-box testing</em>）：通过反编译等手段获得了部分结构信息</p>
+<p>测试过程：<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208102310315.png" alt="image-20220810231017192" style="zoom:50%;" /></p>
+<h3 id="白盒测试"><a href="#白盒测试" class="headerlink" title="白盒测试"></a>白盒测试</h3><p>待补充</p>
+<h3 id="黑盒测试"><a href="#黑盒测试" class="headerlink" title="黑盒测试"></a>黑盒测试</h3><p>待补充</p>
+<h3 id="功能测试"><a href="#功能测试" class="headerlink" title="功能测试"></a>功能测试</h3><p>待补充</p>
+<h3 id="性能测试"><a href="#性能测试" class="headerlink" title="性能测试"></a>性能测试</h3><p>待补充</p>
+<h3 id="移动应用测试"><a href="#移动应用测试" class="headerlink" title="移动应用测试"></a>移动应用测试</h3><p>待补充</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Yoson Ling</span>
+                    </p>
+                
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/NJU/"># NJU</a>
+                    
+                        <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/"># 软件测试</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2022/08/03/About-UniRLTest/">关于 UniRLTest</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Yoson Ling | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
