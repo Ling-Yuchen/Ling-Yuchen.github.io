@@ -794,7 +794,10 @@
 <li>实现几种常见的上下文敏感策略（context sensitivity variants）</li>
 </ul>
 <p>与 A5 相似，注意上下文的正确对应即可</p>
-<h4 id="A7"><a href="#A7" class="headerlink" title="A7"></a>A7</h4><ul>
+<h4 id="A7"><a href="#A7" class="headerlink" title="A7"></a>A7</h4><blockquote>
+<p>开放性作业</p>
+</blockquote>
+<ul>
 <li>为 Java 实现一个 alias-aware 的过程间常量传播分析</li>
 </ul>
 <p>在 A4 的基础上，利用 A6 中实现的指针分析的分析结果，得到更精确的过程间常量传播分析</p>
@@ -826,9 +829,34 @@
 <li>对于 <em>load</em> 语句，不做 A4 中的常量传播，找出将所有满足别名关系的 <em>store</em> 语句加以处理</li>
 <li>对于 <em>store</em> 语句，需要将所有满足别名关系的 <em>load</em> 语句加入到 <em>solver</em> 的 <em>worklist</em> 中（本质上来讲，满足别名关系的 <em>load</em> 语句会动态地成为对应 <em>store</em> 语句的后继）</li>
 </ul>
-<h4 id="A8"><a href="#A8" class="headerlink" title="A8"></a>A8</h4><ul>
+<h4 id="A8"><a href="#A8" class="headerlink" title="A8"></a>A8</h4><blockquote>
+<p>开放性作业</p>
+</blockquote>
+<ul>
 <li>为 Java 实现污点分析</li>
 </ul>
+<p>污点分析和指针分析的不同之处在于，污点可以在对象之间传播（因为污点和数据内容相关），所以不仅需要在方法调用处处理 <em>sources</em> 和 <em>sinks</em>（获取污点数据/得到污点流），还需要额外进行污点传播</p>
+<p>在方法调用中特殊的污点传播：由 <em>base</em> 变量传给 <em>result</em>；由参数传给 <em>base</em> 变量；由参数传给 <em>result</em>，这些规则会在初始化的时候作为输入给出，可以通过 <em>TaintConfig</em> 类的 <em>getTransfer</em> 方法调用</p>
+<p>总的来说，污点分析需要与 A6 中实现的指针分析相结合，并实现以下规则：</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208111805794.png" alt="image-20220811180518725" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208111806418.png" alt="image-20220811180603335" style="zoom:50%;" />
+
+<h5 id="我的思路："><a href="#我的思路：" class="headerlink" title="我的思路："></a>我的思路：</h5><ul>
+<li><p><em>TaintAnalysiss</em> 中添加（实现）的主要 API：</p>
+<ul>
+<li><em>captureTaintObj</em>：执行 <em>Call(source)</em> 规则，返回一个新的污点对象</li>
+<li><em>captureTaintTransfer</em>：执行特殊的污点传播规则，方法内部调用链三个私有方法 <em>captureBaseToResult</em>、<em>captureArgToBase</em> 和 <em>captureArgToResult</em>，分别执行规则 *Call(base-to-result)*、 <em>Call(arg-to-base)</em> 和 <em>Call(arg-to-result)</em>  </li>
+<li><em>collectTaintFlows</em>：执行 <em>Call(sink)</em> 规则，返回一个污点流的集合，即污点分析的结果</li>
+</ul>
+</li>
+<li><p>在分析有返回值的方法调用时，调用 <em>taintAnalysis.captureTaintObj</em> 获取污点对象，并将其加入 <em>result</em> 变量的指针集中</p>
+</li>
+<li><p>在分析方法调用时，调用 <em>taintAnalysis.captureTaintTransfer</em> 处理污点传播</p>
+</li>
+</ul>
+<h5 id="出现的问题及解决方式："><a href="#出现的问题及解决方式：" class="headerlink" title="出现的问题及解决方式："></a>出现的问题及解决方式：</h5><p>当污点对象传播到某个变量的指针集中时，以该变量作为参数的方法调用可能已经被分析过，并且可能不会被再一次加入 <em>worklist</em>，导致分析结果有所遗漏（方法调用中特殊的污点传播的分析是安插在指针分析过程中的）</p>
+<p>对 <em>propagate</em> 方法进行改进，若一个变量的指针集中有新流入污点对象，则从现有的调用图中获取所有的调用点，找到以该变量作为参数的调用点，并对该调用点单独执行一次 <em>captureTaintTransfer</em></p>
 
         </div>
 
