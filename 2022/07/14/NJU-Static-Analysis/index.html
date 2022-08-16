@@ -726,7 +726,11 @@
 <li>显式流和隐藏信道的概念</li>
 <li>如何使用污点分析的检测有安全隐患的信息流</li>
 </ul>
-<h2 id="10-Datalog-Based-Program-Analysis"><a href="#10-Datalog-Based-Program-Analysis" class="headerlink" title="10 - Datalog-Based Program Analysis"></a>10 - Datalog-Based Program Analysis</h2><p>待补充</p>
+<h2 id="10-Datalog-Based-Program-Analysis"><a href="#10-Datalog-Based-Program-Analysis" class="headerlink" title="10 - Datalog-Based Program Analysis"></a>10 - Datalog-Based Program Analysis</h2><h3 id="1-Datalog-介绍"><a href="#1-Datalog-介绍" class="headerlink" title="1. Datalog 介绍"></a>1. <em>Datalog</em> 介绍</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208121208399.png" alt="image-20220812120856246" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208121209418.png" alt="image-20220812120932360" style="zoom:50%;" />
+
+<p>使用 <em>Datalog</em> 可以声明式地实现静态分析，可读性强，屏蔽了大部分细节，实现起来较容易</p>
 <h2 id="11-CFL-Reachability-and-IFDS"><a href="#11-CFL-Reachability-and-IFDS" class="headerlink" title="11 - CFL-Reachability and IFDS"></a>11 - CFL-Reachability and IFDS</h2><p>待补充</p>
 <h2 id="12-Soundness-and-Soundiness"><a href="#12-Soundness-and-Soundiness" class="headerlink" title="12 - Soundness and Soundiness"></a>12 - Soundness and Soundiness</h2><p>待补充</p>
 <h2 id="实验作业部分"><a href="#实验作业部分" class="headerlink" title="实验作业部分"></a>实验作业部分</h2><h3 id="A1"><a href="#A1" class="headerlink" title="A1"></a>A1</h3><ul>
@@ -861,7 +865,7 @@
 <li><p><em>TaintAnalysiss</em> 中添加（实现）的主要 API：</p>
 <ul>
 <li><em>captureTaintObj</em>：执行 <em>Call(source)</em> 规则，返回一个新的污点对象</li>
-<li><em>captureTaintTransfer</em>：执行特殊的污点传播规则，方法内部调用链三个私有方法 <em>captureBaseToResult</em>、<em>captureArgToBase</em> 和 <em>captureArgToResult</em>，分别执行规则 *Call(base-to-result)*、 <em>Call(arg-to-base)</em> 和 <em>Call(arg-to-result)</em>  </li>
+<li><em>captureTaintTransfer</em>：执行特殊的污点传播规则，方法内部调用链三个私有方法 <em>captureBaseToResult</em>、<em>captureArgToBase</em> 和 <em>captureArgToResult</em>，分别执行规则 <em>Call(base-to-result)<em>、</em>Call(arg-to-base)</em> 和 <em>Call(arg-to-result)</em>  </li>
 <li><em>collectTaintFlows</em>：执行 <em>Call(sink)</em> 规则，返回一个污点流的集合，即污点分析的结果</li>
 </ul>
 </li>

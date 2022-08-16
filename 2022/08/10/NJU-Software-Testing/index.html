@@ -256,11 +256,105 @@
 <p>白盒测试（<em>white-box testing</em>）：需要源代码</p>
 <p>灰盒测试（<em>gray-box testing</em>）：通过反编译等手段获得了部分结构信息</p>
 <p>测试过程：<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208102310315.png" alt="image-20220810231017192" style="zoom:50%;" /></p>
-<h3 id="白盒测试"><a href="#白盒测试" class="headerlink" title="白盒测试"></a>白盒测试</h3><p>待补充</p>
-<h3 id="黑盒测试"><a href="#黑盒测试" class="headerlink" title="黑盒测试"></a>黑盒测试</h3><p>待补充</p>
-<h3 id="功能测试"><a href="#功能测试" class="headerlink" title="功能测试"></a>功能测试</h3><p>待补充</p>
-<h3 id="性能测试"><a href="#性能测试" class="headerlink" title="性能测试"></a>性能测试</h3><p>待补充</p>
-<h3 id="移动应用测试"><a href="#移动应用测试" class="headerlink" title="移动应用测试"></a>移动应用测试</h3><p>待补充</p>
+<h3 id="白盒测试"><a href="#白盒测试" class="headerlink" title="白盒测试"></a>白盒测试</h3><h4 id="测试中的图"><a href="#测试中的图" class="headerlink" title="测试中的图"></a>测试中的图</h4><p>测试路径：从初始节点到终结节点的一条路径（可以通过设定哑节点使初始节点和终结节点唯一）</p>
+<p>测试路径代表了测试用例的执行情况（有些路径可以被多个测试用例执行到，有些路径不可被执行到）</p>
+<p>path( <em>t</em> ) 表示测试 <em>t</em> 执行的测试路径；path( <em>T</em> ) 表示测试集合 <em>T</em> 执行的测试路径集合</p>
+<p>本课程不考虑非确定性环境，即认为一个测试用例只能执行到一条测试路径</p>
+<h4 id="图覆盖准则"><a href="#图覆盖准则" class="headerlink" title="图覆盖准则"></a>图覆盖准则</h4><p>语法可达（<em>Syntactic reach</em>）：通过语法构建的图中存在一条路径</p>
+<p>语义可达（<em>Semantic reach</em>）：存在能够被执行到的测试路径</p>
+<p>覆盖（<em>Cover</em>）：</p>
+<ul>
+<li>如果节点 <em>v</em> 在测试路径 <em>p</em> 中，则该测试路径 <em>p</em> 覆盖节点 <em>v</em></li>
+<li>如果边 <em>e</em> 在测试路径 <em>p</em> 中，则该测试路径 <em>p</em> 覆盖边 <em>e</em></li>
+<li>如果子路径 <em>p’</em> 在测试路径 <em>p</em> 中，则该测试路径 <em>p</em> 覆盖子路径 <em>p’</em></li>
+</ul>
+<p>测试需求（<em>Test Requirement</em>）：描述测试路径性质</p>
+<p>测试准则（<em>Test Criterion</em>）：描述测试需求的规则</p>
+<p>给定一个测试准则 <em>C</em>，派生出对应的测试需求集 <em>TR</em>，定义一个测试用例集 <em>T</em>  满足 <em>C</em>，当且仅当对于 <em>TR</em> 中的每个测试需求，集合 path( <em>T</em> ) 中都存在一条测试路径满足该测试需求</p>
+<h4 id="结构化覆盖"><a href="#结构化覆盖" class="headerlink" title="结构化覆盖"></a>结构化覆盖</h4><p>顶点覆盖；边覆盖；边对覆盖（字面意思）</p>
+<p>n-路径覆盖：为了定义的完整性，要求长度覆盖小于等于 n 的所有路径</p>
+<p>蕴含（<em>Subsume</em>）：</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208151107010.png" alt="image-20220815110709940" style="zoom: 40%;" />
+
+<p>结构化覆盖的例子：</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208151109982.png" alt="image-20220815110904886" style="zoom:50%;" />
+
+<h4 id="控制流测试"><a href="#控制流测试" class="headerlink" title="控制流测试"></a>控制流测试</h4><p>将程序按照一定的粒度（语句、语句块、函数、模块）转换为控制流图</p>
+<p>使用 <em>Soot</em> 为 <em>Java</em> 程序自动生成控制流图</p>
+<h4 id="数据流测试"><a href="#数据流测试" class="headerlink" title="数据流测试"></a>数据流测试</h4><p>关于数据流的几个定义：</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208151113624.png" alt="image-20220815111350511" style="zoom:40%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208151114319.png" alt="image-20220815111440247" style="zoom:40%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208151115743.png" alt="image-20220815111513638" style="zoom:40%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208151116857.png" alt="image-20220815111601773" style="zoom:40%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208151117998.png" alt="image-20220815111711863" style="zoom:40%;" />
+
+<p>数据流覆盖准则：</p>
+<p>定义覆盖；引用覆盖；定义引用路径覆盖</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208151118980.png" alt="image-20220815111825820" style="zoom:40%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208151119254.png" alt="image-20220815111953197" style="zoom:40%;" />
+
+<h4 id="JUNIT-使用示例"><a href="#JUNIT-使用示例" class="headerlink" title="JUNIT 使用示例"></a>JUNIT 使用示例</h4><p>Maven 中的配置信息：</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208151121881.png" alt="image-20220815112155844" style="zoom:50%;" />
+
+
+
+<h3 id="黑盒测试"><a href="#黑盒测试" class="headerlink" title="黑盒测试"></a>黑盒测试</h3><h4 id="随机测试"><a href="#随机测试" class="headerlink" title="随机测试"></a>随机测试</h4><p>随机测试（模糊测试）</p>
+<p>自适应随机测试</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208151127955.png" alt="image-20220815112710890" style="zoom:40%;" />
+
+<p>反随机测试（应对离散的输入域）</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208151129731.png" alt="image-20220815112944651" style="zoom:40%;" />
+
+<h4 id="等价类划分"><a href="#等价类划分" class="headerlink" title="等价类划分"></a>等价类划分</h4><p>将输入域划分为一系列子集（等价类），在每个子集中选取有代表性的测试用例进行测试</p>
+<p>划分准则：不同类型数据的处理；不同的数据流或控制流；合法或非法输入</p>
+<p>等价类划分需要满足完备性和无冗余性</p>
+<h4 id="边界值分析"><a href="#边界值分析" class="headerlink" title="边界值分析"></a>边界值分析</h4><p>（字面意思）</p>
+<h4 id="组合测试"><a href="#组合测试" class="headerlink" title="组合测试"></a>组合测试</h4><p>完全组合测试：组合数等于各输入等价类个数的乘积，测试代价高</p>
+<p>两两组合测试：覆盖任意两个测试变量之间所有的取值组合（可以推广到 <em>T-wise combinatorial test</em>）</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208151148998.png" alt="image-20220815114858813" style="zoom:40%;" />
+
+
+
+<h3 id="功能测试"><a href="#功能测试" class="headerlink" title="功能测试"></a>功能测试</h3><h4 id="功能测试简介"><a href="#功能测试简介" class="headerlink" title="功能测试简介"></a>功能测试简介</h4><p>功能测试常用步骤：</p>
+<ul>
+<li>根据需求细分功能点</li>
+<li>根据功能点派生测试需求</li>
+<li>根据测试需求设计功能测试用例</li>
+<li>逐项执行功能测试用例验证产品</li>
+</ul>
+<h4 id="探索式测试"><a href="#探索式测试" class="headerlink" title="探索式测试"></a>探索式测试</h4><p>探索式测试是一种软件测试风格</p>
+<p>强调独立测试人员的个人职责和自由</p>
+<p>将测试学习、设计、执行、结果分析作为相互支持的活动</p>
+<p>在整个项目中并行地执行</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208161241281.png" alt="image-20220816124129162" style="zoom:40%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208161242881.png" alt="image-20220816124227760" style="zoom:40%;" />
+
+<p>强调：关注价值、风险驱动</p>
+<h3 id="性能测试"><a href="#性能测试" class="headerlink" title="性能测试"></a>性能测试</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>度量方法：</p>
+<ul>
+<li>服务端性能采用 CPU、内存等使用率来度量</li>
+<li>客户端性能通常根据系统处理特定用户请求的响应时间来度量</li>
+</ul>
+<p>响应时间 = 服务端响应时间 + 客户端响应时间</p>
+<p>并发用户数（取决于测试对象的目标业务场景）</p>
+<p>吞吐量：单位时间内处理的用户请求数量</p>
+<p>负载测试：验证系统在正常的负载条件下的行为</p>
+<p>压力测试：评估系统处于或超过预期负载时的行为</p>
+<h3 id="移动应用测试"><a href="#移动应用测试" class="headerlink" title="移动应用测试"></a>移动应用测试</h3><h4 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h4><p>Android 测试工具：</p>
+<ul>
+<li><em>Monkey</em></li>
+<li><em>Android Instrumentation</em></li>
+<li><em>Android BDD-Calabash</em></li>
+</ul>
+<p>众包测试：</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208161249785.png" alt="image-20220816124907539" style="zoom:40%;" />
+
 
         </div>
 
