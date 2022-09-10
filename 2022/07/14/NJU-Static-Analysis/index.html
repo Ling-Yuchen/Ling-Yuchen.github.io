@@ -13,7 +13,7 @@
 
 
 
-<title>南京大学《软件分析》课程笔记（更新中） | Yoson&#39;s Blog</title>
+<title>南京大学《软件分析》课程笔记 | Yoson&#39;s Blog</title>
 
 
 
@@ -196,7 +196,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">南京大学《软件分析》课程笔记（更新中）</h1>
+            <h1 class="post-title">南京大学《软件分析》课程笔记</h1>
             
                 <div class="post-meta">
                     
@@ -726,25 +726,7 @@
 <li>显式流和隐藏信道的概念</li>
 <li>如何使用污点分析的检测有安全隐患的信息流</li>
 </ul>
-<h2 id="10-Datalog-Based-Program-Analysis"><a href="#10-Datalog-Based-Program-Analysis" class="headerlink" title="10 - Datalog-Based Program Analysis"></a>10 - Datalog-Based Program Analysis</h2><h3 id="1-Datalog-介绍"><a href="#1-Datalog-介绍" class="headerlink" title="1. Datalog 介绍"></a>1. <em>Datalog</em> 介绍</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208121208399.png" alt="image-20220812120856246" style="zoom:50%;" />
-
-<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202208121209418.png" alt="image-20220812120932360" style="zoom:50%;" />
-
-<p>使用 <em>Datalog</em> 可以声明式地实现静态分析，可读性强，屏蔽了大部分细节，实现起来较容易</p>
-<h4 id="2-通过-Datalog-实现指针分析"><a href="#2-通过-Datalog-实现指针分析" class="headerlink" title="2. 通过 Datalog 实现指针分析"></a>2. 通过 <em>Datalog</em> 实现指针分析</h4><h4 id="3-通过-Datalog-实现污点分析"><a href="#3-通过-Datalog-实现污点分析" class="headerlink" title="3. 通过 Datalog 实现污点分析"></a>3. 通过 <em>Datalog</em> 实现污点分析</h4><h2 id="11-CFL-Reachability-and-IFDS（没听懂）"><a href="#11-CFL-Reachability-and-IFDS（没听懂）" class="headerlink" title="11 - CFL-Reachability and IFDS（没听懂）"></a>11 - CFL-Reachability and IFDS（没听懂）</h2><h4 id="1-Feasible-and-Realizable-Paths"><a href="#1-Feasible-and-Realizable-Paths" class="headerlink" title="1. Feasible and Realizable Paths"></a>1. Feasible and Realizable Paths</h4><p>realizable path：在方法间调用的分析时，<em>call</em> 边和 <em>return</em> 边相匹配的的路径</p>
-<p>realizable path 不一定可执行，但 unrealizable path 一定不可执行</p>
-<h4 id="2-CFL-Reachability"><a href="#2-CFL-Reachability" class="headerlink" title="2. CFL-Reachability"></a>2. CFL-Reachability</h4><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202209052255148.png" alt="image-20220905225509863" style="zoom:50%;" />
-
-<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202209052307205.png" alt="image-20220905230736048" style="zoom:50%;" />
-
-<h4 id="3-Overview-of-IFDS"><a href="#3-Overview-of-IFDS" class="headerlink" title="3. Overview of IFDS"></a>3. Overview of IFDS</h4><p>IFDS：一种借助图可达性进行分析的程序分析框架，没有数据流的传播</p>
-<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202209061757893.png" alt="image-20220906175742734" style="zoom:50%;" />
-
-<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202209061803404.png" alt="image-20220906180334256" style="zoom:50%;" />
-
-<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202209061805150.png" alt="image-20220906180542091" style="zoom:50%;" />
-
-<h4 id="4-Supergraph-and-Flow-Functions"><a href="#4-Supergraph-and-Flow-Functions" class="headerlink" title="4. Supergraph and Flow Functions"></a>4. Supergraph and Flow Functions</h4><h4 id="5-Exploded-Supergraph-and-Tablulation-Algorithm"><a href="#5-Exploded-Supergraph-and-Tablulation-Algorithm" class="headerlink" title="5. Exploded Supergraph and Tablulation Algorithm"></a>5. Exploded Supergraph and Tablulation Algorithm</h4><h4 id="6-Understanding-the-Distributivity-of-IFDS"><a href="#6-Understanding-the-Distributivity-of-IFDS" class="headerlink" title="6. Understanding the Distributivity of IFDS"></a>6. Understanding the Distributivity of IFDS</h4><h2 id="实验作业部分"><a href="#实验作业部分" class="headerlink" title="实验作业部分"></a>实验作业部分</h2><h3 id="A1"><a href="#A1" class="headerlink" title="A1"></a>A1</h3><ul>
+<h2 id="实验作业部分"><a href="#实验作业部分" class="headerlink" title="实验作业部分"></a>实验作业部分</h2><h3 id="A1"><a href="#A1" class="headerlink" title="A1"></a>A1</h3><ul>
 <li>为 Java 实现一个活跃变量分析（Live Variable Analysis）</li>
 <li>实现一个通用的迭代求解器（Iterative Solver），用于求解数据流分析问题，也就是本次作业中的活跃变量分析</li>
 </ul>
