@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Yoson Ling">
+
+
+
+
+
+<title>商业模式新生代阅读笔记（更新中） | Yoson&#39;s Blog</title>
+
+
+
+    <link rel="icon" href="/FisherGirl.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Yoson&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Yoson&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">商业模式新生代阅读笔记（更新中）</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Yoson Ling</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">九月 11, 2022&nbsp;&nbsp;0:00:00</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Reading/">Reading</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <blockquote>
+<p>商业模式：一个商业模式描述的是一个组织创造、传递以及获得价值的基本原理</p>
+</blockquote>
+<h3 id="九大模块"><a href="#九大模块" class="headerlink" title="九大模块"></a>九大模块</h3><p><strong>客户细分</strong></p>
+<ul>
+<li>大众市场</li>
+<li>小众市场</li>
+<li>求同存异的客户群体</li>
+<li>多元化的客户群体</li>
+<li>多边平台/多边市场</li>
+</ul>
+<p><strong>价值主张</strong></p>
+<p>一家公司为客户提供的利益集合</p>
+<p><strong>渠道通路</strong></p>
+<p>企业如何同其客户群体沟通并建立联系，以向对方传达自身的价值主张</p>
+<p><strong>客户关系</strong></p>
+<p>企业针对客户群体建立客户关系的类型</p>
+<p>驱动力：开发新客户；留住原客户；增加销售量或单价</p>
+<ul>
+<li>私人服务：发生在购买的现场</li>
+<li>专属私人服务：需要长时间积累，如私人银行服务等</li>
+<li>自助服务：企业向客户提供渠道</li>
+<li>自动化服务：根据客户资料定制服务，如商品推荐等</li>
+<li>社区：使用用户社区融入客户，有利于企业预判未来市场发展，促进社区中成员间联系</li>
+<li>与用户协作，共同创造：与客户合作共同创造价值，如亚马逊邀请客户撰写书评</li>
+</ul>
+<p><strong>收入来源</strong></p>
+<p>企业从每个客户群体中获得的现金收益</p>
+<ul>
+<li>资产销售：出售实物产品所有权</li>
+<li>使用费：提供某种具体服务，使用越多支付越多</li>
+<li>会员费：销售某项服务的持续使用权限</li>
+<li>租赁：将特定资产某一时期专门供给某人使用</li>
+<li>许可使用费：授予某种受保护知识产权的使用权，并收取使用费</li>
+<li>经纪人佣金：提供中介服务</li>
+<li>广告费：为某种产品、服务或品牌做广告</li>
+</ul>
+<p><strong>核心资源</strong></p>
+<p>一个商业模式顺利运行所需的最重要资产</p>
+<p>核心资源使得企业能够创造并提供价值主张，获得市场，保持与某个客户群体的客户关系并获得收益</p>
+<ul>
+<li>实物资源：一切实物资产，如生产设备、房屋、车辆、机器、管理系统等（资本密集型）</li>
+<li>知识性资源：如品牌、专营权、专利权、版权、合作关系、客户数据库等，不宜获得但价值巨大</li>
+<li>人力资源：普遍需要，在知识密集型产业和创新产业尤为关键，如制药公司等</li>
+<li>金融资源：现金、信用额度、用于吸引关键雇员的股票期权池</li>
+</ul>
+<p><strong>关键业务</strong></p>
+<p>保障商业模式正常运行所需要做的最重要的事情</p>
+<p>关键业务是企业创造并提供价值主张，获得市场，维系客户关系并获得收益所必须的</p>
+<ul>
+<li>生产：涉及较大数量或上乘质量，设计、制造以及分销产品，如制造类企业</li>
+<li>解决方案：涉及为个体客户的问题提供解决方案，如咨询公司、医院等</li>
+<li>平台/网络：涉及平台管理、新服务启动、平台升级，如 Visa 公司搭建的信用卡交易平台</li>
+</ul>
+<p><strong>重要合作</strong></p>
+<p>一个商业模式顺利运行所需的供应商和合作伙伴网络</p>
+<ul>
+<li>优化及规模效应：优化资源及活动配置，降低成本，如外包、基础设施共享等</li>
+<li>降低风险和不确定性：互为竞争对手的企业在某一领域建立战略联盟而在其他领域保持竞争关系</li>
+<li>特殊资源及活动的获得：企业通过依赖其他占有某项资源或专注于某项活动的公司来实现能力的拓展</li>
+</ul>
+<p><strong>成本结构</strong></p>
+<p>成本导向：创造并维持精简的成本结构，如低价的价值主张、自动化生产最大化、广泛的业务外包</p>
+<p>价值导向：更少地关注成本，更多地关注价值创造，以更高端的价值主张、高度的个性化服务为特点</p>
+<h3 id="商业模式画布"><a href="#商业模式画布" class="headerlink" title="商业模式画布"></a>商业模式画布</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202209072007214.png" alt="image-20220907200701090" style="zoom:50%;" />
+
+<h3 id="商业模式类型"><a href="#商业模式类型" class="headerlink" title="商业模式类型"></a>商业模式类型</h3><h4 id="分拆商业模式"><a href="#分拆商业模式" class="headerlink" title="分拆商业模式"></a>分拆商业模式</h4><p>将企业从事的活动分为：客户关系管理、新产品开发、基础设施管理</p>
+<p>理想情况下，它们存在于相互独立的实体中以避免冲突或不必要的消长</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202209072256345.png" alt="image-20220907225625044" style="zoom:40%;" />
+
+<p><strong>私人银行产业</strong>集合了上述三种商业活动：<strong>财富管理</strong>，<strong>经纪服务</strong>，<strong>金融产品设计</strong></p>
+<p>三种不同类型基础业务之间的消长：</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202209072310035.png" alt="image-20220907231007672" style="zoom:50%;" />
+
+<p><strong>移动通信行业</strong>的拆分：</p>
+<ul>
+<li><p>基础设施管理交由设备生产商，它们可以同时为多个运营商提供服务，做到更低的运营成本</p>
+</li>
+<li><p>新产品开发交由多个内容提供商（更小的创新型企业），发挥小而有活力的组织的优势</p>
+</li>
+<li><p>品牌和客户关系作为新的核心资产，由减负后的运营商专心聚焦</p>
+</li>
+</ul>
+<h4 id="长尾商业模式"><a href="#长尾商业模式" class="headerlink" title="长尾商业模式"></a>长尾商业模式</h4><p>受到生产工具、销售渠道的普及以及连接供需双方搜寻成本的降低的促进</p>
+<p>少量、多种，即致力于提供多种小众产品</p>
+<p>需要满足：低库存成本、强大的平台、及时售出</p>
+<p><strong>图书出版行业</strong>的转型：</p>
+<p>以畅销书为中心    转变为    为任何有需要的人出版</p>
+<p>吸引大量作家，使得作品的失败对出版商而言接近零成本</p>
+<center>
+    <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202209101052230.png" alt="image-20220910105254140" style="zoom:45%;" />
+    <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202209101053454.png" alt="image-20220910105332377" style="zoom:45%;" />
+</center>
+**乐高**的新长尾模式：
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202209102301261.png" alt="image-20220910230107977" style="zoom:50%;" />
+
+<p><strong>长尾模式总结</strong>：</p>
+<ul>
+<li>小众产品提供者是<strong>重要伙伴</strong></li>
+<li>以提供宽范围的非热销品与热销品共存为<strong>价值主张</strong></li>
+<li>聚焦于小众<strong>客户</strong></li>
+<li>以<strong>平台</strong>为核心资源</li>
+<li>以平台开发维护、小众产品的获得与生产等为<strong>关键业务</strong></li>
+<li><strong>成本</strong>主要发生于平台开发和维护</li>
+<li>依赖互联网来维护<strong>客户关系</strong>或作为<strong>交易渠道</strong></li>
+<li><strong>收入来源</strong>广泛，可能包括广告、产品销售、订阅费等</li>
+<li>对专业和业余产品提供者都适用，创造了一个同时服务于用户和生产者的<strong>多边平台</strong></li>
+</ul>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202209102309693.png" alt="image-20220910230923520" style="zoom:50%;" />
+
+
+
+<h4 id="多边平台商业模式"><a href="#多边平台商业模式" class="headerlink" title="多边平台商业模式"></a>多边平台商业模式</h4><p>将两个或更多独立但相互依存的客户群体连接在一起</p>
+<p>平台对于平台中某一群体的价值在于平台中其他客户群体的存在</p>
+<p>平台通过促进不同群体间的互动而创造价值（充当媒介）</p>
+<p>平台的价值提升在于其所吸引的用户数量的增加（网络效应）</p>
+<p><strong>谷歌</strong>的商业模式：</p>
+<p>向三个相互依存的客户群体提出三个不同的价值主张：</p>
+<ul>
+<li>针对搜索内容靶向投放广告（广告商）</li>
+<li>免费的强大的搜索引擎服务，多种在线工具服务（上网浏览者）</li>
+<li>呈现谷歌广告商的广告，利用自己的网站内容获利（第三方内容创造者）</li>
+</ul>
+<p>从广告商群体中赚钱，对上网浏览着和内容提供者给予补贴</p>
+<p><strong>电子游戏机产业</strong>：Wii <em>vs.</em> PSP/Xbox</p>
+<center>
+    <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202209102343513.png" alt="image-20220910234316443" style="zoom:45%;" />
+    <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202209102342897.png" alt="image-20220910234251855" style="zoom:45%;" />
+</center>
+
+<p><strong>苹果公司</strong>的平台发展：</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202209102341296.png" alt="image-20220910234129230" style="zoom:50%;" />
+
+<p><strong>多边平台圣夜模式总结</strong>：</p>
+<ul>
+<li><strong>核心资源</strong>是平台，关键活动是平台管理、服务实现以及平台升级</li>
+<li><strong>价值主张</strong>主要体现在吸引客户群体，将客户群体进行配对，通过平台提供的交易渠道降低交易成本</li>
+<li>有两个或更多的相互依赖的<strong>客户细分</strong>，每个都有各自的价值主张和收益流</li>
+<li>每个人客户群体产生一个<strong>收益流</strong>，一个或多个群体享受免费服务或来自另一客户群体收益流的补贴</li>
+<li>选择对的客户群体作为补贴对象是关键，决定了该模式是否成功</li>
+</ul>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202209102352220.png" alt="image-20220910235239062" style="zoom:50%;" />
+
+
+
+<h4 id="免费的商业模式"><a href="#免费的商业模式" class="headerlink" title="免费的商业模式"></a>免费的商业模式</h4><h4 id="开放式的商业模式"><a href="#开放式的商业模式" class="headerlink" title="开放式的商业模式"></a>开放式的商业模式</h4>
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Yoson Ling</span>
+                    </p>
+                
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/NJU/"># NJU</a>
+                    
+                        <a href="/tags/%E5%95%86%E4%B8%9A%E6%A8%A1%E5%BC%8F/"># 商业模式</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2022/09/07/NJU-Cloud-Computing/">南京大学《云计算》课程笔记（更新中）</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Yoson Ling | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
