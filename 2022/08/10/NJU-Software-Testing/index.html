@@ -357,7 +357,7 @@
 
 
 
-<h2 id="自动化测试"><a href="#自动化测试" class="headerlink" title="自动化测试"></a>自动化测试</h2><h4 id="一些测试思想："><a href="#一些测试思想：" class="headerlink" title="一些测试思想："></a>一些测试思想：</h4><p><strong>模糊测试</strong>：通过向目标系统提供非预期的输入并监视异常结果来发现软件漏洞的方法</p>
+<h2 id="自动化测试"><a href="#自动化测试" class="headerlink" title="自动化测试"></a>自动化测试</h2><h3 id="一些测试思想："><a href="#一些测试思想：" class="headerlink" title="一些测试思想："></a>一些测试思想：</h3><p><strong>模糊测试</strong>：通过向目标系统提供非预期的输入并监视异常结果来发现软件漏洞的方法</p>
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202209072113715.png" alt="image-20220907211354434" style="zoom: 50%;" />
 
 <p><strong>变异测试</strong>：在细节方面改进程序源代码的软件测试方法。这些所谓的变异，是基于良好定义的变异操作，这些操作或者是模拟典型应用错误（例如：使用错误的操作符或者变量名字），或者是强制产生有效地测试（例如使得每个表达式都等于0）。目的是帮助测试者发现有效地测试，或者定位测试数据的弱点，或者是在执行中很少（或从不）使用的代码的弱点。</p>
@@ -369,7 +369,7 @@
 <p><strong>差分测试</strong>：通过将同一测试用例运行到一系列相似功能的应用中观察执行差异来检测 bug</p>
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202209072116833.png" alt="image-20220907211634669" style="zoom:50%;" />
 
-<h4 id="一些已有的研究成果："><a href="#一些已有的研究成果：" class="headerlink" title="一些已有的研究成果："></a>一些已有的研究成果：</h4><ul>
+<h3 id="一些已有的研究成果："><a href="#一些已有的研究成果：" class="headerlink" title="一些已有的研究成果："></a>一些已有的研究成果：</h3><ul>
 <li>自动化测试脚本修复</li>
 <li>测试用例推荐</li>
 <li>基于互联网群体 智能的软件测试</li>
@@ -384,6 +384,174 @@
 <li>面向群体智能的测试自动回放</li>
 </ul>
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202209092049620.png" alt="image-20220909204917288" style="zoom:50%;" />
+
+<h3 id="变异测试"><a href="#变异测试" class="headerlink" title="变异测试"></a>变异测试</h3><h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>变异测试的产生：</p>
+<ul>
+<li><p><strong>模拟</strong>缺陷，<strong>量化</strong>缺陷检测能力，指示测试有效性</p>
+<ul>
+<li><p>模拟：变异产生错误版本，模拟探测 bug 的过程</p>
+</li>
+<li><p>量化：变异得分（变异杀死率）</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>变异体：基于语法变换规则，通过对源程序进行程序变换得到的一系列变体（假设源程序不包含缺陷；假设变异体表达了某种缺陷）</p>
+<p>变异得分：变异测试对测试套件检错能力的量化（变异体杀死率）</p>
+<p>变异体的分类：有效；夭折（编译不通过）；冗余（等价、重复、蕴含）</p>
+<p>变异算子：</p>
+<ul>
+<li><p>一系列语法变换规则</p>
+</li>
+<li><p>变异的依据，反应了测试人员关注的缺陷种类</p>
+</li>
+<li><p>基本形式</p>
+<ul>
+<li>对程序源码进行变换</li>
+<li>对程序编译结果（中间表示）进行变换</li>
+<li>元变异</li>
+</ul>
+</li>
+</ul>
+<p>基础假设：</p>
+<ul>
+<li>缺陷是简单的、可模拟的</li>
+<li>缺陷是可叠加的</li>
+<li>缺陷检测是有效的</li>
+</ul>
+<h4 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h4><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202209231453551.png" alt="image-20220923145344456" style="zoom:50%;" />
+
+<p>变异体筛选：对变异体进行筛选；对变异算子进行筛选（研究方向：变异算子的定义与约减策略）</p>
+<p>变异体生成：将选中的变异算子实例化（研究方向：元变异，基于字节码操作，热替换）</p>
+<p>变异体优化：</p>
+<ul>
+<li>识别等价变异体：代码优化 / 数据流分析</li>
+<li>识别冗余变异体：操作符角度 / 缺陷层级角度 / 程序分析角度</li>
+</ul>
+<p>变异体执行：变异测试过程中最昂贵的阶段</p>
+<ul>
+<li><p>研究内容：针对<strong>计算变异得分</strong>（场景A）/ <strong>计算变异矩阵</strong>（场景B）优化执行过程</p>
+</li>
+<li><p>优化策略</p>
+<ul>
+<li>改变测试用例顺序（A）</li>
+<li>匹配测试用例与变异体（A）</li>
+<li>避免执行必定存活的变异体（A, B）</li>
+<li>限定变异体的执行时间（A, B）</li>
+</ul>
+</li>
+</ul>
+<p>变异得分计算：（研究内容：变异杀死的条件，测试预言的生成）</p>
+<h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><p>评估作用：变异得分评估测试充分性</p>
+<p>引导作用：利用变异测试 / 分析结果引导测试过程</p>
+<p>传统应用：应用于确定性系统</p>
+<ul>
+<li>测试生成</li>
+<li>语言生成</li>
+<li>测试优化</li>
+<li>debug 引导</li>
+</ul>
+<p>变异 &amp; AI：应用于非确定性系统</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202209231455917.png" alt="image-20220923145535799" style="zoom:50%;" />
+
+<h3 id="模糊测试"><a href="#模糊测试" class="headerlink" title="模糊测试"></a>模糊测试</h3><h4 id="起源与发展"><a href="#起源与发展" class="headerlink" title="起源与发展"></a>起源与发展</h4><p>模糊测试的诞生：</p>
+<p>由字符乱码能够导致程序崩溃的现象启发，为提高 UINX 系统的可靠性，以随机字符串作为输入，运行操作系统组件，观察是否发生崩溃</p>
+<p>近期发展：</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202209231502603.png" alt="image-20220923150234520" style="zoom:50%;" />
+
+<h4 id="概念与架构"><a href="#概念与架构" class="headerlink" title="概念与架构"></a>概念与架构</h4><p>初始构想：工具（模糊器 Fuzzer） + 目标（待测程序 PUT） + 循环（执行程序 ⇆ 崩溃分派）</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202209231508681.png" alt="image-20220923150810475" style="zoom:40%;" />
+
+<p>相关术语：</p>
+<ul>
+<li>模糊：从模糊输入空间得到输入来执行 DUT 的过程</li>
+<li>模糊测试：应用模糊过程来验证 DUT 是否违反正确性策略的测试技术</li>
+<li>模糊器：用于实现模糊测试的程序（核心，需要完成输入生成、测试执行和输出分析）</li>
+<li>模糊运动：Fuzzer 按照特定的 Correctness Policy 在给定 DUT 上的一次具体的执行</li>
+<li>缺陷预言：用于确定一次给定执行是否违反具体 Correctness Policy 的程序</li>
+<li>模糊配置：控制和描述模糊（测试）算法的数据和约束</li>
+<li>种子输入：在模糊测试过程中为输入生成提供基准的测试输入</li>
+</ul>
+<p>模糊测试框架：</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202209231520555.png" alt="image-20220923152000213" style="zoom:40%;" />
+
+<h4 id="家族与分类"><a href="#家族与分类" class="headerlink" title="家族与分类"></a>家族与分类</h4><p>模糊测试家族：</p>
+<ul>
+<li>AFL家族（C/C++）：AFL、AFLFast、AFLSmart、AFLNet、 AFLGo、AFLIoT、FairFuzz、Mopt.、Neuzz</li>
+<li>LibFuzzer家族（C/C++）：LibFuzzer、Entropic</li>
+<li>JQF家族（Java）：JQF、BeDivFuzz、CONFETTI</li>
+<li>其他（Rust、Python等）：Angora、DeepXplore</li>
+</ul>
+<p>模糊测试分类：</p>
+<ul>
+<li><p>按照采用的运行时信息：</p>
+<ul>
+<li>黑盒：仅从输入输出着手优化，利用输入格式或输出状态引导测试，效率高但有效性欠缺</li>
+<li>白盒：使用混合分析、污点分析等昂贵白盒分析技术进行优化，利用详细程序分析结果引导测试，有效行高但效率低适配性差</li>
+<li>灰盒：使用轻量级插桩监控程序，执行时收集各类信息并以此引导测试，黑盒白盒 trade-off</li>
+</ul>
+</li>
+<li><p>按照输入生成的策略：</p>
+<ul>
+<li>基于变异：本质上是将种子输入转换为比特串进行变换，易于泛化但容易破环输入结构</li>
+<li>基于生成：本质上是利用给定/挖掘/学习得到的文法规则来构建结构化输入，适用于对输入结构性要求较高的场景，但需要人工赋予一定的领域知识</li>
+</ul>
+</li>
+<li><p>按照引导过程：</p>
+<ul>
+<li>Search-based：将测试转化为搜索问题，以代码覆盖率作为指示器、以启发式算法为核心，将测试导向更高覆盖的方向</li>
+<li>Gradient-based：将测试转化为优化问题，以最大化缺陷发掘输入为目标构建目标函数，梯度下降算法迭代求最优解（若缺陷离散且无法预知，则将目标退阶为代码覆盖）</li>
+</ul>
+</li>
+<li><p>按照测试的目的：</p>
+<ul>
+<li>定向：针对程序中的某个目标位置进行快而有效的测试</li>
+<li>非定向：验证程序的正确性，检测程序中潜在的缺陷</li>
+</ul>
+</li>
+<li><p>按照应用领域：网络协议、Compiler、DNN、IoT、内核</p>
+</li>
+<li><p>按照优化角度：种子调度、变异策略、能量调度、过程建模</p>
+</li>
+</ul>
+<h4 id="iSE模糊测试"><a href="#iSE模糊测试" class="headerlink" title="iSE模糊测试"></a>iSE模糊测试</h4><h3 id="移动应用测试-1"><a href="#移动应用测试-1" class="headerlink" title="移动应用测试"></a>移动应用测试</h3><h4 id="众包测试"><a href="#众包测试" class="headerlink" title="众包测试"></a>众包测试</h4><h4 id="自动化测试-1"><a href="#自动化测试-1" class="headerlink" title="自动化测试"></a>自动化测试</h4><p>人为驱动的测试行为转化为机器执行</p>
+<p>提升效率、降低成本、快速回归测试、保证测试一致性</p>
+<p>开发时间周期长、对测试人员要求高、脚本维护开销大</p>
+<p>adb 捕获移动应用内部状态</p>
+<p>Appium</p>
+<h3 id="代码摘要"><a href="#代码摘要" class="headerlink" title="代码摘要"></a>代码摘要</h3><p>代码摘要：翻译任务；特殊的文本摘要</p>
+<p>研究目的：为缺少注释的旧代码补上注释；为新代码自动化生成注释</p>
+<p>潜在应用场景：代码理解；代码审核；代码定位</p>
+<p>早期工作：本文检索，从代码中提取关键词进行组合</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202210141029336.png" alt="image-20221014102949158" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202210141032878.png" alt="image-20221014103234674" style="zoom:50%;" />
+
+<p>中期工作：分析已有工作的有效性（提取的关键词和程序员实际认为的关键词是否相符等问题）并提出优化方案</p>
+<p>近期工作：数据驱动，深度学习模型</p>
+<p>测试：</p>
+<ul>
+<li>黑盒，白盒，灰盒</li>
+<li>单元，集成，系统</li>
+<li>功能，性能，安全，</li>
+</ul>
+<ul>
+<li>正向：等价类划分（组合，正交实验设计）</li>
+<li>负向：故障假设（边界值，…）</li>
+</ul>
+<p>Bug：</p>
+<ul>
+<li>显性</li>
+<li>隐性</li>
+</ul>
+<p>智能系统</p>
+<p>图</p>
+<p>软件分析 -&gt; 代码的图结构</p>
+<p>随机：自适应随机</p>
+<ul>
+<li>AI for SE</li>
+<li>SE for AI</li>
+</ul>
 
         </div>
 
