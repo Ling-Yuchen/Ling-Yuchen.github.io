@@ -126,6 +126,33 @@
     
     
     <entry>
+      <title>南京大学《机器学习》课程笔记（ing）</title>
+      <link href="/2023/02/14/NJU-Machine-Learning/"/>
+      <url>/2023/02/14/NJU-Machine-Learning/</url>
+      
+        <content type="html"><![CDATA[<h1 id="机器学习"><a href="#机器学习" class="headerlink" title="机器学习"></a>机器学习</h1><h2 id="机器学习概论"><a href="#机器学习概论" class="headerlink" title="机器学习概论"></a>机器学习概论</h2><h3 id="机器学习系统"><a href="#机器学习系统" class="headerlink" title="机器学习系统"></a>机器学习系统</h3><p>人工智能的三大基石：推理，知识，学习（利用经验改善系统性能）</p><p>任何通过数据训练的学习算法都属于机器学习：</p><ul><li>线性回归</li><li>K-means</li><li>PCA</li><li>决策树</li><li>……</li></ul><p><strong>学习系统</strong></p><p>模型空间（模型层面），数据（数据层面） -&gt; 学习算法（学习层面） -&gt; 学得模型（学习结果）</p><p>优化目标函数，在很大的模型空间找到目标函数，SGD学习算法</p><p>数据层面：数据类型</p><p>模型层面：线性/非线性，浅层/深度/递归</p><p>学习层面：经典/现代/混合</p><p>经典学习方法：机械/归纳/类比/解释/决策树&amp;森林/贝叶斯分类器/聚类</p><p>现代学习方法：监督学习/弱监督学习/无监督学习/统计学习/集成学习/强化学习/…</p><p>常规术语及标记</p><p>输入：x，输出：y，权重：w，误差：E，目标：t</p><p>数据集划分：训练集，测试集，验证集（留出法，交叉验证）</p><h3 id="系统建模和模型选择"><a href="#系统建模和模型选择" class="headerlink" title="系统建模和模型选择"></a>系统建模和模型选择</h3><p>建模</p><p>模型/映射函数刻画</p><p>确定目标/损失函数（凸与非凸）并优化获得模型</p><p>泛化性能：欠拟合/过拟合</p><p>评价指标：混淆矩阵（分类，TP,FN,FP,TN:二分类），精度，错误率，查准率，查全率，F1度量</p><p>ROC曲线</p><p>正则化方法，约束选择空间，吉洪诺夫正则化</p><h3 id="统计学基本概念"><a href="#统计学基本概念" class="headerlink" title="统计学基本概念"></a>统计学基本概念</h3><p>均值，期望，方差，协方差</p><p>欧氏距离，余弦距离，…</p><h3 id="机器学习技术新进展"><a href="#机器学习技术新进展" class="headerlink" title="机器学习技术新进展"></a>机器学习技术新进展</h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> Learning </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> NJU </tag>
+            
+            <tag> 机器学习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>南京大学《编译原理》课程笔记</title>
       <link href="/2022/12/04/NJU-Compiler-Principle/"/>
       <url>/2022/12/04/NJU-Compiler-Principle/</url>
@@ -340,33 +367,6 @@
             <tag> NJU </tag>
             
             <tag> 静态分析 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>南京大学《机器学习》课程笔记（ing）</title>
-      <link href="/2022/02/14/NJU-Machine-Learning/"/>
-      <url>/2022/02/14/NJU-Machine-Learning/</url>
-      
-        <content type="html"><![CDATA[<h1 id="机器学习"><a href="#机器学习" class="headerlink" title="机器学习"></a>机器学习</h1><h2 id="机器学习概论"><a href="#机器学习概论" class="headerlink" title="机器学习概论"></a>机器学习概论</h2><h3 id="机器学习系统"><a href="#机器学习系统" class="headerlink" title="机器学习系统"></a>机器学习系统</h3><p>人工智能的三大基石：推理，知识，学习（利用经验改善系统性能）</p><p>任何通过数据训练的学习算法都属于机器学习：</p><ul><li>线性回归</li><li>K-means</li><li>PCA</li><li>决策树</li><li>……</li></ul><p><strong>学习系统</strong></p><p>模型空间（模型层面），数据（数据层面） -&gt; 学习算法（学习层面） -&gt; 学得模型（学习结果）</p><p>优化目标函数，在很大的模型空间找到目标函数，SGD学习算法</p><p>数据层面：数据类型</p><p>模型层面：线性/非线性，浅层/深度/递归</p><p>学习层面：经典/现代/混合</p><p>经典学习方法：机械/归纳/类比/解释/决策树&amp;森林/贝叶斯分类器/聚类</p><p>现代学习方法：监督学习/弱监督学习/无监督学习/统计学习/集成学习/强化学习/…</p><p>常规术语及标记</p><p>输入：x，输出：y，权重：w，误差：E，目标：t</p><p>数据集划分：训练集，测试集，验证集（留出法，交叉验证）</p><h3 id="系统建模和模型选择"><a href="#系统建模和模型选择" class="headerlink" title="系统建模和模型选择"></a>系统建模和模型选择</h3><p>建模</p><p>模型/映射函数刻画</p><p>确定目标/损失函数（凸与非凸）并优化获得模型</p><p>泛化性能：欠拟合/过拟合</p><p>评价指标：混淆矩阵（分类，TP,FN,FP,TN:二分类），精度，错误率，查准率，查全率，F1度量</p><p>ROC曲线</p><p>正则化方法，约束选择空间，吉洪诺夫正则化</p><h3 id="统计学基本概念"><a href="#统计学基本概念" class="headerlink" title="统计学基本概念"></a>统计学基本概念</h3><p>均值，期望，方差，协方差</p><p>欧氏距离，余弦距离，…</p><h3 id="机器学习技术新进展"><a href="#机器学习技术新进展" class="headerlink" title="机器学习技术新进展"></a>机器学习技术新进展</h3>]]></content>
-      
-      
-      <categories>
-          
-          <category> Learning </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> NJU </tag>
-            
-            <tag> 机器学习 </tag>
             
         </tags>
       
