@@ -677,14 +677,76 @@
 </blockquote>
 <h1 id="09-中间代码生成"><a href="#09-中间代码生成" class="headerlink" title="09 - 中间代码生成"></a>09 - 中间代码生成</h1><h2 id="表达式翻译与控制流翻译"><a href="#表达式翻译与控制流翻译" class="headerlink" title="表达式翻译与控制流翻译"></a>表达式翻译与控制流翻译</h2><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230220235003531.webp" alt="image-20230220235003531" style="zoom:50%;" />
 
-<ul>
-<li>表达式翻译</li>
-</ul>
-<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230221001735737.webp" alt="image-20230221001735737" style="zoom:90%;" />
+<p>注意：下图中的文法对布尔表达式和非布尔表达式做出了区分</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230221001735737.webp" alt="image-20230221001735737" style="zoom:90%; margin-bottom:40px" />
 
+<h3 id="非布尔表达式的中间代码翻译"><a href="#非布尔表达式的中间代码翻译" class="headerlink" title="非布尔表达式的中间代码翻译"></a>非布尔表达式的中间代码翻译</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230221090506622.webp" alt="image-20230221090506622" style="zoom:50%;" />
+
+<h3 id="数组引用表达式的中间代码翻译"><a href="#数组引用表达式的中间代码翻译" class="headerlink" title="数组引用表达式的中间代码翻译"></a>数组引用表达式的中间代码翻译</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230221081957482.webp" alt="image-20230221081957482" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230221082244527.webp" alt="image-20230221082244527" style="zoom:60%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230221082449049.webp" alt="image-20230221082449049" style="zoom:50%; margin-top:50px" />
+
+<p><strong>LLVM IR 的生成结果：</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230221083640233.webp" alt="image-20230221083640233" style="zoom:50%; margin-bottom:20px" />
+
+<h3 id="控制流语句与布尔表达式的中间代码翻译"><a href="#控制流语句与布尔表达式的中间代码翻译" class="headerlink" title="控制流语句与布尔表达式的中间代码翻译"></a>控制流语句与布尔表达式的中间代码翻译</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230221084113845.webp" alt="image-20230221084113845" style="zoom:60%;" />
+
+<p><strong>if 条件语句：</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230221084512124.webp" alt="image-20230221084512124" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230221084547737.webp" alt="image-20230221084547737" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230221084615354.webp" alt="image-20230221084615354" style="zoom:60%;" />
+
+<p>最终生成的 IR code：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">	goto L1</span><br><span class="line">L1:</span><br><span class="line">	goto L0</span><br><span class="line">L3:</span><br><span class="line">	assign</span><br><span class="line">L0:</span><br></pre></td></tr></table></figure>
+
+<p><strong>if else 条件语句：</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230221085547052.webp" alt="image-20230221085547052" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230221085737101.webp" alt="image-20230221085737101" style="zoom:60%;" />
+
+<p>最终生成的 IR code：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">	goto L1</span><br><span class="line">L1:</span><br><span class="line">	goto L3</span><br><span class="line">L3:</span><br><span class="line">	assign</span><br><span class="line">	goto L0</span><br><span class="line">L4:</span><br><span class="line">	assign</span><br><span class="line">	goto L0</span><br><span class="line">L2:</span><br><span class="line">	assign</span><br><span class="line">L0:</span><br></pre></td></tr></table></figure>
+
+<p><strong>while 循环语句：</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230221092013672.webp" alt="image-20230221092013672" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230221092534286.webp" alt="image-20230221092534286" style="zoom:60%;" />
+
+<p>最终生成的 IR code：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">begin:</span><br><span class="line">	goto L1</span><br><span class="line">L1:</span><br><span class="line">	goto L4</span><br><span class="line">L3:</span><br><span class="line">	assign</span><br><span class="line">	goto begin</span><br><span class="line">L4:</span><br><span class="line">	assign</span><br><span class="line">	goto begin</span><br><span class="line">L0:</span><br></pre></td></tr></table></figure>
+
+<p><strong>并列顺序语句：</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230221093336145.webp" alt="image-20230221093336145" style="zoom:50%;" />
+
+<p><strong>布尔表达式：</strong></p>
 <ul>
-<li>控制流翻译</li>
+<li><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230221093742808.webp" alt="image-20230221093742808" style="zoom:50%;" /></li>
+<li><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230221093703309.webp" alt="image-20230221093703309" style="zoom:50%;" /></li>
+<li><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230221093628479.webp" alt="image-20230221093628479" style="zoom:50%;" /></li>
+<li><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230221093924755.webp" alt="image-20230221093924755" style="zoom:50%;" /></li>
+<li><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230221094042026.webp" alt="image-20230221094042026" style="zoom:50%;" /></li>
 </ul>
+<p>一个复杂的例子：</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230221094123089.webp" alt="image-20230221094123089" style="zoom:70%;" />
+
+<p>最终生成的 IR code：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">	if x &lt; 100 goto L2</span><br><span class="line">	goto L3</span><br><span class="line">L3:</span><br><span class="line">	if x &gt; 200 goto L4</span><br><span class="line">	goto L1</span><br><span class="line">L4:</span><br><span class="line">	if x != y goto L2</span><br><span class="line">	goto L1</span><br><span class="line">L2:</span><br><span class="line">	x = 0</span><br><span class="line">L1:</span><br></pre></td></tr></table></figure>
+
+<p><strong>生成 LLVM IR code 并可视化展示控制流图</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230221100702370.webp" alt="image-20230221100702370" style="zoom:50%;" />
+
+<p><strong>使用 ANTLR v4 生成控制流</strong></p>
+<p>参考样例代码：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/courses-at-nju-by-hfwei/compilers-antlr/blob/main/src/main/antlr/codegen/Control.g4">https://github.com/courses-at-nju-by-hfwei/compilers-antlr/blob/main/src/main/antlr/codegen/Control.g4</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/courses-at-nju-by-hfwei/compilers-antlr/blob/main/src/main/java/codegen/CodeGenListener.java">https://github.com/courses-at-nju-by-hfwei/compilers-antlr/blob/main/src/main/java/codegen/CodeGenListener.java</a></p>
+<p><strong>关于布尔表达式的补充</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230221101915982.webp" alt="image-20230221101915982" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230221101938668.webp" alt="image-20230221101938668" style="zoom:50%;" />
 
         </div>
 
