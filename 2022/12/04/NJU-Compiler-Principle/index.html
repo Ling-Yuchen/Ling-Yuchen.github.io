@@ -423,8 +423,15 @@
 
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/202212281103647.png" alt="image-20221228110306581" style="zoom:50%;" />
 
-
-
+<p><strong>证明一个上下文无关文法没有二义性</strong></p>
+<p>对于 A → X | Y | Z，要证明：</p>
+<ul>
+<li>L(X) ∩ L(Y) = Ø</li>
+<li>L(Y) ∩ L(Z) = Ø</li>
+<li>L(Z) ∩ L(X) = Ø</li>
+</ul>
+<p>其中，L(X) 表示 X 所定义的语言</p>
+<p>故，更一般的，对于 A → X1 | X2 | X3 | … | Xn，需要证明，∀ i, j ∈ [1, n] (i != j)，有 L(Xi) ∩ L(Xj) = Ø</p>
 <h1 id="05-语法分析算法"><a href="#05-语法分析算法" class="headerlink" title="05 - 语法分析算法"></a>05 - 语法分析算法</h1><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230220094542795.webp" alt="image-20230220094542795" style="zoom:50%;" />
 
 <h2 id="LL-1-语法分析算法"><a href="#LL-1-语法分析算法" class="headerlink" title="LL(1) 语法分析算法"></a>LL(1) 语法分析算法</h2><p>自顶向下的，递归下降的，基于分析预测表的，适用于 LL(1) 文法的 LL(1) 语法分析器</p>
