@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>南京大学《面向服务的软件工程》课程笔记（ing）</title>
+      <link href="/2023/03/06/NJU-Service-Oriented-Software-Engineering/"/>
+      <url>/2023/03/06/NJU-Service-Oriented-Software-Engineering/</url>
+      
+        <content type="html"><![CDATA[<h1 id="面向服务的软件工程"><a href="#面向服务的软件工程" class="headerlink" title="面向服务的软件工程"></a>面向服务的软件工程</h1>]]></content>
+      
+      
+      <categories>
+          
+          <category> Learning </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> NJU </tag>
+            
+            <tag> 软件工程 </tag>
+            
+            <tag> SOA </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>南京大学《Web前端开发》课程复习</title>
       <link href="/2023/02/22/NJU-Web/"/>
       <url>/2023/02/22/NJU-Web/</url>
@@ -146,6 +175,8 @@
             
             <tag> 软件测试 </tag>
             
+            <tag> 自动化测试 </tag>
+            
             <tag> 图像理解 </tag>
             
             <tag> 机械臂 </tag>
@@ -175,7 +206,7 @@
             
             <tag> NJU </tag>
             
-            <tag> 机器学习b </tag>
+            <tag> 机器学习 </tag>
             
         </tags>
       
@@ -404,6 +435,8 @@
             <tag> 软件测试 </tag>
             
             <tag> 强化学习 </tag>
+            
+            <tag> 自动化测试 </tag>
             
         </tags>
       
