@@ -221,7 +221,10 @@
         </header>
 
         <div class="post-content">
-            <h1 id="机器学习"><a href="#机器学习" class="headerlink" title="机器学习"></a>机器学习</h1><h2 id="机器学习概论"><a href="#机器学习概论" class="headerlink" title="机器学习概论"></a>机器学习概论</h2><h3 id="机器学习系统"><a href="#机器学习系统" class="headerlink" title="机器学习系统"></a>机器学习系统</h3><h4 id="通俗定义"><a href="#通俗定义" class="headerlink" title="通俗定义"></a>通俗定义</h4><p>任何通过数据训练的学习算法都属于机器学习</p>
+            <blockquote>
+<p>本笔记中的图片均截取自课程PPT</p>
+</blockquote>
+<h1 id="机器学习概论"><a href="#机器学习概论" class="headerlink" title="机器学习概论"></a>机器学习概论</h1><h2 id="机器学习系统"><a href="#机器学习系统" class="headerlink" title="机器学习系统"></a>机器学习系统</h2><h3 id="通俗定义"><a href="#通俗定义" class="headerlink" title="通俗定义"></a>通俗定义</h3><p>任何通过数据训练的学习算法都属于机器学习</p>
 <ul>
 <li>线性回归（Linear Regression）</li>
 <li>K-均值聚类（K-means）</li>
@@ -230,7 +233,7 @@
 <li>支持向量机（Support Vector Machines）</li>
 <li>人工神经网络（Artificial Neural Networks）</li>
 </ul>
-<h4 id="学习系统"><a href="#学习系统" class="headerlink" title="学习系统"></a>学习系统</h4><p>模型空间（模型层面）+ 数据（数据层面）→ 学习算法（学习层面）→ 学得模型（学习结果）</p>
+<h3 id="学习系统"><a href="#学习系统" class="headerlink" title="学习系统"></a>学习系统</h3><p>模型空间（模型层面）+ 数据（数据层面）→ 学习算法（学习层面）→ 学得模型（学习结果）</p>
 <p><strong>数据层面</strong></p>
 <p>数据类型或特点：</p>
 <ul>
@@ -251,7 +254,7 @@
 <p>优化目标函数，在很大的模型空间找到目标函数（SGD 等学习算法）</p>
 <p>经典学习方法：机械学习 / 归纳学习 / 类比学习 / 解释学习 / 决策树&amp;森林 / 贝叶斯分类器 / 聚类</p>
 <p>现代学习方法：监督学习 / 弱监督学习 / 无监督学习 / 统计学习 / 集成学习 / 强化学习 / 深度学习</p>
-<h3 id="系统建模和模型选择"><a href="#系统建模和模型选择" class="headerlink" title="系统建模和模型选择"></a>系统建模和模型选择</h3><p><strong>常规术语及标记</strong></p>
+<h2 id="系统建模和模型选择"><a href="#系统建模和模型选择" class="headerlink" title="系统建模和模型选择"></a>系统建模和模型选择</h2><p><strong>常规术语及标记</strong></p>
 <ul>
 <li>输入：x, x<del>i</del></li>
 <li>权重：W, w<del>ij</del></li>
@@ -281,7 +284,7 @@
 <p>在泛函中嵌入了了解或问题的先验信息（如神经网络中权重衰减，在深度网络中用 Dropout）</p>
 <p><strong>先验的重要性</strong></p>
 <p>泛化（Generalization）= 数据（Data）+ 知识（Knowledge）</p>
-<h3 id="统计学基本概念"><a href="#统计学基本概念" class="headerlink" title="统计学基本概念"></a>统计学基本概念</h3><p><strong>数据集的统计量</strong></p>
+<h2 id="统计学基本概念"><a href="#统计学基本概念" class="headerlink" title="统计学基本概念"></a>统计学基本概念</h2><p><strong>数据集的统计量</strong></p>
 <ul>
 <li>均值，中位数，众数</li>
 <li>期望：概率加权和</li>
@@ -290,13 +293,8 @@
 <li>协方差矩阵（covariance matrix）</li>
 </ul>
 <p><strong>距离度量函数</strong></p>
-<ul>
-<li>欧氏距离</li>
-<li>余弦相似性</li>
-<li>曼哈顿距离</li>
-<li>切比雪夫距离</li>
-<li>马氏距离</li>
-</ul>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305181503739.webp" alt="image-20230305181503739" style="zoom:50%;" />
+
 <p><strong>高斯分布（正态分布）</strong></p>
 <p><strong>概率</strong></p>
 <p>从统计学角度，机器学习的目的是得到映射 x → y</p>
@@ -314,7 +312,7 @@
 <p><strong>朴素贝叶斯分类</strong></p>
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230301165958734.webp" alt="image-20230301165958734" style="zoom:50%;" />
 
-<h3 id="机器学习技术新进展"><a href="#机器学习技术新进展" class="headerlink" title="机器学习技术新进展"></a>机器学习技术新进展</h3><p><strong>新型机器学习技术</strong></p>
+<h2 id="机器学习技术新进展"><a href="#机器学习技术新进展" class="headerlink" title="机器学习技术新进展"></a>机器学习技术新进展</h2><p><strong>新型机器学习技术</strong></p>
 <ul>
 <li>终身 / 连续学习（Lifelong / Continual Learning）</li>
 <li>迁移学习和域适应（Transfer Learning &amp; Domain Adaption）</li>
@@ -346,8 +344,142 @@
 </ul>
 </li>
 </ul>
-<h2 id="概率学习"><a href="#概率学习" class="headerlink" title="概率学习"></a>概率学习</h2><p>待补充</p>
-<h2 id="无监督学习"><a href="#无监督学习" class="headerlink" title="无监督学习"></a>无监督学习</h2><h3 id="聚类算法"><a href="#聚类算法" class="headerlink" title="聚类算法"></a>聚类算法</h3><p><strong>相关概念</strong></p>
+<h1 id="概率学习"><a href="#概率学习" class="headerlink" title="概率学习"></a>概率学习</h1><h2 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h2><p><strong>符号和术语</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305160737157.webp" alt="image-20230305160737157" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305160759643.webp" alt="image-20230305160759643" style="zoom:50%;" />
+
+<p><strong>带约束的数学优化问题</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305160821582.webp" alt="image-20230305160821582" style="zoom:50%;" />
+
+<p><strong>不带约束的数学优化问题</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305160846976.webp" alt="image-20230305160846976" style="zoom:50%;" />
+
+<p><strong>凸函数与凹函数</strong></p>
+<ul>
+<li>凸函数</li>
+</ul>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305161027667.webp" alt="image-20230305161027667" style="zoom:50%;" />
+
+<ul>
+<li>凹函数</li>
+</ul>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305161048350.webp" alt="image-20230305161048350" style="zoom:50%;" />
+
+<ul>
+<li>判断函数的凹凸</li>
+</ul>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305161110550.webp" alt="image-20230305161110550" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305161131271.webp" alt="image-20230305161131271" style="zoom:50%;" />
+
+<p><strong>随机变量的期望</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305161213061.webp" alt="image-20230305161213061" style="zoom:50%;" />
+
+<p><strong>Jensen’s inequality</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305161411615.webp" alt="image-20230305161411615" style="zoom:50%;" />
+
+<p><strong>高斯分布/正态分布</strong></p>
+<p>正态分布是在统计以及许多统计测试中最广泛应用的一类分布</p>
+<p>正态分布是统计模式识别、计算机视觉和机器学习中使用最广泛的概率分布</p>
+<ul>
+<li>单变量高斯分布（Univariate Gaussian distribution）</li>
+</ul>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305161617946.webp" alt="image-20230305161617946" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305161720811.webp" alt="image-20230305161720811" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305161755356.webp" alt="image-20230305161755356" style="zoom:50%;" />
+
+<ul>
+<li>多变量高斯分布（Multivariate Gaussian distribution）</li>
+</ul>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305161821196.webp" alt="image-20230305161821196" style="zoom: 50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305161921763.webp" alt="image-20230305161921763" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305161958083.webp" alt="image-20230305161958083" style="zoom:50%;" />
+
+<h2 id="高斯混合模型"><a href="#高斯混合模型" class="headerlink" title="高斯混合模型"></a>高斯混合模型</h2><h3 id="高斯混合模型（Gaussian-Mixture-Model-GMM）"><a href="#高斯混合模型（Gaussian-Mixture-Model-GMM）" class="headerlink" title="高斯混合模型（Gaussian Mixture Model, GMM）"></a>高斯混合模型（Gaussian Mixture Model, GMM）</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305164455910.webp" alt="image-20230305164455910" style="zoom:50%;" />
+
+<ul>
+<li>概率密度函数</li>
+</ul>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305164409746.webp" alt="image-20230305164409746" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305164520385.webp" alt="image-20230305164520385" style="zoom:50%;" />
+
+<ul>
+<li>图模型</li>
+</ul>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305164548996.webp" alt="image-20230305164548996" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305164611515.webp" alt="image-20230305164611515" style="zoom:50%;" />
+
+<h2 id="最大似然估计"><a href="#最大似然估计" class="headerlink" title="最大似然估计"></a>最大似然估计</h2><h3 id="最大似然估计（Maximum-likelihood-estimation，MLE）"><a href="#最大似然估计（Maximum-likelihood-estimation，MLE）" class="headerlink" title="最大似然估计（Maximum likelihood estimation，MLE）"></a>最大似然估计（Maximum likelihood estimation，MLE）</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305171426184.webp" alt="image-20230305171426184" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305171506580.webp" alt="image-20230305171506580" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305171531820.webp" alt="image-20230305171531820" style="zoom:50%;" />
+
+<h2 id="期望最大化算法"><a href="#期望最大化算法" class="headerlink" title="期望最大化算法"></a>期望最大化算法</h2><h3 id="EM-算法"><a href="#EM-算法" class="headerlink" title="EM 算法"></a>EM 算法</h3><p><strong>核心思想</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305172614172.webp" alt="image-20230305172614172" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305172652574.webp" alt="image-20230305172652574" style="zoom:50%;" />
+
+<p><strong>优化分析</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305172807483.webp" alt="image-20230305172807483" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305172834223.webp" alt="image-20230305172834223" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305180850321.webp" alt="image-20230305180850321" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305180940898.webp" alt="image-20230305180940898" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305181009838.webp" alt="image-20230305181009838" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305181044018.webp" alt="image-20230305181044018" style="zoom:50%;" />
+
+<p><strong>算法流程</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305181110353.webp" alt="image-20230305181110353" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305181137967.webp" alt="image-20230305181137967" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305181158298.webp" alt="image-20230305181158298" style="zoom:50%;" />
+
+<h2 id="k-近邻分类器"><a href="#k-近邻分类器" class="headerlink" title="k-近邻分类器"></a>k-近邻分类器</h2><p><strong>算法流程</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305192643306.webp" alt="image-20230305192643306" style="zoom:50%;" />
+
+<p><strong>k取值的影响</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305192729403.webp" alt="image-20230305192729403" style="zoom:50%;" />
+
+<h2 id="最近邻分类器"><a href="#最近邻分类器" class="headerlink" title="最近邻分类器"></a>最近邻分类器</h2><p><strong>算法流程</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305194006168.webp" alt="image-20230305194006168" style="zoom:50%;" />
+
+<p><strong>泛化错误率</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305194039700.webp" alt="image-20230305194039700" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305194105010.webp" alt="image-20230305194105010" style="zoom:50%;" />
+
+<h2 id="k-近邻回归"><a href="#k-近邻回归" class="headerlink" title="k-近邻回归"></a>k-近邻回归</h2><p><strong>算法流程</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305194143255.webp" alt="image-20230305194143255" style="zoom:50%;" />
+
+<p><strong>近邻平滑</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305194221170.webp" alt="image-20230305194221170" style="zoom:50%;" />
+
+<p><strong>讨论</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305194334078.webp" alt="image-20230305194334078" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305194359508.webp" alt="image-20230305194359508" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305194420413.webp" alt="image-20230305194420413" style="zoom:50%;" />
+
+<p><strong>降低计算</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305194455953.webp" alt="image-20230305194455953" style="zoom:50%;" />
+
+
+
+<h1 id="无监督学习"><a href="#无监督学习" class="headerlink" title="无监督学习"></a>无监督学习</h1><h2 id="聚类算法"><a href="#聚类算法" class="headerlink" title="聚类算法"></a>聚类算法</h2><p><strong>相关概念</strong></p>
 <p>聚类（簇，类）：数据对象的集合，同类相似，不同类不相似</p>
 <p>聚类算法（clustering algorithm）：根据给定的相似性评价标准，将一个数据集合划分成几个聚类</p>
 <p>聚类依据：将样本看作是特征空间中的点，点与点的距离作为相似性评价标准</p>
@@ -397,10 +529,88 @@
 <p><strong>聚类评价</strong></p>
 <p>标签未知：紧密度，间隔度，戴维森堡丁指数，邓恩指数</p>
 <p>标签已知：聚类准确率，兰德指数，调整兰德指数，互信息，归一化互信息</p>
-<h3 id="前沿进展"><a href="#前沿进展" class="headerlink" title="前沿进展"></a>前沿进展</h3><h4 id="监督深度学习的成功与现实困境"><a href="#监督深度学习的成功与现实困境" class="headerlink" title="监督深度学习的成功与现实困境"></a>监督深度学习的成功与现实困境</h4><h4 id="自监督学习"><a href="#自监督学习" class="headerlink" title="自监督学习"></a>自监督学习</h4><h5 id="前置任务学习"><a href="#前置任务学习" class="headerlink" title="前置任务学习"></a>前置任务学习</h5><h5 id="对比学习"><a href="#对比学习" class="headerlink" title="对比学习"></a>对比学习</h5><h5 id="非对比学习"><a href="#非对比学习" class="headerlink" title="非对比学习"></a>非对比学习</h5><h3 id="作业一：K-means"><a href="#作业一：K-means" class="headerlink" title="作业一：K-means"></a>作业一：K-means</h3><p>要求：实现 K-means 聚类并使用其进行无监督图像分割</p>
+<h2 id="前沿进展"><a href="#前沿进展" class="headerlink" title="前沿进展"></a>前沿进展</h2><h3 id="监督深度学习的成功与现实困境"><a href="#监督深度学习的成功与现实困境" class="headerlink" title="监督深度学习的成功与现实困境"></a>监督深度学习的成功与现实困境</h3><p>（监督）深度学习是如何成功的：</p>
+<ul>
+<li>预先定义许多视觉的概念及类别进行学习</li>
+<li>为每个概念类别收集大量具有差异性的样本</li>
+<li>对收集到的数据进行清洗和精细标注</li>
+<li>采用多块 GPU 显卡训练几个小时甚至几天</li>
+</ul>
+<p>现实场景中存在的困境和问题：</p>
+<ul>
+<li>数据体量大</li>
+<li>数据标注时间长</li>
+<li>数据标注代价高</li>
+<li>不能利用未标注的数据</li>
+<li>监督信号可能使深度模型变得有偏</li>
+</ul>
+<h3 id="自监督学习"><a href="#自监督学习" class="headerlink" title="自监督学习"></a>自监督学习</h3><p>什么是自监督学习？（自监督预训练 + 下游任务迁移）</p>
+<ul>
+<li>无监督学习的一种形式，<strong>数据没有（人类标注的）监督信息</strong></li>
+<li>需要<strong>定义一个前置（借口）任务</strong>让网络学习我们关心的事情</li>
+<li>对于大部分前置任务，我们需要<strong>保留一部分数据</strong>，让网络学会预测</li>
+<li>通过前置任务学习到的特征会被用到不同的<strong>下游任务</strong>（通常包含标注）</li>
+</ul>
+<p>自监督学习分类：前置任务学习，对比学习，非对比学习</p>
+<h4 id="前置任务学习"><a href="#前置任务学习" class="headerlink" title="前置任务学习"></a>前置任务学习</h4><p><strong>生成式方法——图像着色</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230301215532176.webp" alt="image-20230301215532176" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230301215601541.webp" alt="image-20230301215601541" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230301215624475.webp" alt="image-20230301215624475" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230301215646345.webp" alt="image-20230301215646345" style="zoom:50%;" />
+
+<p><strong>生成式方法——图像修复</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230301215726738.webp" alt="image-20230301215726738" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230301215744738.webp" alt="image-20230301215744738" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230301230539112.webp" alt="image-20230301230539112" style="zoom:50%;" />
+
+<p><strong>判别式方法——图像拼图</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230301230824904.webp" alt="image-20230301230824904" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230301230846766.webp" alt="image-20230301230846766" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230301230907470.webp" alt="image-20230301230907470" style="zoom:50%;" />
+
+<h4 id="对比学习"><a href="#对比学习" class="headerlink" title="对比学习"></a>对比学习</h4><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230301231029180.webp" alt="image-20230301231029180" style="zoom:50%;" />
+
+<p><strong>MoCo</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230301231102221.webp" alt="image-20230301231102221" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230301231124723.webp" alt="image-20230301231124723" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230301231151658.webp" alt="image-20230301231151658" style="zoom:50%;" />
+
+<p><strong>SimCLR</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230301231419746.webp" alt="image-20230301231419746" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230301231441420.webp" alt="image-20230301231441420" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230301231502418.webp" alt="image-20230301231502418" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230301231536641.webp" alt="image-20230301231536641" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230301231857690.webp" alt="image-20230301231857690" style="zoom:50%;" />
+
+<h4 id="非对比学习"><a href="#非对比学习" class="headerlink" title="非对比学习"></a>非对比学习</h4><p><strong>聚类方法——DeepCluster</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230301231650616.webp" alt="image-20230301231650616" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230301231709428.webp" alt="image-20230301231709428" style="zoom:50%;" />
+
+<p><strong>聚类方法——SwAV</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230301231734407.webp" alt="image-20230301231734407" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230301231755524.webp" alt="image-20230301231755524" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230301231827445.webp" alt="image-20230301231827445" style="zoom:50%;" />
+
+<h2 id="作业一：K-means"><a href="#作业一：K-means" class="headerlink" title="作业一：K-means"></a>作业一：K-means</h2><p>要求：实现 K-means 聚类并使用其进行无监督图像分割</p>
 <p><strong>代码展示</strong>：<a target="_blank" rel="noopener" href="https://github.com/Ling-Yuchen/ML-hw/blob/main/kmeans.py">https://github.com/Ling-Yuchen/ML-hw/blob/main/kmeans.py</a></p>
-<h4 id="实验报告"><a href="#实验报告" class="headerlink" title="实验报告"></a>实验报告</h4><h5 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h5><p>略</p>
-<h5 id="代码说明"><a href="#代码说明" class="headerlink" title="代码说明"></a>代码说明</h5><p>在本次实验中使用了两种方法来实现 K-means 聚类算法，一是参考 <a target="_blank" rel="noopener" href="https://blog.csdn.net/lanshi00/article/details/104109963">https://blog.csdn.net/lanshi00/article/details/104109963</a> 调用已有封装好的 <code>cv2.kmeans()</code>，二是参考 <a target="_blank" rel="noopener" href="https://github.com/Daya-Jin/ML_for_learner/blob/master/cluster/KMeans.ipynb">https://github.com/Daya-Jin/ML_for_learner/blob/master/cluster/KMeans.ipynb</a> 使用 <code>numpy</code> 等库手动实现算法流程，两者均使用 <code>cv2.imshow()</code> 作为可视化实现方案</p>
+<h3 id="实验报告"><a href="#实验报告" class="headerlink" title="实验报告"></a>实验报告</h3><h4 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h4><p>略</p>
+<h4 id="代码说明"><a href="#代码说明" class="headerlink" title="代码说明"></a>代码说明</h4><p>在本次实验中使用了两种方法来实现 K-means 聚类算法，一是参考 <a target="_blank" rel="noopener" href="https://blog.csdn.net/lanshi00/article/details/104109963">https://blog.csdn.net/lanshi00/article/details/104109963</a> 调用已有封装好的 <code>cv2.kmeans()</code>，二是参考 <a target="_blank" rel="noopener" href="https://github.com/Daya-Jin/ML_for_learner/blob/master/cluster/KMeans.ipynb">https://github.com/Daya-Jin/ML_for_learner/blob/master/cluster/KMeans.ipynb</a> 使用 <code>numpy</code> 等库手动实现算法流程，两者均使用 <code>cv2.imshow()</code> 作为可视化实现方案</p>
 <ul>
 <li><p><strong>方法一</strong></p>
   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">compactness, clusters, centers = cv2.kmeans(</span><br><span class="line">    data=data,</span><br><span class="line">    K=k,</span><br><span class="line">    bestLabels=<span class="literal">None</span>,</span><br><span class="line">    criteria=(</span><br><span class="line">        cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER,  <span class="comment"># type</span></span><br><span class="line">        <span class="number">10</span>,  <span class="comment"># max_iter</span></span><br><span class="line">        <span class="number">1.0</span>  <span class="comment"># epsilon</span></span><br><span class="line">    ),  <span class="comment"># define condition of ending</span></span><br><span class="line">    attempts=<span class="number">10</span>,</span><br><span class="line">    flags=cv2.KMEANS_PP_CENTERS  <span class="comment"># set initial centers</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
@@ -429,7 +639,7 @@
 </ul>
 </li>
 </ul>
-<h5 id="可视化实验结果分析"><a href="#可视化实验结果分析" class="headerlink" title="可视化实验结果分析"></a>可视化实验结果分析</h5><ul>
+<h4 id="可视化实验结果分析"><a href="#可视化实验结果分析" class="headerlink" title="可视化实验结果分析"></a>可视化实验结果分析</h4><ul>
 <li>高斯模糊对实验结果影响的讨论<ul>
 <li>在预处理步骤中增加了高斯模糊可以明显减少聚类结果中边界处的噪声点，使得分类更加准确，图像分割结果更加美观</li>
 </ul>
@@ -463,6 +673,140 @@
 
 
 
+<h1 id="支持向量机"><a href="#支持向量机" class="headerlink" title="支持向量机"></a>支持向量机</h1><h2 id="感知机：线性超平面"><a href="#感知机：线性超平面" class="headerlink" title="感知机：线性超平面"></a>感知机：线性超平面</h2><p>二分类问题可以看作在线性空间上对类别进行划分的任务</p>
+<p><em><strong>w</strong></em>^T^<em><strong>x</strong></em> + <em>b</em> = 0：划分超平面的线性方程，其中 <em><strong>w</strong></em> 为法向量，决定超平面的方向；<em>b</em> 为位移项，决定了超平面与原点之间的距离</p>
+<p>强假设：处于“正中间”的超平面具有更好的鲁棒性和泛化能力</p>
+<h2 id="线性支持向量机（LSVM）"><a href="#线性支持向量机（LSVM）" class="headerlink" title="线性支持向量机（LSVM）"></a>线性支持向量机（LSVM）</h2><h3 id="间隔与支持向量"><a href="#间隔与支持向量" class="headerlink" title="间隔与支持向量"></a>间隔与支持向量</h3><p>间隔（margin）：每个样本点到超平面的垂直距离</p>
+<p>超平面的优化目标：最大化所有训练样本的最小间隔</p>
+<p>支持向量（support vector）：具有最小间隔的样本点</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230303225744792.webp" alt="image-20230303225744792" style="zoom:50%;" />
+
+<h3 id="计算-Margin"><a href="#计算-Margin" class="headerlink" title="计算 Margin"></a>计算 Margin</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230303230248914.webp" alt="image-20230303230248914" style="zoom:50%;" />
+
+<h3 id="分类与评价"><a href="#分类与评价" class="headerlink" title="分类与评价"></a>分类与评价</h3><p>分类方式：<em>f(x)</em> &gt; 0 → 正类；<em>f(x)</em> &lt; 0 → 负类</p>
+<p>判断预测的对错：对样本点 *x<del>i</del>*，用 <em>y<del>i</del></em> ∈ {-1, 1} 作为其正负类的标注，则有</p>
+<ul>
+<li><em>y<del>i</del> f(<strong>x</strong><del>i</del>)</em> &gt; 0 → 预测正确；<em>y<del>i</del> f(<strong>x</strong><del>i</del>)</em> &lt; 0 → 预测错误</li>
+<li>假设能够将样本点完全分开，并且 <em>|y<del>i</del>|</em> = 1，则有 <em>y<del>i</del> f(<strong>x</strong><del>i</del>)</em> = <em>|f(<strong>x</strong><del>i</del>)</em>|</li>
+</ul>
+<h3 id="SVM-的形式化描述"><a href="#SVM-的形式化描述" class="headerlink" title="SVM 的形式化描述"></a>SVM 的形式化描述</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230303231456468.webp" alt="image-20230303231456468" style="zoom:50%;" />
+
+<p><strong>换个角度看问题以简化目标</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230303231756077.webp" alt="image-20230303231756077" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230303234051787.webp" alt="image-20230303234051787" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230303234116837.webp" alt="image-20230303234116837" style="zoom:50%;" />
+
+<h3 id="拉格朗日乘子法"><a href="#拉格朗日乘子法" class="headerlink" title="拉格朗日乘子法"></a>拉格朗日乘子法</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230303234236689.webp" alt="image-20230303234236689" style="zoom:50%;" />
+
+<h3 id="KKT-条件"><a href="#KKT-条件" class="headerlink" title="KKT 条件"></a>KKT 条件</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230303234341963.webp" alt="image-20230303234341963" style="zoom:50%;" />
+
+<h3 id="SVM-的对偶形式"><a href="#SVM-的对偶形式" class="headerlink" title="SVM 的对偶形式"></a>SVM 的对偶形式</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230303234520031.webp" alt="image-20230303234520031" style="zoom:50%;" />
+
+<h3 id="Soft-margin"><a href="#Soft-margin" class="headerlink" title="Soft margin"></a>Soft margin</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230304091100595.webp" alt="image-20230304091100595" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230304091129110.webp" alt="image-20230304091129110" style="zoom:50%;" />
+
+<p><strong>对犯错误进行惩罚</strong></p>
+<ul>
+<li>在原始空间内：</li>
+</ul>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230304091334360.webp" alt="image-20230304091334360" style="zoom:50%;" />
+
+<p>其中，<em>C</em> &gt; 0，是一个正则化参数；<em>ξ<del>i</del></em> 是代价（要最小化代价函数）；<em><strong>w^T^w</strong></em> 是正则项，对分类器进行限制，限制模型的复杂度（还是最大化间隔）</p>
+<ul>
+<li>在对偶空间内：</li>
+</ul>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230304091925800.webp" alt="image-20230304091925800" style="zoom:50%;" />
+
+<p><em>对偶形式仅依赖于样本的内积</em></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>分类器是一个分离超平面（separating hyperplane）</li>
+<li>最重要的训练样本是“支持向量”，它们定义了超平面，其他样本被忽略。二次优化算法可以识别哪些样本是具有非零拉格朗日乘子 <em>α<del>i</del></em> 的支持向量</li>
+<li>对偶问题中，训练样本只以内积的形式出现</li>
+</ul>
+<h2 id="非线性支持向量机"><a href="#非线性支持向量机" class="headerlink" title="非线性支持向量机"></a>非线性支持向量机</h2><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230304092349504.webp" alt="image-20230304092349504" style="zoom:50%;" />
+
+<h3 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h3><p>将样本从原始空间映射到一个更高维的特征空间，使样本在这个特征空间内线性可分（特征空间映射）</p>
+<p>可以证明，如果原始空间是有限维，那么一定存在一个高维特征空间使得样本线性可分</p>
+<h3 id="通过内积联系线性与非线性"><a href="#通过内积联系线性与非线性" class="headerlink" title="通过内积联系线性与非线性"></a>通过内积联系线性与非线性</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230304092706511.webp" alt="image-20230304092706511" style="zoom:50%;" />
+
+<p>如图，两个二维样本在非线性函数作用下，得到六维特征空间的内积形式</p>
+<h3 id="Kernel-trick"><a href="#Kernel-trick" class="headerlink" title="Kernel trick"></a>Kernel trick</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230304093033299.webp" alt="image-20230304093033299" style="zoom:50%;" />
+
+<p><strong>限制条件</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230304093246829.webp" alt="image-20230304093246829" style="zoom:50%;" />
+
+<h3 id="核支持向量机"><a href="#核支持向量机" class="headerlink" title="核支持向量机"></a>核支持向量机</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230304093537351.webp" alt="image-20230304093537351" style="zoom:50%;" />
+
+<p><strong>核函数的种类</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230304093612535.webp" alt="image-20230304093612535" style="zoom:50%;" />
+
+<p><strong>非线性核的例子</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230304093733774.webp" alt="image-20230304093733774" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230304093759599.webp" alt="image-20230304093759599" style="zoom:50%;" />
+
+<p><strong>关于超参数</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230304093944568.webp" alt="image-20230304093944568" style="zoom:50%;" />
+
+<h2 id="多类支持向量机"><a href="#多类支持向量机" class="headerlink" title="多类支持向量机"></a>多类支持向量机</h2><p>思路：转化为二分类问题</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230304094122394.webp" alt="image-20230304094122394" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230304094144147.webp" alt="image-20230304094144147" style="zoom:50%;" />
+
+<p><strong>解决方案</strong></p>
+<ul>
+<li>Crammer-Singer 方法：<a target="_blank" rel="noopener" href="http://jmlr.org/papers/v2/crammer01a.html">http://jmlr.org/papers/v2/crammer01a.html</a></li>
+<li>DAGSVM：<a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/dagsvm.pdf">https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/dagsvm.pdf</a></li>
+<li>ECOC：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/cs/9501101.pdf">https://arxiv.org/pdf/cs/9501101.pdf</a></li>
+</ul>
+<h2 id="支持向量机的实现"><a href="#支持向量机的实现" class="headerlink" title="支持向量机的实现"></a>支持向量机的实现</h2><p>SVM Website：<a target="_blank" rel="noopener" href="http://www.kernel-machines.org/">http://www.kernel-machines.org/</a></p>
+<p>代表性实现 LIBSVM：有效且出名，实现了 muti-class classification，nu-SVM，one-class SVM 等，且有很多 Java、Python 等接口</p>
+<h2 id="支持向量机的启发"><a href="#支持向量机的启发" class="headerlink" title="支持向量机的启发"></a>支持向量机的启发</h2><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230304094726817.webp" alt="image-20230304094726817" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230304094746716.webp" alt="image-20230304094746716" style="zoom:50%;" />
+
+<h2 id="前沿进展——持续学习"><a href="#前沿进展——持续学习" class="headerlink" title="前沿进展——持续学习"></a>前沿进展——持续学习</h2><h3 id="任务定义"><a href="#任务定义" class="headerlink" title="任务定义"></a>任务定义</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305150147185.webp" alt="image-20230305150147185" style="zoom:50%;" />
+
+<h3 id="灾难性遗忘"><a href="#灾难性遗忘" class="headerlink" title="灾难性遗忘"></a>灾难性遗忘</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305151055008.webp" alt="image-20230305151055008" style="zoom:50%;" />
+
+<h3 id="场景设定"><a href="#场景设定" class="headerlink" title="场景设定"></a>场景设定</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305151157804.webp" alt="image-20230305151157804" style="zoom:50%;" />
+
+<ul>
+<li><p><strong>任务增量学习</strong></p>
+<ul>
+<li><p>不同时刻到来的数据分属于不同的任务，在一个时间段内我们可以获得当前任务的全部数据，并且假设测试推理阶段，任务的编号是可知的</p>
+</li>
+<li><p>因为测试阶段任务编号可知，所以训练阶段不同任务的输出相互独立，即最终学到的模型是多头的（multi-head），为每个任务提供单独的输出层</p>
+</li>
+</ul>
+</li>
+<li><p><strong>类别增量学习</strong></p>
+<ul>
+<li>不同时刻到来的数据属于同一类型任务的不同类别，随着训练的进行逐步增加输出类别，即<strong>类别空间是逐渐扩充的</strong></li>
+<li>不同于任务增量学习场景，类别增量学习场景在测试阶段不知道任务的编号（训练阶段知道任务编号），比任务增量场景更具挑战性</li>
+</ul>
+</li>
+<li><p><strong>域增量学习</strong></p>
+<ul>
+<li>不同时刻到来的数据集属于不同任务，但任务之间的<strong>类别空间是相同的</strong>，只是数据的<strong>分布（域）发生了变化</strong>，前后两个任务的数据不再满足独立同分布假设</li>
+</ul>
+</li>
+</ul>
+<h3 id="持续学习设置"><a href="#持续学习设置" class="headerlink" title="持续学习设置"></a>持续学习设置</h3><h4 id="常用数据集"><a href="#常用数据集" class="headerlink" title="常用数据集"></a>常用数据集</h4><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305153343052.webp" alt="image-20230305153343052" style="zoom:50%;" />
+
+<h4 id="评估指标"><a href="#评估指标" class="headerlink" title="评估指标"></a>评估指标</h4><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305153315978.webp" alt="image-20230305153315978" style="zoom:50%;" />
+
+<h3 id="持续学习方法分类"><a href="#持续学习方法分类" class="headerlink" title="持续学习方法分类"></a>持续学习方法分类</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305153209815.webp" alt="image-20230305153209815" style="zoom:50%;" />
+
+<h3 id="大作业（Optional）"><a href="#大作业（Optional）" class="headerlink" title="大作业（Optional）"></a>大作业（Optional）</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305153519164.webp" alt="image-20230305153519164" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305153546632.webp" alt="image-20230305153546632" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305153607991.webp" alt="image-20230305153607991" style="zoom:50%;" />
+
 
         </div>
 
@@ -493,7 +837,7 @@
                     
                         <a href="/tags/NJU/"># NJU</a>
                     
-                        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"># 机器学习</a>
+                        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0b/"># 机器学习b</a>
                     
                         
                 </span>
