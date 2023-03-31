@@ -808,6 +808,163 @@
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230305153607991.webp" alt="image-20230305153607991" style="zoom:50%;" />
 
 
+
+<h1 id="神经元和感知机"><a href="#神经元和感知机" class="headerlink" title="神经元和感知机"></a>神经元和感知机</h1><h2 id="脑和神经元"><a href="#脑和神经元" class="headerlink" title="脑和神经元"></a>脑和神经元</h2><p><strong>MP神经元基本结构</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230318203358136.webp" alt="image-20230318203358136" style="zoom:50%;" />
+
+<h2 id="感知机和感知机学习"><a href="#感知机和感知机学习" class="headerlink" title="感知机和感知机学习"></a>感知机和感知机学习</h2><h2 id="线性可分性"><a href="#线性可分性" class="headerlink" title="线性可分性"></a>线性可分性</h2><h1 id="神经元网络"><a href="#神经元网络" class="headerlink" title="神经元网络"></a>神经元网络</h1><h2 id="多层感知机"><a href="#多层感知机" class="headerlink" title="多层感知机"></a>多层感知机</h2><h2 id="自动编码器"><a href="#自动编码器" class="headerlink" title="自动编码器"></a>自动编码器</h2><h2 id="径向基网络"><a href="#径向基网络" class="headerlink" title="径向基网络"></a>径向基网络</h2><h1 id="树学习"><a href="#树学习" class="headerlink" title="树学习"></a>树学习</h1><h2 id="概念学习和变型空间"><a href="#概念学习和变型空间" class="headerlink" title="概念学习和变型空间"></a>概念学习和变型空间</h2><p><strong>概念学习</strong></p>
+<p>给定样例集合，以及每个样例是否属于某个概念，<strong>自动</strong>地推断出该概念的一般定义</p>
+<p><strong>概念学习任务</strong></p>
+<p>实例集合：用若干属性表示</p>
+<p>目标概念$$c$$：定义在实例集上的布尔函数 $$c:X\rightarrow {0,1}$$</p>
+<p>训练样例：正例$$(c(x)=1)$$，反例$$(c(x)=0)$$</p>
+<p>假设集$$H$$：每个假设$$h$$表示$$X$$上定义的布尔函数$$h:X\rightarrow {0,1}$$</p>
+<p>概念学习任务：寻找一个假设$$h$$，使对于$$X$$中说有$$x$$，$$h(x)=c(x)$$</p>
+<p><strong>实例空间和假设数</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230318210112281.webp" alt="image-20230318210112281" style="zoom:50%;" />
+
+<p><strong>Find-S:寻找极大特殊假设</strong></p>
+<blockquote>
+<p>对以属性合取式表示的假设空间，输出与正例一致的最特殊的假设</p>
+</blockquote>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230318210312848.webp" alt="image-20230318210312848" style="zoom:50%;" />
+
+<p><strong>变形空间</strong></p>
+<p>假设h与训练样例D集合一致：$$Consistent(h,D)\equiv(\forall&lt;x,c(x)&gt;\in D)\space h(x)=c(x)$$</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331152536464.webp" alt="image-20230331152536464" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331152459947.webp" alt="image-20230331152459947" style="zoom:50%;" />
+
+<p><strong>正例和反例的作用</strong></p>
+<ul>
+<li>正例用于S泛化，搜索S集合</li>
+<li>反例用于G特化，缩小G集合</li>
+</ul>
+<p><strong>候选消除算法</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331151459518.webp" alt="image-20230331151459518" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331151529211.webp" alt="image-20230331151529211" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331151556095.webp" alt="image-20230331151556095" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331151621870.webp" alt="image-20230331151621870" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331151642353.webp" alt="image-20230331151642353" style="zoom:50%;" />
+
+<h2 id="归纳偏置"><a href="#归纳偏置" class="headerlink" title="归纳偏置"></a>归纳偏置</h2><blockquote>
+<p>原假设空间是由合取式（有偏）表示，而真实空间是由析取式表示</p>
+</blockquote>
+<p><strong>归纳偏置</strong></p>
+<p>归纳学习必须给定某种形式的预先假定（归纳偏置）</p>
+<p>核心：学习器从训练样例中泛化并推断新实例分类过程中所采用的策略</p>
+<p>精确定义：</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331152226050.webp" alt="image-20230331152226050" style="zoom:50%;" />
+
+<h2 id="决策树算法"><a href="#决策树算法" class="headerlink" title="决策树算法"></a>决策树算法</h2><h3 id="决策树学习"><a href="#决策树学习" class="headerlink" title="决策树学习"></a>决策树学习</h3><p>决策树学习特点：</p>
+<ul>
+<li><p>实例由“属性-值”对表示，应用广泛</p>
+</li>
+<li><p>目标函数具有离散的输出值</p>
+</li>
+<li><p>健壮性好（允许少量错误和缺值实例）</p>
+</li>
+<li><p>能够学习析取表达式</p>
+</li>
+</ul>
+<p>决策树学习算法：</p>
+<ul>
+<li>ID3，Assistant，C4.5</li>
+<li>搜索一个完整表示的假设空间，表示为多个 if-then 规则</li>
+</ul>
+<p>决策树学习归纳偏置：</p>
+<ul>
+<li>优先选择较小的树</li>
+</ul>
+<p>决策树表示样例：</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331104838643.webp" alt="image-20230331104838643" style="zoom:40%;" />
+
+<h3 id="问题设置"><a href="#问题设置" class="headerlink" title="问题设置"></a>问题设置</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331104941643.webp" alt="image-20230331104941643" style="zoom:50%;" />
+
+<h3 id="决策树学习的假设空间搜索"><a href="#决策树学习的假设空间搜索" class="headerlink" title="决策树学习的假设空间搜索"></a>决策树学习的假设空间搜索</h3><ul>
+<li>从一个假设空间中搜索一个正确拟合训练样例的假设</li>
+<li>搜索的假设空间为可能的决策树集合</li>
+<li>使用从简单到复杂的爬山算法遍历假设空间：从空的树开始，逐步考虑更加复杂的假设（引导爬山搜索的评估函数是信息增益度量）</li>
+</ul>
+<h3 id="用于学习布尔函数的ID3算法"><a href="#用于学习布尔函数的ID3算法" class="headerlink" title="用于学习布尔函数的ID3算法"></a>用于学习布尔函数的ID3算法</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331105509995.webp" alt="image-20230331105509995" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331105534888.webp" alt="image-20230331105534888" style="zoom:50%;" />
+
+<h3 id="最佳属性的选择"><a href="#最佳属性的选择" class="headerlink" title="最佳属性的选择"></a>最佳属性的选择</h3><ul>
+<li>衡量给定的属性区分训练样例的能力：信息增益（information gain）</li>
+<li>信息的度量：熵（entropy），刻画了样例集的纯度</li>
+<li>目标属性为布尔值的样例集S的熵：$$Entropy(S)=-p_+ log_2 p_+ -p_- log_2 p_-$$ </li>
+</ul>
+<h3 id="信息增益"><a href="#信息增益" class="headerlink" title="信息增益"></a>信息增益</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331110352074.webp" alt="image-20230331110352074" style="zoom:50%;" />
+
+<h3 id="ID3算法特点"><a href="#ID3算法特点" class="headerlink" title="ID3算法特点"></a>ID3算法特点</h3><ul>
+<li>假设空间：包含所有的决策树</li>
+<li>遍历过程：仅维持单一的当前假设（不同于变形空间候选消除算法）</li>
+<li>回溯：不进行回溯（局部最优）</li>
+<li>基于统计：对错误样例不敏感；不适用于增量处理</li>
+</ul>
+<h3 id="决策树学习中的归纳偏置"><a href="#决策树学习中的归纳偏置" class="headerlink" title="决策树学习中的归纳偏置"></a>决策树学习中的归纳偏置</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331110825102.webp" alt="image-20230331110825102" style="zoom:50%;" />
+
+<h3 id="奥卡姆剃刀原理"><a href="#奥卡姆剃刀原理" class="headerlink" title="奥卡姆剃刀原理"></a>奥卡姆剃刀原理</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331110928813.webp" alt="image-20230331110928813" style="zoom:50%;" />
+
+<h3 id="代表性树算法对比"><a href="#代表性树算法对比" class="headerlink" title="代表性树算法对比"></a>代表性树算法对比</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331111027678.webp" alt="image-20230331111027678" style="zoom:50%;" />
+
+<h3 id="C4-5算法"><a href="#C4-5算法" class="headerlink" title="C4.5算法"></a>C4.5算法</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331113021181.webp" alt="image-20230331113021181" style="zoom:50%;" />
+
+<h3 id="CART算法"><a href="#CART算法" class="headerlink" title="CART算法"></a>CART算法</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331113048888.webp" alt="image-20230331113048888" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331113115865.webp" alt="image-20230331113115865" style="zoom:50%;" />
+
+<h3 id="基尼系数"><a href="#基尼系数" class="headerlink" title="基尼系数"></a>基尼系数</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331112633813.webp" alt="image-20230331112633813" style="zoom:50%;" />
+
+<h3 id="连续值处理"><a href="#连续值处理" class="headerlink" title="连续值处理"></a>连续值处理</h3><p><strong>连续的特征离散化</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331112713592.webp" alt="image-20230331112713592" style="zoom:50%;" />
+
+<h3 id="离散值处理"><a href="#离散值处理" class="headerlink" title="离散值处理"></a>离散值处理</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331112755659.webp" alt="image-20230331112755659" style="zoom:50%;" />
+
+<h3 id="剪枝处理"><a href="#剪枝处理" class="headerlink" title="剪枝处理"></a>剪枝处理</h3><h4 id="后剪枝"><a href="#后剪枝" class="headerlink" title="后剪枝"></a>后剪枝</h4><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331112858597.webp" alt="image-20230331112858597" style="zoom:50%;" />
+
+<h4 id="最小化子树的损失函数"><a href="#最小化子树的损失函数" class="headerlink" title="最小化子树的损失函数"></a>最小化子树的损失函数</h4><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331112945689.webp" alt="image-20230331112945689" style="zoom:50%;" />
+
+<h3 id="树学习算法优点"><a href="#树学习算法优点" class="headerlink" title="树学习算法优点"></a>树学习算法优点</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331111339376.webp" alt="image-20230331111339376" style="zoom:50%;" />
+
+<h3 id="树学习算法缺点"><a href="#树学习算法缺点" class="headerlink" title="树学习算法缺点"></a>树学习算法缺点</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331111320360.webp" alt="image-20230331111320360" style="zoom:50%;" />
+
+<h3 id="决策树的延申"><a href="#决策树的延申" class="headerlink" title="决策树的延申"></a>决策树的延申</h3><h4 id="深度学习时代的决策树"><a href="#深度学习时代的决策树" class="headerlink" title="深度学习时代的决策树"></a>深度学习时代的决策树</h4><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331112339128.webp" alt="image-20230331112339128" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331112433745.webp" alt="image-20230331112433745" style="zoom:50%;" />
+
+<h2 id="作业三：决策树"><a href="#作业三：决策树" class="headerlink" title="作业三：决策树"></a>作业三：决策树</h2><p>要求：给定药品数据集构造决策树，并用 Micro-F1 和 Macro-F1 分数进行验证集评估，预测测试集中的药品等级。</p>
+<p>数据集说明：</p>
+<ul>
+<li>csv 数据集中包含有关药品的各种属性，文件中可能包含“脏”数据，药品等级分为5级（1~5）</li>
+<li>训练集：6999条数据；验证集：1199条数据；测试集：1798条数据</li>
+</ul>
+<p><strong>代码展示</strong>：<a target="_blank" rel="noopener" href="https://github.com/Ling-Yuchen/ML-hw/blob/main/decision_tree.py">https://github.com/Ling-Yuchen/ML-hw/blob/main/decision_tree.py</a></p>
+<h3 id="实验报告-1"><a href="#实验报告-1" class="headerlink" title="实验报告"></a>实验报告</h3><h4 id="数据的分析与处理"><a href="#数据的分析与处理" class="headerlink" title="数据的分析与处理"></a>数据的分析与处理</h4><p>给定数据集的每一个数据项的结构如下：</p>
+<p><em>recordId | drugName | condition | reviewComment | date | usefulCount | sideEffects | rating</em></p>
+<p>其中，<em>rating</em> 是需要进行学习的分类标记，根据常识进行判断，<em>recordId | drugName | date</em> 属于无效字段，<em>reviewComment</em> 包含大量自然语言，难以进行概括性的标准化的归纳处理，故初步将 <em>condition | usefulCount | sideEffects</em> 作为待定的分类主要属性依据</p>
+<p>经过尝试，选取 <em>condition | sideEffects</em> 两个属性作为分类依据得到的验证数据效果最好，故在数据处理时，对每一条记录，只保留 <em>condition | sideEffects | rating</em> 三个属性的信息</p>
+<p>具体处理流程见代码中的 <code>read_data</code> 方法</p>
+<h4 id="决策树的设计原理"><a href="#决策树的设计原理" class="headerlink" title="决策树的设计原理"></a>决策树的设计原理</h4><ul>
+<li>基于信息增益选择最优特征</li>
+</ul>
+<p>ID3 算法的核心思想是通过计算每个特征的信息增益，选择最优的特征来构建决策树。信息增益是用来衡量一个特征对分类结果的影响程度的指标，其值越大表示该特征对分类的贡献越大。在每个节点上，ID3 算法会计算每个特征的信息增益，并选择信息增益最大的特征作为节点的划分标准。</p>
+<ul>
+<li>递归地构建决策树</li>
+</ul>
+<p>在选择最优特征后，ID3算法会根据该特征的取值将当前节点分成多个子节点，并递归地对每个子节点进行相同的操作，直到所有叶子节点的类别相同或者无法再分。</p>
+<ul>
+<li>处理缺失值和连续值</li>
+</ul>
+<p>在处理缺失值时，ID3算法将缺失值看作一种特殊的取值，同时计算信息增益时不考虑缺失值所对应的分支。在处理连续值时，ID3算法需要对连续值进行离散化，将其分成若干个离散的取值，然后再计算信息增益。</p>
+<p>（核心代码略）</p>
+<h4 id="验证集评估结果"><a href="#验证集评估结果" class="headerlink" title="验证集评估结果"></a>验证集评估结果</h4><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230321152606188.webp" alt="image-20230321152606188" style="zoom:70%; float:left;" />
+
         </div>
 
         
