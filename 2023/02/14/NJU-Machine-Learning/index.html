@@ -1009,31 +1009,103 @@
 <p><strong>多样性策略</strong>（学习基学习器）</p>
 <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331191932431.webp" alt="image-20230331191932431" style="zoom:50%;" />
 
-<h2 id="Bagging和随机森林"><a href="#Bagging和随机森林" class="headerlink" title="Bagging和随机森林"></a>Bagging和随机森林</h2><p><strong>基本原理</strong></p>
-<p>有放回采样方法（统计上的目的是得到统计量分布以及置信区间）</p>
-<p><strong>Bagging集成学习框架</strong></p>
-<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331192215585.webp" alt="image-20230331192215585" style="zoom:50%;" />
+<h2 id="Bagging和随机森林"><a href="#Bagging和随机森林" class="headerlink" title="Bagging和随机森林"></a>Bagging和随机森林</h2><h3 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h3><p>有放回采样方法（统计上的目的是得到统计量分布以及置信区间）</p>
+<h3 id="Bagging集成学习框架"><a href="#Bagging集成学习框架" class="headerlink" title="Bagging集成学习框架"></a>Bagging集成学习框架</h3><img src="http://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331192215585.webp" alt="image-20230331192215585" style="zoom:50%;" />
 
-<p><strong>Bagging集成学习优点</strong></p>
-<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331192548627.webp" alt="image-20230331192548627" style="zoom:50%;" />
+<h3 id="Bagging集成学习优点"><a href="#Bagging集成学习优点" class="headerlink" title="Bagging集成学习优点"></a>Bagging集成学习优点</h3><img src="http://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331192548627.webp" alt="image-20230331192548627" style="zoom:50%;" />
 
-<p><strong>随机森林算法</strong></p>
-<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331192659991.webp" alt="image-20230331192659991" style="zoom:50%;" />
+<h3 id="随机森林算法"><a href="#随机森林算法" class="headerlink" title="随机森林算法"></a>随机森林算法</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331192659991.webp" alt="image-20230331192659991" style="zoom:50%;" />
 
-<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331192726798.webp" alt="image-20230331192726798" style="zoom:50%;" />
+<img src="http://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331192726798.webp" alt="image-20230331192726798" style="zoom:50%;" />
 
-<h2 id="Boosting和GBDT、XGboost"><a href="#Boosting和GBDT、XGboost" class="headerlink" title="Boosting和GBDT、XGboost"></a>Boosting和GBDT、XGboost</h2><p><strong>提升（boosting）</strong></p>
-<p>可以通过提升方法（Boosting）将弱学习器转为强学习器</p>
-<p><strong>Boosting集成学习框架</strong></p>
-<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331192908421.webp" alt="image-20230331192908421" style="zoom:50%;" />
+<h2 id="Boosting和GBDT、XGboost"><a href="#Boosting和GBDT、XGboost" class="headerlink" title="Boosting和GBDT、XGboost"></a>Boosting和GBDT、XGboost</h2><h3 id="基本原理-1"><a href="#基本原理-1" class="headerlink" title="基本原理"></a>基本原理</h3><p>可以通过提升方法（Boosting）将弱学习器转为强学习器</p>
+<h3 id="Boosting集成学习框架"><a href="#Boosting集成学习框架" class="headerlink" title="Boosting集成学习框架"></a>Boosting集成学习框架</h3><img src="http://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331192908421.webp" alt="image-20230331192908421" style="zoom:50%;" />
 
+<h3 id="前向分步加法模型"><a href="#前向分步加法模型" class="headerlink" title="前向分步加法模型"></a>前向分步加法模型</h3><ul>
+<li>加法模型及其目标函数</li>
+</ul>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331213338867.webp" alt="image-20230331213338867" style="zoom:50%;" />
 
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331213356923.webp" alt="image-20230331213356923" style="zoom:50%;" />
 
-<p><strong>前向分步加法模型</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331213449009.webp" alt="image-20230331213449009" style="zoom:50%;" />
+
+<ul>
+<li>前向分布算法</li>
+</ul>
+<p>学习目标函数为加法模型，如果能够从前向后，每一步只学习一个基函数及其系数，逐步逼近要优化的总目标函数，就可以简化优化的复杂度</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331213646916.webp" alt="image-20230331213646916" style="zoom:50%;" />
+
 <p><strong>残差</strong></p>
-<p><strong>提升树（Boosting Tree）</strong></p>
-<p><strong>梯度提升树 GBDT</strong></p>
-<h2 id="Adaboost"><a href="#Adaboost" class="headerlink" title="Adaboost"></a>Adaboost</h2><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h1 id="优化和搜索"><a href="#优化和搜索" class="headerlink" title="优化和搜索"></a>优化和搜索</h1><h1 id="维度约减"><a href="#维度约减" class="headerlink" title="维度约减"></a>维度约减</h1><h1 id="强化学习"><a href="#强化学习" class="headerlink" title="强化学习"></a>强化学习</h1><h1 id="演化学习"><a href="#演化学习" class="headerlink" title="演化学习"></a>演化学习</h1><h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><h2 id="遗传算法"><a href="#遗传算法" class="headerlink" title="遗传算法"></a>遗传算法</h2>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331213914616.webp" alt="image-20230331213914616" style="zoom:50%;" />
+
+<h3 id="提升树"><a href="#提升树" class="headerlink" title="提升树"></a>提升树</h3><p>以决策树为基函数的提升方法成为提升树（Boosting Tree）</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331213817564.webp" alt="image-20230331213817564" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331213947622.webp" alt="image-20230331213947622" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331214019396.webp" alt="image-20230331214019396" style="zoom:50%;" />
+
+<h3 id="梯度提升树-GBDT"><a href="#梯度提升树-GBDT" class="headerlink" title="梯度提升树 GBDT"></a>梯度提升树 GBDT</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331214109628.webp" alt="image-20230331214109628" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331214144745.webp" alt="image-20230331214144745" style="zoom:50%;" />
+
+<p><strong>GBDT例子</strong></p>
+<center>
+    <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331214333965.webp" alt="image-20230331214333965" style="zoom:30%;" />
+    <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331214359166.webp" alt="image-20230331214359166" style="zoom:30%;" />
+</center>
+
+<center>
+    <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331214422717.webp" alt="image-20230331214422717" style="zoom:33%;" />
+    <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331214446054.webp" alt="image-20230331214446054" style="zoom:33%;" />
+</center>
+### XGBoost
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331214712395.webp" alt="image-20230331214712395" style="zoom:50%;" />
+
+<p><strong>树的复杂度</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331215357782.webp" alt="image-20230331215357782" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331215422130.webp" alt="image-20230331215422130" style="zoom:50%;" />
+
+<p><strong>目标函数</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331215446907.webp" alt="image-20230331215446907" style="zoom:50%;" />
+
+<p><strong>树的打分和分裂</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331215511166.webp" alt="image-20230331215511166" style="zoom:50%;" />
+
+<h2 id="Adaboost"><a href="#Adaboost" class="headerlink" title="Adaboost"></a>Adaboost</h2><p><strong>概率近似正确学习理论（PCA）</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331222054923.webp" alt="image-20230331222054923" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331222122135.webp" alt="image-20230331222122135" style="zoom:50%;" />
+
+<p><strong>Adaptive Boost</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331222213356.webp" alt="image-20230331222213356" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331222246368.webp" alt="image-20230331222246368" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331222309457.webp" alt="image-20230331222309457" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331222333840.webp" alt="image-20230331222333840" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331222357634.webp" alt="image-20230331222357634" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331222421007.webp" alt="image-20230331222421007" style="zoom:50%;" />
+
+<h2 id="学习法"><a href="#学习法" class="headerlink" title="学习法"></a>学习法</h2><h3 id="Stacking算法"><a href="#Stacking算法" class="headerlink" title="Stacking算法"></a>Stacking算法</h3><p><strong>算法原理</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331221106823.webp" alt="image-20230331221106823" style="zoom:50%;" />
+
+<p><strong>算法流程</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331221144470.webp" alt="image-20230331221144470" style="zoom:50%;" />
+
+<h3 id="Stacking"><a href="#Stacking" class="headerlink" title="Stacking"></a>Stacking</h3><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331221249286.webp" alt="image-20230331221249286" style="zoom:50%;" />
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331221311224.webp" alt="image-20230331221311224" style="zoom:50%;" />
+
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331221406391.webp" alt="image-20230331221406391" style="zoom:50%;" />
+
+<h1 id="优化和搜索"><a href="#优化和搜索" class="headerlink" title="优化和搜索"></a>优化和搜索</h1><h1 id="维度约减"><a href="#维度约减" class="headerlink" title="维度约减"></a>维度约减</h1><h1 id="强化学习"><a href="#强化学习" class="headerlink" title="强化学习"></a>强化学习</h1><h1 id="演化学习"><a href="#演化学习" class="headerlink" title="演化学习"></a>演化学习</h1><h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><h2 id="遗传算法"><a href="#遗传算法" class="headerlink" title="遗传算法"></a>遗传算法</h2>
         </div>
 
         
