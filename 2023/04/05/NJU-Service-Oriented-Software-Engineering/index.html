@@ -876,11 +876,13 @@
 </li>
 </ul>
 <h3 id="WS-协议"><a href="#WS-协议" class="headerlink" title="WS-* 协议"></a>WS-* 协议</h3><ul>
-<li>WS-* 的作用和概念<ul>
+<li><p>WS-* 的作用和概念</p>
+<ul>
 <li>略</li>
 </ul>
 </li>
-<li>BPEL<ul>
+<li><p>BPEL</p>
+<ul>
 <li>为什么需要复合服务（复用 &amp; 灵活）<ul>
 <li>有些服务是垂直的，有些是水平的。为保证复用性，某些垂直服务被设计为由水平服务构造而来</li>
 <li>如果活动由服务实现，那么由活动构成的（商业）流程由复合服务实现</li>
@@ -888,13 +890,86 @@
 </li>
 <li>如何实现复合服务<ul>
 <li>在传统编程环境中，调用子服务，再把编程单元封装成服务以供调用</li>
-<li>采用标准协议的XML脚本描述服务组合方式</li>
+<li>采用标准协议的 XML 脚本描述服务组合方式</li>
+</ul>
+</li>
+<li></li>
+</ul>
+</li>
+<li><p>WS-Addressing</p>
+<ul>
+<li><p>Web Service 中的消息分发</p>
+<ul>
+<li>为了正确处理,消息接收者必须具备识别所需要调用的 Web Service 的能力</li>
+<li>由于在 WSDL 中没有定义，服务提供者在开发服务时需要自己来区分消息的不同类型<ul>
+<li>在单个地址上部署单个服务时，采用 XSD，为不同的服务能力的不同消息说明不同的 QNames</li>
+<li>在单个地址上部署多个服务时， 必须在全局考虑所有服务中的消息类型</li>
+</ul>
+</li>
+<li>如服务提供者不能达成上述目标,尤其在使用通配类型（#any, #none）时，必须提供消息分发机制</li>
+<li>在带状态的 Web Service 中，也需要消息分发机制来识别同一服务的不同实例</li>
+</ul>
+</li>
+<li><p>WS-Addressing 请求</p>
+<ul>
+<li>随机生成全局 ID 唯一标记当前会话进程</li>
+<li>为 WSDL 定义的操作引入一个字段 Action，用以区分不同操作</li>
+<li>在 SOAP 消息中增加 Go 字段，包含请求消息的相关信息</li>
+<li>在 SOAP 消息中增加 Back 字段，包含响应请求消息的相关信息</li>
+</ul>
+  <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230407105025274.webp" alt="image-20230407105025274" style="zoom:33%;" /></li>
+<li><p>WS-Addressing 响应</p>
+  <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230407105644464.webp" alt="image-20230407105644464" style="zoom:33%;" /></li>
+<li><p>有状态和无状态的 Web Service</p>
+<ul>
+<li>无状态的 Web Service<ul>
+<li>不获取和维护状态</li>
+<li>无上下文</li>
+<li>扩展性好、容错性好</li>
+<li>轻量级</li>
+</ul>
+</li>
+<li>有状态的 Web Service<ul>
+<li>为不同消费者服务，提供个人化服务</li>
+<li>持有状态</li>
+<li>支持需要协作的复杂服务</li>
+<li>需要更多编码和额外处理资源</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>WS-Addressing 和 WSRF</li>
-<li>WS-Security 和 WS-Coordination</li>
+</ul>
+</li>
+<li><p>Web Service 资源框架（WSRF）</p>
+<ul>
+<li>定义带有资源的有状态的 Web Service</li>
+<li>包含四组用来通过 Web Service 接口访问内部状态的接口<ul>
+<li>WS-ResourceProperties</li>
+<li>WS-ResourceLifetime</li>
+<li>WS-BaseFault</li>
+<li>WS-ServiceGroup</li>
+</ul>
+</li>
+<li>支持资源属性的动态创建</li>
+<li>支持资源的销毁<ul>
+<li>立刻销毁</li>
+<li>基于时间的计划销毁</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>WS-Security</p>
+<ul>
+<li><p>WS-Security SOAP 消息结构</p>
+  <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230407110937713.webp" alt="image-20230407110937713" style="zoom:33%;" /></li>
+</ul>
+</li>
+<li><p>WS-Coordination</p>
+<ul>
+<li>用来发起、支持、完成多方参与、多消息的 Web service 协作的通用机制</li>
+<li>定义了协作服务和协作上下文，是协作 Web service 交互的框架</li>
+</ul>
+</li>
 </ul>
 <h2 id="7-服务生态系统的构建"><a href="#7-服务生态系统的构建" class="headerlink" title="7. 服务生态系统的构建"></a>7. 服务生态系统的构建</h2><h3 id="面向服务的分析"><a href="#面向服务的分析" class="headerlink" title="面向服务的分析"></a>面向服务的分析</h3><p><strong>目标</strong></p>
 <ul>
@@ -1540,6 +1615,11 @@
 </li>
 </ul>
 <h3 id="服务可组合性"><a href="#服务可组合性" class="headerlink" title="服务可组合性"></a>服务可组合性</h3><p><strong>最大化可组合性</strong></p>
+<h2 id="9-补充与例题"><a href="#9-补充与例题" class="headerlink" title="9. 补充与例题"></a>9. 补充与例题</h2><ul>
+<li>Web 服务是实现SOA的核心技术，但 SOA 并不等同于 Web 服务。Web服务是⼀套技术体系，可以用来构建应用解决方案，解决特定的消息通信和应⽤集成问题。而 SOA 是⼀种软件架构，不局限于某种技术组合（如 Web 服务），它超越技术范畴，甚⾄可以用来组织公司。</li>
+<li>企业服务总线（ESB）是SOA基础架构（basic frastruct）的关键组件，是⼀种消息代理架构，管理消息通信、服务交互等等。</li>
+<li>WSDL：Web 服务描述语言，基于 XML，但它才是 Web 服务的核心。因为它描述 Web 服务提供的操作（服务能力）以及这些操作接收和返回的参数。WSDL 包含的信息：服务做什么，应该如何使用它们，它们在哪里。也就是说提供者和调用者都需要参考 WSDL，从这个意义上来说 WSDL 是核心。</li>
+</ul>
 
         </div>
 
