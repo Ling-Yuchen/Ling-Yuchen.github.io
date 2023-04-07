@@ -249,7 +249,26 @@
 </ul>
 </li>
 </ul>
-<h2 id="03-AOP"><a href="#03-AOP" class="headerlink" title="03. AOP"></a>03. AOP</h2><p>–AOP术语<br>----@Aspect没有@Component注解的效果，即spring不会扫描到当前类并实例化<br>------@controller，@Service，@Repository注解含有@Component<br>—-通知：切面做什么、何时做（代码、@Before、@AfterReturning等）<br>—-切点：何处（切点表达式，类/方法/包路径）<br>—-切面：通知 + 切点<br>—-连接点：方法 / 字段修改 / 构造方法，spring只支持第一种<br>—-引入：动态给对象增加新的行为和状态（相对于实现一个子类）<br>—-织入：<br>–切点指示器<br>----@Pointcut 获取参数，限定到包路径，限定bean名称<br>----@Around(“@annotation(xxx)”) 限定注解</p>
+<h2 id="03-AOP"><a href="#03-AOP" class="headerlink" title="03. AOP"></a>03. AOP</h2><ul>
+<li>AOP术语<ul>
+<li>@Aspect没有@Component注解的效果，即spring不会扫描到当前类并实例化<ul>
+<li>@controller，@Service，@Repository注解含有@Component</li>
+</ul>
+</li>
+<li>通知：切面做什么、何时做（代码、@Before、@AfterReturning等）</li>
+<li>切点：何处（切点表达式，类/方法/包路径）</li>
+<li>切面：通知 + 切点</li>
+<li>连接点：方法 / 字段修改 / 构造方法，spring只支持第一种</li>
+<li>引入：动态给对象增加新的行为和状态（相对于实现一个子类）</li>
+<li>织入：</li>
+</ul>
+</li>
+<li>切点指示器<ul>
+<li>@Pointcut 获取参数，限定到包路径，限定bean名称</li>
+<li>@Around(“@annotation(xxx)”) 限定注解</li>
+</ul>
+</li>
+</ul>
 <h2 id="04-Web-MVC"><a href="#04-Web-MVC" class="headerlink" title="04. Web MVC"></a>04. Web MVC</h2><ul>
 <li>lombok：只在编译期起作用，简化代码</li>
 <li>SpringMVC请求映射注解：注意@RequestMapping既可以加在类也可以加在方法上面</li>
