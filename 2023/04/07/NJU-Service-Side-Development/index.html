@@ -339,11 +339,15 @@
 </ul>
 </li>
 <li>使用cat /etc/hosts命令查看容器IP地址</li>
-<li>docker管理命令<br>  —-管理：卷volume，网络network，容器container，镜像image</li>
+<li>docker管理命令<ul>
+<li>管理：卷volume，网络network，容器container，镜像image</li>
+</ul>
+</li>
 <li>停止运行中的容器：docker stop（可重新启动）</li>
 </ul>
 <h2 id="08-容器镜像构建与编排"><a href="#08-容器镜像构建与编排" class="headerlink" title="08. 容器镜像构建与编排"></a>08. 容器镜像构建与编排</h2><ul>
-<li>dockerfile文件的指令<ul>
+<li><p>dockerfile文件的指令</p>
+<ul>
 <li>RUN：构建镜像时执行的命令</li>
 <li>ADD：将本地文件添加到容器中，tar文件自动解压</li>
 <li>COPY：与ADD类似但不会自动解压文件</li>
@@ -351,7 +355,8 @@
 <li>ENTRYPOINT：配置容器使其可执行化，配合CMD可省去“application”只使用参数，用于docker run时根据不同参数执行不同功能</li>
 </ul>
 </li>
-<li>docker build<ul>
+<li><p>docker build</p>
+<ul>
 <li>编写dockerfile最佳实践<ul>
 <li>使用.dockerignore文件（在创建镜像时排除不需要的文件）</li>
 <li>容器只运行单个应用（利于管理）</li>
@@ -364,21 +369,28 @@
 </li>
 </ul>
 </li>
-<li>服务编排工具docker-compose<ul>
+<li><p>服务编排工具docker-compose</p>
+<ul>
 <li>服务service：一个应用对应的容器（可能多个）</li>
 <li>项目project：一组关联的应用容器组成的完整的业务单元，在docker-compose.yml中定义</li>
 </ul>
 </li>
-<li>YAML文件<ul>
+<li><p>YAML文件</p>
+<ul>
 <li>用缩进表示层级关系</li>
 <li>不允许使用tab键，只能使用空格</li>
 <li>使用“#”表示注释</li>
 <li>使用冒号结构表示对象 / 键值对：a:b，a:{b:c,d:e}</li>
 <li>使用一组连词线“-”开头的行构成一个数组</li>
 <li>使用行内表示法在一行中表示数组：a:[b,c,d,e]</li>
-<li>-docker-compose常用命令</li>
-<li>—docker-compose ps：只呈现当前目录下docker-compose.yml文件所部署的容器，不是所有的容器，docker-compose images同理</li>
-<li>—docker-compose logs -f [services…]：查看容器输出日志</li>
+</ul>
+</li>
+<li><p>docker-compose常用命令</p>
+<ul>
+<li><p>docker-compose ps：只呈现当前目录下docker-compose.yml文件所部署的容器，不是所有的容器，docker-compose images同理</p>
+</li>
+<li><p>docker-compose logs -f [services…]：查看容器输出日志</p>
+</li>
 </ul>
 </li>
 </ul>
@@ -386,11 +398,11 @@
 <li>k8s中的资源<ul>
 <li>pod：k8s中调度的最小单元，支持多容器在pod中共享网络和文件系统<ul>
 <li>共享：PID命名，network命名空间，IPC命名空间，UTS命名空间，volume</li>
-<li>—ingress</li>
-<li>—service</li>
-<li>—deployment</li>
 </ul>
 </li>
+<li>ingress</li>
+<li>service</li>
+<li>deployment</li>
 </ul>
 </li>
 <li>访问部署在k8s中的服务<ul>
