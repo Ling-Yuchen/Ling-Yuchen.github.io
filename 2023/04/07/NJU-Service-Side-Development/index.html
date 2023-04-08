@@ -304,8 +304,12 @@
 <li>在实体内需要使用@Entity，@Id等，定义实体类和数据库表的映射关系</li>
 <li>不需要提供schema.sql文件（表结构）</li>
 <li>可以根据规则(领域特定语言/@Query声明自定义查询)自定义查询方法，无需实现</li>
-<li>JPQL：面向对象的查询语言</li>
-<li>Hibernate是Spring Data JPA的一种实现</li>
+<li>JPA、Hibernate 和 Spring Data JPA 的关系<ul>
+<li>JPA 统一了 Java 应用程序访问 ORM 框架的规范，提供了 JPQL（面向对象的查询语言）等</li>
+<li>Hibernate 是 JPA 的一种实现，是一个框架</li>
+<li>Spring Data JPA 是一种 JPA 的抽象层，底层依赖 Hibernate</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -603,7 +607,7 @@
         <section class="post-nav">
             
             
-            <a class="next" rel="next" href="/2023/04/05/NJU-Service-Oriented-Software-Engineering/">南京大学《面向服务的软件工程》课程复习</a>
+            <a class="next" rel="next" href="/2023/04/05/NJU-Service-Oriented-Software-Engineering/">南京大学《面向服务的软件工程》复习笔记</a>
             
         </section>
 
