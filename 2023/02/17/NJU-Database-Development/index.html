@@ -13,7 +13,7 @@
 
 
 
-<title>南京大学《数据库开发》复习总结（ing） | Yoson&#39;s Blog</title>
+<title>南京大学《数据库开发》复习总结 | Yoson&#39;s Blog</title>
 
 
 
@@ -196,7 +196,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">南京大学《数据库开发》复习总结（ing）</h1>
+            <h1 class="post-title">南京大学《数据库开发》复习总结</h1>
             
                 <div class="post-meta">
                     
@@ -221,7 +221,154 @@
         </header>
 
         <div class="post-content">
-            <h1 id="数据库开发"><a href="#数据库开发" class="headerlink" title="数据库开发"></a>数据库开发</h1>
+            <h2 id="数据库视图"><a href="#数据库视图" class="headerlink" title="数据库视图"></a>数据库视图</h2><p>数据库中的视图是一个虚拟的表，它是由一个或多个表的数据经过特定的查询语句组成的。视图的作用如下：</p>
+<ul>
+<li>简化复杂查询：视图可以将多个表的数据组合起来，使得复杂的查询可以被简化。使用视图可以将多个SELECT语句组合在一起，从而减少代码量和提高代码可读性。</li>
+<li>数据安全性：视图可以对数据库的敏感数据进行保护。通过限制用户对表的访问权限，只能通过视图查询敏感数据，可以避免敏感数据被恶意篡改和删除。</li>
+<li>简化数据访问：视图可以隐藏数据表的细节，只暴露必要的数据给用户。这样用户只需关注他们需要的数据，而不用关心数据表的具体实现。</li>
+<li>可以向应用程序提供标准视图：应用程序可以通过访问视图而不是表来获取数据，这可以使应用程序更加灵活。当数据表结构发生变化时，只需要更改视图而不是应用程序代码。</li>
+<li>提高性能：视图可以提高查询性能，因为它可以缓存一些常用的查询结果。当多个用户需要相同的查询结果时，视图可以避免重复查询。</li>
+<li>数据一致性：视图可以保证数据的一致性，因为它可以对多个表的数据进行联合查询。当修改一个视图时，它会自动更新涉及到的所有数据表，从而保证数据的一致性。</li>
+</ul>
+<p>总的来说，视图是一种非常有用的数据库对象，可以提高查询性能、保护敏感数据、简化数据访问等。但是需要注意的是，视图可能会占用额外的存储空间和计算资源。</p>
+<h2 id="开发数据库应用"><a href="#开发数据库应用" class="headerlink" title="开发数据库应用"></a>开发数据库应用</h2><p>不要把数据库当“黑盒”，每个数据库都是非常不同的，必须深入了解你所使用的数据库的体系结构和特征</p>
+<ul>
+<li>不同数据库实现的锁和并发控制机制不同<ul>
+<li>Oracle 实现的锁机制<ul>
+<li>只有修改才加行级锁</li>
+<li>Read 绝对不会对数据加锁</li>
+<li>Writer 不会阻塞 Reader</li>
+<li>读写器绝对不会阻塞写入器</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>不同的数据库对于 Null 值的实现不同<ul>
+<li>认为 Null 是未知值，与其他任何值都不相等，使用 IS NULL / IS NOT NULL 来进行判断</li>
+<li>认为 Null 是合法值，用来表示缺失或未知的数据，在使用比较运算符时，一个操作数为 Null 则结果为 false</li>
+<li>认为 Null 是合法值，用来表示缺失或未知的数据，在使用比较运算符时，一个操作数为 Null 则结果为 Null</li>
+<li>…….</li>
+</ul>
+  处理空值：  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">avg</span>(<span class="built_in">coalesce</span>(t.x, <span class="number">0</span>)) <span class="keyword">from</span> t;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>性能、安全性都是适当的被设计出来的</p>
+<h2 id="索引结构"><a href="#索引结构" class="headerlink" title="索引结构"></a>索引结构</h2><ul>
+<li><p>更适合磁盘实现的树必须具备以下属性：</p>
+<ul>
+<li><p>高扇出，以改善临近键的数据局限性</p>
+</li>
+<li><p>低高度，以减少遍历期间的寻道次数</p>
+</li>
+</ul>
+</li>
+<li><p>B 树（B+树）</p>
+<ul>
+<li>B 树（B+树）结构</li>
+</ul>
+  <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230411094735661.webp" alt="image-20230411094735661" style="zoom:33%;" />
+
+<ul>
+<li><p>最小度数 <em>t</em>，除根结点外每个内部结点至少有 <em>t-1</em> 个关键字，至多可包含 <em>2t-1</em> 个关键字</p>
+</li>
+<li><p>B 树的分裂操作（插入新结点时发现叶结点个数已满）：</p>
+<ul>
+<li>将包含 <em>2t-1</em> 个元素的满结点，从中间分裂成两个包含 <em>t-1</em> 个关键字的子结点</li>
+<li>将中间关键字提升到父结点，标识两棵新树的划分点</li>
+<li>如果此操作导致父结点也成为满结点，则递归地进行分裂操作</li>
+</ul>
+  <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230411101755823.webp" alt="image-20230411101755823" style="zoom:33%;" /></li>
+<li><p>B 树的查找算法</p>
+<ul>
+<li>查找，从根节点到叶节点的单向遍历</li>
+<li>从根节点上执行⼆分搜索算法，将要搜索的 $K$ ，与存储在根节点中的 $K_{n}$ 进行比较，直到找到大于 $K$ 的第⼀个分隔键，这样定位了⼀个要搜索的子树，顺着相应指针继续相同的搜索过程，直到目标叶节点，找到数据主文件指针</li>
+</ul>
+</li>
+<li><p>B 树（B+树）逻辑存储结构</p>
+  <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230411102820978.webp" alt="image-20230411102820978" style="zoom:50%;" /></li>
+</ul>
+</li>
+<li><p>索引对数据的访问</p>
+  <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230411103148171.webp" alt="image-20230411103148171" style="zoom:33%;" />
+
+<ul>
+<li>通过主键索引访问基本表：先访问索引，得到文件的偏移量，再以此来访问基本表</li>
+<li>通过二级索引访问基本表：<ul>
+<li>二级索引直接指向基本表（读数据时只需要访问一次索引，写数据时需要访问两次索引）</li>
+<li>二级索引指向主键索引（读数据时只需要访问两次索引，写数据时需要访问一次索引）</li>
+</ul>
+</li>
+<li>复合键索引，本质上是按照排名第⼀的字段进行索引（查询的字段全在复合索引中则可不使用基本表）</li>
+</ul>
+</li>
+</ul>
+<h2 id="数据表的物理实现"><a href="#数据表的物理实现" class="headerlink" title="数据表的物理实现"></a>数据表的物理实现</h2><p>在数据库物理实现中，一个数据页（page）通常被划分为若干个固定大小的数据块（block），每个数据块包含一个或多个数据项（record），而这些数据项的大小并不固定</p>
+<p>为了能够高效地管理这些数据项，数据库系统采用了一种称为 slotted page 的技术</p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230411140044656.webp" alt="image-20230411140044656" style="zoom:50%;" />
+
+<p>其中，Header 中包含的数据一般有：</p>
+<ul>
+<li>Page 类型：该 page 的类型，如数据页、索引页、系统页等</li>
+<li>Page 编号：该 page 在数据库文件中的唯一标识符</li>
+<li>空闲空间：该 page 中还剩余的可用空间大小</li>
+<li>版本号：用于记录该 page 的版本信息，主要用于并发控制</li>
+<li>标记位：用于标记该 page 的状态，如是否被锁定、是否被修改等</li>
+<li><strong>Checksum</strong>：用于校验该 page 的数据完整性，防止数据损坏或篡改</li>
+<li>……</li>
+</ul>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230411141454871.webp" alt="image-20230411141454871" style="zoom:50%;" />
+
+<p>为了能够回收已删除记录的空间，构建指针链表 Freeblock，并指向第⼀个空闲块的指针保存在页头部，保存可用字节数（确定是否能在碎片整理后被放入该页）</p>
+<ul>
+<li>使用空闲块的策略：<ul>
+<li>首次适配优先（找第⼀个适配的空闲块，会带来额外开销）</li>
+<li>最佳适配优先（找⼀个剩余段最小的空间）</li>
+</ul>
+</li>
+</ul>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230411142944111.webp" alt="image-20230411142944111" style="zoom:33%;" />
+
+<p>行迁移：页溢出时，在原页面中留出一个指针大小的空间，然后将该记录的剩余部分存储在新的页面中</p>
+<p>额外的小问题：</p>
+<ul>
+<li>经验规律 70% / 30% 原则，留下一定的空间，最大程度上避免行迁移的产生</li>
+<li>校验和：checksum / XOR，循环冗余校验 CRC（检测连续比特位的损坏）</li>
+</ul>
+<h2 id="SQL-语法技巧"><a href="#SQL-语法技巧" class="headerlink" title="SQL 语法技巧"></a>SQL 语法技巧</h2><ul>
+<li><p>聚合计算时处理 null</p>
+<p>  使用 COALESCE 函数：coalesce(expr_1, expr_2, …, expr_n)，遇到非 null 值即停止判断并返回该值</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">avg</span>(<span class="built_in">coalesce</span>(t.x, <span class="number">0</span>)) <span class="keyword">from</span> t;</span><br></pre></td></tr></table></figure></li>
+<li><p>删除字符串中部分内容</p>
+<p>  使用 REPLACE 函数：replace(original-string，search-string，replace-string)</p>
+<ul>
+<li>original-string： 被搜索的字符串</li>
+<li>search-string： 要搜索并被 replace-string 替换的字符串（若为空串，则返回原始字符串）</li>
+<li>replace-string： 该字符串用于替换 search-string（若为空串，则删除出现的所有 search-string）</li>
+</ul>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> `article` <span class="keyword">set</span> title<span class="operator">=</span>replace(title, <span class="string">&#x27;w3cschool&#x27;</span>, <span class="string">&#x27;hello&#x27;</span>);</span><br></pre></td></tr></table></figure></li>
+<li><p>计算中位数</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- Oracle</span></span><br><span class="line"><span class="keyword">select</span> median(sal) <span class="keyword">from</span> emp <span class="keyword">where</span> deptno<span class="operator">=</span><span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- MySQL/PostgreSQL</span></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">avg</span>(sal)</span><br><span class="line"><span class="keyword">from</span> (</span><br><span class="line">	<span class="keyword">select</span> e.sal</span><br><span class="line">    <span class="keyword">from</span> emp e, emp d</span><br><span class="line">    <span class="keyword">where</span> e.deptno<span class="operator">=</span>d.deptno</span><br><span class="line">    	<span class="keyword">and</span> e.deptno<span class="operator">=</span><span class="number">20</span></span><br><span class="line">    <span class="keyword">group</span> <span class="keyword">by</span> e.sal</span><br><span class="line">    <span class="keyword">having</span></span><br><span class="line">    	<span class="built_in">sum</span>(<span class="keyword">case</span> <span class="keyword">when</span> e.sal<span class="operator">=</span>d.sal <span class="keyword">then</span> <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span> <span class="keyword">end</span>)</span><br><span class="line">    		<span class="operator">&gt;=</span> <span class="built_in">abs</span>(<span class="built_in">sum</span>(sign(e.sal<span class="operator">-</span>d.sal)))</span><br><span class="line">) t;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="数据库模式设计之层次结构"><a href="#数据库模式设计之层次结构" class="headerlink" title="数据库模式设计之层次结构"></a>数据库模式设计之层次结构</h2><ul>
+<li><p>树状结构</p>
+<ul>
+<li><p>只要对象的类型相同，而对象的层树可变，其关系就应该被建模为树结构</p>
+</li>
+<li><p>数据库模式设计中的三种树模型</p>
+<ul>
+<li><p>Adjacency Model：邻接模型</p>
+  <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230411114131470.webp" alt="image-20230411114131470" style="zoom:33%;" /></li>
+<li><p>Materialized Path Model：物化路径模型</p>
+  <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230411114156857.webp" alt="image-20230411114156857" style="zoom:33%;" /></li>
+<li><p>Nested Set Model：嵌套集合模型</p>
+  <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230411114252955.webp" alt="image-20230411114252955" style="zoom:33%;" />
+
+  <img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230411114320531.webp" alt="image-20230411114320531" style="zoom:33%;" /></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
         </div>
 
         
