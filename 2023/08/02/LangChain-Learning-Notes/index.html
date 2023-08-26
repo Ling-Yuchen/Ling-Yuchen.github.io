@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Yoson Ling">
+
+
+
+
+
+<title>LangChain 学习笔记 | Yoson&#39;s Blog</title>
+
+
+
+    <link rel="icon" href="/ai.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Yoson&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Yoson&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">LangChain 学习笔记</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Yoson Ling</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">八月 2, 2023&nbsp;&nbsp;00:00:00</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Learning/">Learning</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>主要参考资料：</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://cookbook.langchain.com.cn/docs/">https://cookbook.langchain.com.cn/docs/</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://python.langchain.com.cn/docs/">https://python.langchain.com.cn/docs/</a></p>
+</li>
+</ul>
+<p>实际用例介绍：<a target="_blank" rel="noopener" href="https://python.langchain.com.cn/docs/use_cases">https://python.langchain.com.cn/docs/use_cases</a></p>
+<p>相关视频教程检索：<a target="_blank" rel="noopener" href="https://python.langchain.com.cn/docs/additional_resources/youtube">https://python.langchain.com.cn/docs/additional_resources/youtube</a></p>
+<p>LangChain API 文档：<a target="_blank" rel="noopener" href="https://api.python.langchain.com/en/latest/api_reference.html">https://api.python.langchain.com/en/latest/api_reference.html</a></p>
+<h1 id="什么是-LangChain？"><a href="#什么是-LangChain？" class="headerlink" title="什么是 LangChain？"></a>什么是 LangChain？</h1><p>LangChain 是一个用于开发由语言模型驱动的应用程序的框架。</p>
+<p>LangChain 提供了一些组件和接口，集成了多元的生态，包括各类向量数据库服务、源数据集、LLM 应用开发相关工具等，可以让开发者方便地使用语言模型来实现各种功能，例如文档分析和摘要、聊天机器人、代码分析等。</p>
+<p>使用 LangChain 可以在 LLM 应用开发中：灵活构建和管理提示词模板；便捷地处理多轮对话的上下文记忆问题；使用外部知识库增强 LLM；构造代理和自定义工具，为复杂的 LLM 应用调用链服务。</p>
+<h2 id="从主要模块的视角出发-…"><a href="#从主要模块的视角出发-…" class="headerlink" title="从主要模块的视角出发 …"></a>从主要模块的视角出发 …</h2><p><strong>模型输入输出</strong>：与语言模型进行接口交互，便捷地实现和组织与 LLM 进行交互的过程</p>
+<ul>
+<li>提示 prompts：将模型输入模板化、动态选择和管理</li>
+<li>语言模型 models：通过常见接口调用语言模型</li>
+<li>输出解析器 output_parsers：从模型输出中提取信息</li>
+</ul>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230825000153273.webp" alt="image-20230825000153273" style="zoom:50%;" />
+
+<p><strong>数据连接</strong>：与特定应用程序数据进行接口交互，对接 LLM 相关的全流程数据处理支持</p>
+<ul>
+<li>文档加载器 Document loaders：从许多不同的源加载文档</li>
+<li>文档转换器 Document transformers：分割文档、删除冗余文档等</li>
+<li>文本嵌入模型 Text embedding models：将非结构化文本转换为浮点数列表</li>
+<li>向量存储 Vector stores：存储和检索嵌入数据</li>
+<li>检索器 Retrievers：查询数据</li>
+</ul>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230825001104470.webp" alt="image-20230825001104470" style="zoom:50%;" />
+
+<p><strong>链</strong>：构造调用序列，支持实现使用 LLM 构建复杂应用所必须的链式调用（与其他 LLM 进行链式调用 / 与其他组件进行链式调用）</p>
+<p><strong>记忆</strong>：在链式调用的运行之间保持应用程序状态，管理并使用与 LLM 对话的上下文（历史消息）</p>
+<p><strong>代理人</strong>：实现根据用户输入，对 LLM 和其他工具进行灵活的调用链（类似 LLM-plugin）</p>
+<ul>
+<li>动作代理人 Action agents：在每个时间步上，使用所有先前动作的输出决定下一个动作</li>
+<li>计划执行代理人 Plan-and-execute agents：预先决定所有动作的完整顺序，然后按照计划执行，不更新计划</li>
+</ul>
+<p><strong>回调函数</strong>：记录和流式传输任何链式调用的中间步骤，在 LLM 应用程序的各个阶段进行钩子处理（如日志记录、监控、流式处理和其他任务）</p>
+<h2 id="从实践领域角度出发-…"><a href="#从实践领域角度出发-…" class="headerlink" title="从实践领域角度出发 …"></a>从实践领域角度出发 …</h2><h3 id="一、提示工程-Prompting-Engineering"><a href="#一、提示工程-Prompting-Engineering" class="headerlink" title="一、提示工程 - Prompting Engineering"></a>一、提示工程 - Prompting Engineering</h3><p><strong>更好地管理和使用提示模板</strong>：LangChain 所提供的提示模板对象本质上可以用 <em>f-strings</em> 替换，但能规范化提示过程，灵活添加参数，以面向对象的方式构建提示，并和 LangChain 的其他的功能模块更好地结合</p>
+<ul>
+<li><strong>使用  <code>PromptTemplate</code> 对象</strong></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain.llms <span class="keyword">import</span> OpenAI</span><br><span class="line"><span class="keyword">from</span> langchain <span class="keyword">import</span> PromptTemplate</span><br><span class="line"></span><br><span class="line">openai = OpenAI(</span><br><span class="line">    model_name=<span class="string">&quot;text-davinci-003&quot;</span>,</span><br><span class="line">    openai_api_key=os.getenv(<span class="string">&#x27;OPENAI_API_KEY&#x27;</span>)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">template = <span class="string">&quot;Question: &#123;query&#125;\nAnswer: &quot;</span></span><br><span class="line">prompt_template = PromptTemplate(</span><br><span class="line">    input_variables=[<span class="string">&quot;query&quot;</span>],</span><br><span class="line">    template=template</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">prompt = prompt_template.<span class="built_in">format</span>(query=<span class="string">&quot;Who&#x27;s Jackie Chan?&quot;</span>)</span><br><span class="line"></span><br><span class="line">response = openai(prompt)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>使用 <code>FewShotPromptTemplate</code> 对象</strong></p>
+<p>  将 few-shot example 用 <code>PromptTemplate</code> 对象封装</p>
+<p>  将 few-shot prompt 结构上分解，由 prefix + examples + suffix 共同组成</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain <span class="keyword">import</span> FewShotPromptTemplate</span><br><span class="line"></span><br><span class="line"><span class="comment"># create examples</span></span><br><span class="line">examples = [</span><br><span class="line">    &#123;<span class="string">&quot;query&quot;</span>: <span class="string">&quot;xxx?&quot;</span>, <span class="string">&quot;answer&quot;</span>: <span class="string">&quot;xxx&quot;</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&quot;query&quot;</span>: <span class="string">&quot;xxx?&quot;</span>, <span class="string">&quot;answer&quot;</span>: <span class="string">&quot;xxx&quot;</span>&#125;,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># create a example template</span></span><br><span class="line">example_template = <span class="string">&quot;User: &#123;query&#125;\nAI: &#123;answer&#125;“</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># create a prompt example from above template</span></span><br><span class="line"><span class="string">example_prompt = PromptTemplate(</span></span><br><span class="line"><span class="string">    input_variables=[&quot;</span>query<span class="string">&quot;, &quot;</span>answe<span class="string">r&quot;],</span></span><br><span class="line"><span class="string">    template=example_template</span></span><br><span class="line"><span class="string">)</span></span><br><span class="line"><span class="string"># now break our previous prompt into a prefix and suffix</span></span><br><span class="line"><span class="string"># the prefix is our instructions</span></span><br><span class="line"><span class="string">prefix = &quot;</span><span class="string">&quot;&quot;</span>The following are excerpts <span class="keyword">from</span> conversations</span><br><span class="line"><span class="keyword">with</span> an AI assistant. The assistant <span class="keyword">is</span> typically sarcastic</span><br><span class="line"><span class="keyword">and</span> witty, producing creative <span class="keyword">and</span> funny responses to the</span><br><span class="line">users questions. Here are some examples: <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string"># and the suffix our user input and output indicator</span></span><br><span class="line"><span class="string">suffix = &quot;User: &#123;query&#125;\nAI: &quot;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># now create the few shot prompt template</span></span><br><span class="line"><span class="string">few_shot_prompt_template = FewShotPromptTemplate(</span></span><br><span class="line"><span class="string">    examples=examples,</span></span><br><span class="line"><span class="string">    example_prompt=example_prompt,</span></span><br><span class="line"><span class="string">    prefix=prefix,</span></span><br><span class="line"><span class="string">    suffix=suffix,</span></span><br><span class="line"><span class="string">    input_variables=[&quot;query&quot;],</span></span><br><span class="line"><span class="string">    example_separator=&quot;\n\n&quot;</span></span><br><span class="line"><span class="string">)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">prompt= few_shot_prompt_template.format(query=&quot;What is the meaning of life?&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<p>在 examples 数量较多的情况下，动态地选择和构造 few-shot prompt</p>
+<p>基于长度：可以限制过多的标记使用，并避免超出 LLM 的最大上下文窗口而导致错误</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain.prompts.example_selector <span class="keyword">import</span> LengthBasedExampleSelector</span><br><span class="line"></span><br><span class="line">example_selector = LengthBasedExampleSelector(</span><br><span class="line">    examples=examples,</span><br><span class="line">    example_prompt=example_prompt,</span><br><span class="line">    max_length=<span class="number">50</span>  <span class="comment"># this sets the max length that examples should be</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">dynamic_prompt_template = FewShotPromptTemplate(</span><br><span class="line">    example_selector = example_selector,  <span class="comment"># use example_selector instead of examples</span></span><br><span class="line">    example_prompt=example_prompt,</span><br><span class="line">    prefix=prefix,</span><br><span class="line">    suffix=suffix,</span><br><span class="line">    input_variables=[<span class="string">&quot;query&quot;</span>],</span><br><span class="line">    example_separator=<span class="string">&quot;\n\n&quot;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h3 id="二、会话记忆-Conversational-Memory"><a href="#二、会话记忆-Conversational-Memory" class="headerlink" title="二、会话记忆 - Conversational Memory"></a>二、会话记忆 - Conversational Memory</h3><p><strong>便捷地管理和组织连续对话的上下文</strong>：</p>
+<ul>
+<li>帮助无状态的 LLM 以类似于有状态的环境的方式进行交互，能够考虑并参考过去的交互</li>
+<li>可以实现自己的记忆模块，在同一链中使用多种类型的记忆，将它们与代理结合使用等等</li>
+</ul>
+<p><strong>使用 <code>ConversationChain</code> 来管理 LLM 的会话记忆</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain <span class="keyword">import</span> OpenAI</span><br><span class="line"><span class="keyword">from</span> langchain.chains <span class="keyword">import</span> ConversationChain</span><br><span class="line"></span><br><span class="line"><span class="comment"># first initialize the large language model</span></span><br><span class="line">llm = OpenAI(</span><br><span class="line">    temperature=<span class="number">0</span>,</span><br><span class="line">    openai_api_key=os.getenv(<span class="string">&#x27;OPENAI_API_KEY&#x27;</span>),</span><br><span class="line">    model_name=<span class="string">&quot;text-davinci-003&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># now initialize the conversation chain</span></span><br><span class="line">conversation = ConversationChain(llm=llm)</span><br></pre></td></tr></table></figure>
+
+<p><code>conversation.prompt.template</code> 中包含了 <code>&#123;history</code>} 和 <code>&#123;input&#125;</code> 两个参数，其中 <code>history</code> 是使用对话记忆的地方，<code>input</code> 是放置最新的人类查询的地方。</p>
+<p>我们可以使用多种类型的对话记忆来使用 <code>ConversationChain</code> 。它们会修改传递给 <code>&#123;history&#125;</code> 参数的文本。</p>
+<p><strong>LangChain 对于 <code>ConversationChain</code> 中的 <code>memory</code> 提供了不同的实现方式</strong></p>
+<ul>
+<li><strong>使用 <code>ConversationBufferMemory</code>，缓冲区直接保存了聊天历史中的每个交互</strong></li>
+</ul>
+<p>每次交互消耗的 Token 数量近似呈线性增长，容易超出上下文窗口的限制</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain.chains.conversation.memory <span class="keyword">import</span> ConversationBufferMemory</span><br><span class="line"></span><br><span class="line">conversation_buf = ConversationChain(</span><br><span class="line">    llm=llm,</span><br><span class="line">    memory=ConversationBufferMemory()</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>使用 <code>ConversationSummaryMemory</code>，总结每个新的交互并将其附加到所有过去交互的运行汇总中</strong></li>
+</ul>
+<p>每次交互消耗的 Token 数量增长速度低于线性但不收敛，对话轮数较少时消耗的 Token 数量反而相对较高</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain.chains.conversation.memory <span class="keyword">import</span> ConversationSummaryMemory</span><br><span class="line"></span><br><span class="line">conversation = ConversationChain(</span><br><span class="line">    llm=llm,</span><br><span class="line">    memory=ConversationSummaryMemory(llm=llm)  <span class="comment"># 总结由LLM提供支持</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>生成 Summary 的详细提示模板见 <code>conversation_sum.memory.prompt.template</code></p>
+<ul>
+<li><strong>使用 <code>ConversationBufferWindowMemory</code>，在忘记之前只保留给定数量的过去交互</strong></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain.chains.conversation.memory <span class="keyword">import</span> ConversationBufferWindowMemory</span><br><span class="line"></span><br><span class="line">conversation = ConversationChain(</span><br><span class="line">    llm=llm,</span><br><span class="line">    memor=ConversationBufferWindowMemory(k=<span class="number">6</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>使用 <code>ConversationSummaryBufferMemory</code>，既能记住远程交互又能以其原始形式存储最近的交互</strong></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain.chains.conversation.memory <span class="keyword">import</span> ConversationSummaryBufferMemory</span><br><span class="line"></span><br><span class="line">conversation_sum_bufw = ConversationChain(</span><br><span class="line">    llm=llm,</span><br><span class="line">    memory=ConversationSummaryBufferMemory(llm=llm, max_token_limit=<span class="number">650</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230823182259070.webp" alt="image-20230823182259070" style="zoom:50%;" />
+
+<ul>
+<li><strong>使用其他记忆类型，如 <code>ConversationKnowledgeGraphMemory</code>、<code>ConversationEntityMemory</code></strong></li>
+</ul>
+<h3 id="三、知识库-Knowledge-Bases"><a href="#三、知识库-Knowledge-Bases" class="headerlink" title="三、知识库 - Knowledge Bases"></a>三、知识库 - Knowledge Bases</h3><p><strong>便捷地使用外部知识库增强 LLM</strong>：</p>
+<ul>
+<li>使用检索增强技术，从外部知识库中检索相关信息并提供给 LLM</li>
+<li>使用向量数据库作为知识库来为 LLM 提供源知识的支撑</li>
+</ul>
+<ol>
+<li><strong>获取知识库数据</strong></li>
+</ol>
+<ul>
+<li>可以是 LLM 需要帮助编写代码的代码文档，也可以是内部聊天机器人的公司文档，或者其他任何东西</li>
+</ul>
+<p>以使用 Hugging Face 数据集获取维基百科的一个子集为例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> datasets <span class="keyword">import</span> load_dataset</span><br><span class="line">data = load_dataset(<span class="string">&quot;wikipedia&quot;</span>, <span class="string">&quot;20220301.simple&quot;</span>, split =<span class="string">&#x27;train [: 10000]&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Dataset(&#123;</span></span><br><span class="line"><span class="string">    features: [&#x27;id&#x27;, &#x27;url&#x27;, &#x27;title&#x27;, &#x27;text&#x27;],</span></span><br><span class="line"><span class="string">    num_rows: 10000</span></span><br><span class="line"><span class="string">&#125;)</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><strong>创建文本块</strong></li>
+</ol>
+<p>为什么要将文本分割成较小的块？</p>
+<ul>
+<li>提高 ”嵌入准确性“</li>
+<li>减少输入 LLM 的文本量：限制输入可以提高 LLM 遵循指示的能力，减少生成成本，获得更快的响应</li>
+<li>将信息源缩小到更小的文本块，提供更精确的信息源</li>
+<li>将非常长的（超过最大上下文窗口）文本块拆分，使其可以被添加到知识库中</li>
+</ul>
+<p><strong>使用 <code>RecursiveCharacterTextSplitter</code>，将文本分割成不超过 <code>chunk_size</code>长度的块</strong></p>
+<ul>
+<li>注：这里使用了 tiktoken 库来完成计算 token 数量的计算</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tiktoken  <span class="comment"># ! pip install tiktoken</span></span><br><span class="line">tokenizer = tiktoken.get_encoding(<span class="string">&#x27;p50k_base&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># create the length function</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">tiktoken_len</span>(<span class="params">text</span>):</span><br><span class="line">    tokens = tokenizer.encode(text, disallowed_special=())</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">len</span>(tokens)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> langchain.text_splitter <span class="keyword">import</span> RecursiveCharacterTextSplitter</span><br><span class="line"></span><br><span class="line">text_splitter = RecursiveCharacterTextSplitter(</span><br><span class="line">    chunk_size=<span class="number">400</span>,</span><br><span class="line">    chunk_overlap=<span class="number">20</span>,</span><br><span class="line">    length_function=tiktoken_len,</span><br><span class="line">    separators=[<span class="string">&quot;\n\n&quot;</span>, <span class="string">&quot;\n&quot;</span>, <span class="string">&quot; &quot;</span>, <span class="string">&quot;&quot;</span>]</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">chunks = text_splitter.split_text(data[<span class="number">6</span>][<span class="string">&#x27;text&#x27;</span>])[:<span class="number">3</span>]</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><strong>创建嵌入</strong></li>
+</ol>
+<p>嵌入结果存储在向量数据库中，并且可以通过计算向量空间中嵌入之间的距离来找到具有相似含义的文本块。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain.embeddings.openai <span class="keyword">import</span> OpenAIEmbeddings</span><br><span class="line"></span><br><span class="line">embed = OpenAIEmbeddings(</span><br><span class="line">    document_model_name=<span class="string">&#x27;text-embedding-ada-002&#x27;</span>,</span><br><span class="line">    query_model_name=<span class="string">&#x27;text-embedding-ada-002&#x27;</span>,</span><br><span class="line">    openai_api_key=os.getenv(<span class="string">&#x27;OPENAI_API_KEY&#x27;</span>)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">texts = [</span><br><span class="line">    <span class="string">&#x27;first chunk of text&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;second chunk of text&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;third chunk of text&#x27;</span></span><br><span class="line">]</span><br><span class="line">res = embed.embed_documents(texts)</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><strong>使用向量数据库</strong></li>
+</ol>
+<p>主流的开源向量数据库：Milvus 等；主流的闭源向量数据库：Pinecone 等</p>
+<p>以 Pinecone 向量数据库为例（需要一个 API 密钥 <a target="_blank" rel="noopener" href="https://app.pinecone.io/%EF%BC%89%EF%BC%9A">https://app.pinecone.io/）：</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pinecone</span><br><span class="line"></span><br><span class="line">pinecone.init(</span><br><span class="line">	api_key=<span class="string">&quot;YOUR_API_KEY&quot;</span>,  <span class="comment"># find api key in console at app.pinecone.io</span></span><br><span class="line">	environment=<span class="string">&quot;YOUR_ENV&quot;</span>  <span class="comment"># find next to api key in console</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># create a new index</span></span><br><span class="line">pinecone.create_index(</span><br><span class="line">	name=index_name,</span><br><span class="line">	metric=<span class="string">&#x27;dotproduct&#x27;</span>,</span><br><span class="line">	dimension=<span class="built_in">len</span>(res[<span class="number">0</span>]) <span class="comment"># 1536 dim of text-embedding-ada-002</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># link to new index</span></span><br><span class="line">Index = pinecone.GRPCIndex(index_name)</span><br><span class="line"></span><br><span class="line">Index.describe_index_stats()</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">&#123;&#x27;dimension&#x27;: 1536,</span></span><br><span class="line"><span class="string"> &#x27;index_fullness&#x27;: 0.0,</span></span><br><span class="line"><span class="string"> &#x27;namespaces&#x27;: &#123;&#125;,</span></span><br><span class="line"><span class="string"> &#x27;total_vector_count&#x27;: 0&#125;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>此时尚未添加任何向量，故新 Pinecone 索引的 <code>total_vector_count</code> 为 0。</p>
+<p>索引过程包括：遍历想要添加到知识库中的数据，为其创建ID、嵌入和元数据，然后将其添加到索引中。</p>
+<ul>
+<li>可以批量处理此过程以加快速度</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> tqdm.auto <span class="keyword">import</span> tqdm</span><br><span class="line"><span class="keyword">from</span> uuid <span class="keyword">import</span> uuid4</span><br><span class="line"></span><br><span class="line">batch_limit = <span class="number">100</span></span><br><span class="line"></span><br><span class="line">texts = []</span><br><span class="line">metadatas = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i, record <span class="keyword">in</span> <span class="built_in">enumerate</span>(tqdm(data)):</span><br><span class="line">    <span class="comment"># get metadata fields for this record</span></span><br><span class="line">    metadata = &#123;</span><br><span class="line">        <span class="string">&#x27;wiki-id&#x27;</span>: <span class="built_in">str</span>(record[<span class="string">&#x27;id&#x27;</span>]),</span><br><span class="line">        <span class="string">&#x27;source&#x27;</span>: record[<span class="string">&#x27;url&#x27;</span>],</span><br><span class="line">        <span class="string">&#x27;title&#x27;</span>: record[<span class="string">&#x27;title&#x27;</span>]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment"># create chunks from the record text</span></span><br><span class="line">    record_texts = text_splitter.split_text(record[<span class="string">&#x27;text&#x27;</span>])</span><br><span class="line">    <span class="comment"># create individual metadata dicts for each chunk</span></span><br><span class="line">    record_metadatas = [&#123;</span><br><span class="line">        <span class="string">&quot;chunk&quot;</span>: j, <span class="string">&quot;text&quot;</span>: text, **metadata</span><br><span class="line">    &#125; <span class="keyword">for</span> j, text <span class="keyword">in</span> <span class="built_in">enumerate</span>(record_texts)]</span><br><span class="line">    <span class="comment"># append these to current batches</span></span><br><span class="line">    texts.extend(record_texts)</span><br><span class="line">    metadatas.extend(record_metadatas)</span><br><span class="line">    <span class="comment"># if we have reached the batch_limit we can add texts</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(texts) &gt;= batch_limit:</span><br><span class="line">        ids = [<span class="built_in">str</span>(uuid4()) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(texts))]</span><br><span class="line">        embeds = embed.embed_documents(texts)</span><br><span class="line">        Index.upsert(vectors=<span class="built_in">zip</span>(ids, embeds, metadatas))</span><br><span class="line">        texts = []</span><br><span class="line">        metadatas = []</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Index.describe_index_stats()</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">&#123;&#x27;dimension&#x27;: 1536,</span></span><br><span class="line"><span class="string"> &#x27;index_fullness&#x27;: 0.1,</span></span><br><span class="line"><span class="string"> &#x27;namespaces&#x27;: &#123;&#x27;&#x27;: &#123;&#x27;vector_count&#x27;: 27437&#125;&#125;,</span></span><br><span class="line"><span class="string"> &#x27;total_vector_count&#x27;: 27437&#125;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li><strong>向量存储与查询</strong></li>
+</ol>
+<p><strong>通过 LangChain 库重新连接到创建的索引</strong></p>
+<ul>
+<li>上一步中独立构建的索引与 LangChain 无关</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain.vectorstores <span class="keyword">import</span> Pinecone</span><br><span class="line"></span><br><span class="line">text_field = <span class="string">&quot;text&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># switch back to normal index for langchain</span></span><br><span class="line"></span><br><span class="line">Index = pinecone.Index(index_name)</span><br><span class="line"></span><br><span class="line">vectorstore = Pinecone(</span><br><span class="line">    index, embed.embed_query, text_field</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用 <code>similarity search</code> 方法直接进行查询</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">query = <span class="string">&quot;who was Benito Mussolini?&quot;</span></span><br><span class="line"></span><br><span class="line">vectorstore.similarity_search(</span><br><span class="line">    query=<span class="string">&quot;who was Jakie Chan?&quot;</span>,</span><br><span class="line">    k=<span class="number">3</span>  <span class="comment"># return 3 most relevant docs</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>得到检索到的相关上下文信息，从而可以进一步使用 LLM 来生成答案。</p>
+<p>以生成式问答（将问题传递给 LLM，指示它基于从知识库返回的信息来回答问题）为例：</p>
+<p><strong>使用 <code>RetrievalQA</code> 链，根据向量数据库检索到的信息生成回答</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain.chat_models <span class="keyword">import</span> ChatOpenAI</span><br><span class="line"><span class="keyword">from</span> langchain.chains <span class="keyword">import</span> RetrievalQA</span><br><span class="line"></span><br><span class="line"><span class="comment"># completion llm</span></span><br><span class="line">llm = ChatOpenAI(</span><br><span class="line">    openai_api_key=os.getenv(<span class="string">&#x27;OPENAI_API_KEY&#x27;</span>),</span><br><span class="line">    model_name=<span class="string">&#x27;gpt-3.5-turbo&#x27;</span>,</span><br><span class="line">    temperature=<span class="number">0</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">qa = RetrievalQA.from_chain_type(</span><br><span class="line">    llm=llm,</span><br><span class="line">    chain_type=<span class="string">&quot;stuff&quot;</span>,</span><br><span class="line">    retriever=vectorstore.as_retriever()</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">response = qa.run(query=<span class="string">&quot;who was Jakie Chan?&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用 <code>RetrievalQAWithSourcesChain</code>，允许用户看到信息的来源，提高对所提供答案的信任</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain.chains <span class="keyword">import</span> RetrievalQAWithSourcesChain</span><br><span class="line"></span><br><span class="line">qa_with_sources = RetrievalQAWithSourcesChain.from_chain_type(</span><br><span class="line">    llm=llm,</span><br><span class="line">    chain_type=<span class="string">&quot;stuff&quot;</span>,</span><br><span class="line">    retriever=vectorstore.as_retriever()</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">response = qa_with_sources.run(query=<span class="string">&quot;who was Jakie Chan?&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="四、会话代理-Conversational-Agents"><a href="#四、会话代理-Conversational-Agents" class="headerlink" title="四、会话代理 - Conversational Agents"></a>四、会话代理 - Conversational Agents</h3><p><strong>代理可以被视为 LLM 的工具，比如：代理是可以使用计算器、搜索或执行代码的 LLM</strong></p>
+<img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230825214911980.webp" alt="image-20230825214911980" style="zoom:50%;" />
+
+<p><strong>代理三要素</strong>：基本的 LLM，要进行交互的工具，控制交互的代理</p>
+<p>LangChain 库提供了大量预置的工具，以下示例中包含了计算器工具和常规对话工具，Agent 可以根据需要进行工具的选择，既能够精确处理计算问题，也能够应对常规对话：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;Basic LLM&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">from</span> langchain <span class="keyword">import</span> OpenAI</span><br><span class="line"></span><br><span class="line">llm = OpenAI(</span><br><span class="line">    openai_api_key=os.getenv(<span class="string">&quot;OPENAI_API_KEY&quot;</span>),</span><br><span class="line">    temperature=<span class="number">0</span>,</span><br><span class="line">    model_name=<span class="string">&quot;text-davinci-003&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;Tool(s) to be interacted&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">from</span> langchain.chains <span class="keyword">import</span> LLMMathChain</span><br><span class="line"><span class="keyword">from</span> langchain.agents <span class="keyword">import</span> Tool</span><br><span class="line"></span><br><span class="line">llm_math = LLMMathChain(llm=llm)</span><br><span class="line"><span class="comment"># initialize the math tool</span></span><br><span class="line">math_tool = Tool(</span><br><span class="line">    name=<span class="string">&#x27;Calculator&#x27;</span>,</span><br><span class="line">    func=llm_math.run,</span><br><span class="line">    description=<span class="string">&#x27;Useful for when you need to answer questions about math.&#x27;</span></span><br><span class="line">)</span><br><span class="line">llm_tool = Tool(</span><br><span class="line">    name =<span class="string">&#x27;Language Model&#x27;</span>,</span><br><span class="line">    func = llm_chain.run,</span><br><span class="line">    description =<span class="string">&#x27;use this tool for general purpose queries and logic&#x27;</span></span><br><span class="line">)</span><br><span class="line"><span class="comment"># when giving tools to LLM, we must pass as list of tools</span></span><br><span class="line">tools = [math_tool, llm_tool]</span><br><span class="line"><span class="comment"># directly load pre-constructed tools</span></span><br><span class="line"><span class="comment"># from langchain.agents import load_tools</span></span><br><span class="line"><span class="comment"># tools = load_tools([&#x27;llm-math&#x27;], llm=llm)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;Agent&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">from</span> langchain.agents <span class="keyword">import</span> initialize_agent</span><br><span class="line"></span><br><span class="line">zero_shot_agent = initialize_agent(</span><br><span class="line">    agent=<span class="string">&quot;zero-shot-react-description&quot;</span>,  <span class="comment"># stateless + ReAct method</span></span><br><span class="line">    tools=tools,</span><br><span class="line">    llm=llm,</span><br><span class="line">    verbose=<span class="literal">True</span>,</span><br><span class="line">    max_iterations=<span class="number">3</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zero_shot_agent(<span class="string">&quot;what is (4.5*2.1)^2.2?&quot;</span>)</span><br><span class="line">zero_shot_agent(<span class="string">&quot;what is the capital of Norway?&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>代理的类型</strong>：</p>
+<ul>
+<li><p>Zero Shot ReAct (“zero-shot-react-description”)：无状态（无记忆）</p>
+</li>
+<li><p>ReAct Conversational ReAct (“conversational-react-description”)：有状态（有记忆）</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain.memory <span class="keyword">import</span> ConversationBufferMemory</span><br><span class="line"></span><br><span class="line">memory = ConversationBufferMemory(memory_key=<span class="string">&quot;chat_history&quot;</span>)</span><br><span class="line"></span><br><span class="line">conversational_agent = initialize_agent(</span><br><span class="line">    agent=<span class="string">&#x27;conversational-react-description&#x27;</span>, </span><br><span class="line">    tools=tools, </span><br><span class="line">    llm=llm,</span><br><span class="line">    verbose=<span class="literal">True</span>,</span><br><span class="line">    max_iterations=<span class="number">3</span>,</span><br><span class="line">    memory=memory,</span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+<li><p>ReAct Docstore (“react-docstore”)：使用 LangChain 的 <em>docstore</em> 进行信息搜索和查找</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain <span class="keyword">import</span> Wikipedia</span><br><span class="line"><span class="keyword">from</span> langchain.agents.react.base <span class="keyword">import</span> DocstoreExplorer</span><br><span class="line"></span><br><span class="line">docstore = DocstoreExplorer(Wikipedia())</span><br><span class="line">tools = [</span><br><span class="line">    Tool(</span><br><span class="line">        name = <span class="string">&quot;Search&quot;</span>,  <span class="comment"># Search for relevant articles</span></span><br><span class="line">        func = docstore.search,</span><br><span class="line">        description =<span class="string">&#x27;search wikipedia&#x27;</span></span><br><span class="line">    ),</span><br><span class="line">    Tool(</span><br><span class="line">        name = <span class="string">&quot;Lookup&quot;</span>,  <span class="comment"># Find relevant chunks of information in retrieved articles</span></span><br><span class="line">        func = docstore.lookup,</span><br><span class="line">        description =<span class="string">&#x27;lookup a term in wikipedia&#x27;</span></span><br><span class="line">    )</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">docstore_agent = initialize_agent(</span><br><span class="line">    tools=tools, </span><br><span class="line">    llm=llm, </span><br><span class="line">    agent=<span class="string">&quot;react-docstore&quot;</span>, </span><br><span class="line">    verbose=<span class="literal">True</span>,</span><br><span class="line">    max_iterations=<span class="number">3</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">docstore_agent(<span class="string">&quot;What were Archimedes&#x27; last words?&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>Self-ask With Search (“self-ask-with-search”)：根据需要执行搜索和提问步骤，以获得最终答案</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain <span class="keyword">import</span> SerpAPIWrapper</span><br><span class="line"></span><br><span class="line"><span class="comment"># initialize the search chain</span></span><br><span class="line">search = SerpAPIWrapper(serpapi_api_key =<span class="string">&#x27;serp_api_key&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># create a search tool</span></span><br><span class="line">tools = [</span><br><span class="line">    Tool(</span><br><span class="line">        name=<span class="string">&quot;Intermediate Answer&quot;</span>,</span><br><span class="line">        func=search.run,</span><br><span class="line">        description=<span class="string">&#x27;google search&#x27;</span></span><br><span class="line">    )</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># initialize the search enabled agent</span></span><br><span class="line">self_ask_with_search = initialize_agent(</span><br><span class="line">    tools=tools,</span><br><span class="line">    llm=llm,</span><br><span class="line">    agent=<span class="string">&quot;self-ask-with-search&quot;</span>,</span><br><span class="line">    verbose=<span class="literal">True</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">self_ask_with_search(<span class="string">&quot;who lived longer; Plato, Socrates, or Aristotle?&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="五、自定义工具-Custom-Tools"><a href="#五、自定义工具-Custom-Tools" class="headerlink" title="五、自定义工具 - Custom Tools"></a>五、自定义工具 - Custom Tools</h3><p><strong>简单的订制工具</strong></p>
+<p>以一个简单的计算圆周长的工具为例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain.tools <span class="keyword">import</span> BaseTool  <span class="comment"># Necessary template of LangChain tools</span></span><br><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> pi</span><br><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Union</span></span><br><span class="line">  </span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CircumferenceTool</span>(<span class="title class_ inherited__">BaseTool</span>):</span><br><span class="line">    <span class="comment"># Necessary attribute of a LangChain tool</span></span><br><span class="line">	self.name = <span class="string">&quot;Circumference calculator&quot;</span></span><br><span class="line">	self.description = <span class="string">&quot;use this tool when you need to calculate a circumference using the radius of a circle&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Synchronous call (default)</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_run</span>(<span class="params">self, radius: <span class="type">Union</span>[<span class="built_in">int</span>, <span class="built_in">float</span>]</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">float</span>(radius) * <span class="number">2.0</span> * pi</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Asynchronous call</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_arun</span>(<span class="params">self, radius: <span class="built_in">int</span></span>):</span><br><span class="line">        <span class="keyword">raise</span> NotImplementedError(<span class="string">&quot;This tool does not support async&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain.chat_models <span class="keyword">import</span> ChatOpenAI</span><br><span class="line"><span class="keyword">from</span> langchain.chains.conversation.memory <span class="keyword">import</span> ConversationBufferWindowMemory</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># initialize LLM (we use ChatOpenAI because we&#x27;ll later define a `chat` agent)</span></span><br><span class="line">llm = ChatOpenAI(</span><br><span class="line">	openai_api_key=os.getenv(<span class="string">&quot;OPENAI_API_KEY&quot;</span>),</span><br><span class="line">	temperature=<span class="number">0</span>,</span><br><span class="line">	model_name=<span class="string">&#x27;gpt-3.5-turbo&#x27;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># initialize conversational memory</span></span><br><span class="line">conversational_memory = ConversationBufferWindowMemory(</span><br><span class="line">	memory_key=<span class="string">&#x27;chat_history&#x27;</span>,</span><br><span class="line">	k=<span class="number">5</span>,</span><br><span class="line">	return_messages=<span class="literal">True</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain.agents <span class="keyword">import</span> initialize_agent</span><br><span class="line"></span><br><span class="line">tools = [CircumferenceTool()]</span><br><span class="line"></span><br><span class="line"><span class="comment"># initialize agent with tools</span></span><br><span class="line">agent = initialize_agent(</span><br><span class="line">    agent=<span class="string">&#x27;chat-conversational-react-description&#x27;</span>,</span><br><span class="line">    tools=tools,</span><br><span class="line">    llm=llm,</span><br><span class="line">    verbose=<span class="literal">True</span>,</span><br><span class="line">    max_iterations=<span class="number">3</span>,</span><br><span class="line">    early_stopping_method=<span class="string">&#x27;generate&#x27;</span>,</span><br><span class="line">    memory=conversational_memory</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">agent(<span class="string">&quot;can you calculate the circumference of a circle that has a radius of 7.81mm&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>我们发现代理给出了不准确的答案，查看调用链可以看出，这是由于代理决定<strong>不</strong>使用圆周计算器工具导致的。</p>
+<p>查看代理内置的提示词，并基于此添加一句话，告诉模型永远不应该尝试进行数学计算。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(agent.agent.llm_chain.prompt.messages[<span class="number">0</span>].prompt.template)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">sys_msg = <span class="string">&quot;&quot;&quot;Assistant is a large language model trained by OpenAI.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Assistant is designed to be able to assist with a wide range of tasks, from answering simple questions to providing in-depth explanations and discussions on a wide range of topics. As a language model, Assistant is able to generate human-like text based on the input it receives, allowing it to engage in natural-sounding conversations and provide responses that are coherent and relevant to the topic at hand.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Assistant is constantly learning and improving, and its capabilities are constantly evolving. It is able to process and understand large amounts of text, and can use this knowledge to provide accurate and informative responses to a wide range of questions. Additionally, Assistant is able to generate its own text based on the input it receives, allowing it to engage in discussions and provide explanations and descriptions on a wide range of topics.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Unfortunately, Assistant is terrible at maths. When provided with math questions, no matter how simple, assistant always refers to it&#x27;s trusty tools and absolutely does NOT try to answer math questions by itself</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Overall, Assistant is a powerful system that can help with a wide range of tasks and provide valuable insights and information on a wide range of topics. Whether you need help with a specific question or just want to have a conversation about a particular topic, Assistant is here to assist.</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">new_prompt = agent.agent.create_prompt(</span><br><span class="line">    system_message=sys_msg,</span><br><span class="line">    tools=tools</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">agent.agent.llm_chain.prompt = new_prompt</span><br></pre></td></tr></table></figure>
+
+<p><strong>带有多个参数的工具</strong></p>
+<p>下面是一个 <code>三角形斜边计算器工具</code> 的例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Optional</span></span><br><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> sqrt, cos, sin</span><br><span class="line"></span><br><span class="line">desc = (</span><br><span class="line">    <span class="string">&quot;use this tool when you need to calculate the length of a hypotenuse&quot;</span></span><br><span class="line">    <span class="string">&quot;given one or two sides of a triangle and/or an angle (in degrees). &quot;</span></span><br><span class="line">    <span class="string">&quot;To use the tool, you must provide at least two of the following parameters &quot;</span></span><br><span class="line">    <span class="string">&quot;[&#x27;adjacent_side&#x27;, &#x27;opposite_side&#x27;, &#x27;angle&#x27;].&quot;</span></span><br><span class="line">)  <span class="comment"># Teach LLM about input format / requirement</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">PythagorasTool</span>(<span class="title class_ inherited__">BaseTool</span>):</span><br><span class="line">    self.name = <span class="string">&quot;Hypotenuse calculator&quot;</span></span><br><span class="line">    self.description = desc</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_run</span>(<span class="params"></span></span><br><span class="line"><span class="params">        self,</span></span><br><span class="line"><span class="params">        adjacent_side: <span class="type">Optional</span>[<span class="type">Union</span>[<span class="built_in">int</span>, <span class="built_in">float</span>]] = <span class="literal">None</span>,</span></span><br><span class="line"><span class="params">        opposite_side: <span class="type">Optional</span>[<span class="type">Union</span>[<span class="built_in">int</span>, <span class="built_in">float</span>]] = <span class="literal">None</span>,</span></span><br><span class="line"><span class="params">        angle: <span class="type">Optional</span>[<span class="type">Union</span>[<span class="built_in">int</span>, <span class="built_in">float</span>]] = <span class="literal">None</span></span></span><br><span class="line"><span class="params">    </span>):</span><br><span class="line">        <span class="comment"># check for the values we have been given</span></span><br><span class="line">        <span class="keyword">if</span> adjacent_side <span class="keyword">and</span> opposite_side:</span><br><span class="line">            <span class="keyword">return</span> sqrt(<span class="built_in">float</span>(adjacent_side)**<span class="number">2</span> + <span class="built_in">float</span>(opposite_side)**<span class="number">2</span>)</span><br><span class="line">        <span class="keyword">elif</span> adjacent_side <span class="keyword">and</span> angle:</span><br><span class="line">            <span class="keyword">return</span> adjacent_side / cos(<span class="built_in">float</span>(angle))</span><br><span class="line">        <span class="keyword">elif</span> opposite_side <span class="keyword">and</span> angle:</span><br><span class="line">            <span class="keyword">return</span> opposite_side / sin(<span class="built_in">float</span>(angle))</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;Could not calculate the hypotenuse of the triangle. Need two or more of `adjacent_side`, `opposite_side`, or `angle`.&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_arun</span>(<span class="params">self, query: <span class="built_in">str</span></span>):</span><br><span class="line">        <span class="keyword">raise</span> NotImplementedError(<span class="string">&quot;This tool does not support async&quot;</span>)</span><br><span class="line"></span><br><span class="line">tools = [PythagorasTool()]</span><br></pre></td></tr></table></figure>
+
+<p><strong>更高级的工具使用</strong></p>
+<ul>
+<li>将（能够完成 LLM 无法做到的任务的）专家模型作为工具添加进来，使得代理作为这些模型的控制器。</li>
+<li>除此之外，工具可以用于与无尽的功能和服务集成，或者与一系列专家模型进行通信。</li>
+<li>通常可以使用 LangChain 的默认工具来运行 SQL 查询，执行计算或进行向量搜索。但当这些默认工具无法满足要求时，需要构建自己的工具。</li>
+</ul>
+<p>如：开源专家模型 <code>Salesforce/blip-image-captioning-large</code> ：接收一张图片并对其进行描述（托管在 Hugging Face 上）</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Yoson Ling</span>
+                    </p>
+                
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/LLM/"># LLM</a>
+                    
+                        <a href="/tags/%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93/"># 向量数据库</a>
+                    
+                        <a href="/tags/LangChain/"># LangChain</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2023/04/07/NJU-Service-Side-Development/">南京大学《服务端开发》复习总结</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Yoson Ling | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

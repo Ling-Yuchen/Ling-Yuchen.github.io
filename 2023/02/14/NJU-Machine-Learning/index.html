@@ -1105,7 +1105,75 @@
 
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><img src="https://pictures-1312865652.cos.ap-nanjing.myqcloud.com/image-20230331221406391.webp" alt="image-20230331221406391" style="zoom:50%;" />
 
-<h1 id="优化和搜索"><a href="#优化和搜索" class="headerlink" title="优化和搜索"></a>优化和搜索</h1><h1 id="维度约减"><a href="#维度约减" class="headerlink" title="维度约减"></a>维度约减</h1><h1 id="强化学习"><a href="#强化学习" class="headerlink" title="强化学习"></a>强化学习</h1><h1 id="演化学习"><a href="#演化学习" class="headerlink" title="演化学习"></a>演化学习</h1><h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><h2 id="遗传算法"><a href="#遗传算法" class="headerlink" title="遗传算法"></a>遗传算法</h2>
+<h1 id="优化和搜索"><a href="#优化和搜索" class="headerlink" title="优化和搜索"></a>优化和搜索</h1><h1 id="维度约减"><a href="#维度约减" class="headerlink" title="维度约减"></a>维度约减</h1><h1 id="强化学习"><a href="#强化学习" class="headerlink" title="强化学习"></a>强化学习</h1><h1 id="演化学习"><a href="#演化学习" class="headerlink" title="演化学习"></a>演化学习</h1><h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><h2 id="遗传算法"><a href="#遗传算法" class="headerlink" title="遗传算法"></a>遗传算法</h2><h1 id="复习要点"><a href="#复习要点" class="headerlink" title="复习要点"></a>复习要点</h1><p><strong>误差反向传播</strong></p>
+<p>以输入数据为一个二维坐标、输出数据为一个标签值为例，</p>
+<p>记输入为 $(x_1,x_2)$，真实输出为 $y$，正确输出为 $y’$，使用的激活函数为 $\phi(x)$，第 $L$ 层第 $k$ 个神经元的权重为 $w^L_{k1}$,…, $w^L_{kn}$，对应接收的输入为 $a^{L-1}_1$,…, $a^{L-1}_n$，激活前输出为 $z^L_k$，激活后输出为 $a^L_k$</p>
+<p>记第 $L$ 层第 $k$ 个神经元的 $delta$ 误差为 $\Delta_k^L$，则有：</p>
+<ul>
+<li>若第 $L$ 层为输出层，$D_k^L=\phi’(z_k^L)\times(y’-y)$</li>
+<li>若第 $L$ 层为输出层，$D_k^L=\phi’(z_k^L)\times\sum_i(D_i^{L+1}w_{ik}^{L+1})$</li>
+</ul>
+<p>从而，$\Delta w_{ki}^L=\alpha\times D_k^L\times a^{L-1}_i$</p>
+<p>更新权值：$w_{ki}^L=w_{ki}^L-\Delta w_{ki}^L$</p>
+<p><strong>ID3 决策树算法</strong></p>
+<p>以实例标签为布尔值为例，</p>
+<p>信息熵计算：$Ent(S)=-\sum_i\space p_ilog_2p_i$，其中 $S$ 为样本集合，$p_i$ 为标签 $i$ 出现的概率</p>
+<p>信息增益计算：$Gain(S,A)=Ent(S)-\sum_v\frac{|S_v|}{|S|}Ent(S_v)$，其中 $A$ 为作为分割标准的属性，$v$ 为该属性的取值</p>
+<p>递归构建决策树：</p>
+<ul>
+<li>若当前样本集中所有实例的标签相同，则 root 赋值为改标签，返回</li>
+<li>否则，若没有可继续分割样本集的属性，则投票选出样本集中最多的标签，root 赋值为该标签，返回</li>
+<li>否则，选取信息增益最大的属性，作为 root 的决策属性，以该属性的值为依据，分割样本集为若干子样本集</li>
+<li>若子样本集中有空集，则增加一个叶节点，以样本集中出现最多的标签作为其标签</li>
+<li>否则在该分支下依据子样本集和子属性集增加对应的子树</li>
+</ul>
+<p><strong>MDP 模型</strong></p>
+<p>$V^{\pi}(s)$：从 $s$ 状态出发，采用 $π$ 策略，所获得的期望返回值</p>
+<p>$Q^{\pi}(s,a)$：从 $s$ 状态出发， 采用 $a$动作，继而采用 $π$ 策略，所获得的期望返回值</p>
+<p>$V^{\pi}(s)=Q^{\pi}(s,\pi(s,a))$</p>
+<ul>
+<li><p>策略评估：计算 $V^{\pi}(s)=E(R(s,\pi(s)))+\gamma\space\sum_{s’}\space\delta(s,\pi(s),s’)V^{\pi}(s’)$，</p>
+</li>
+<li><p>最优控制：计算 $Q^{\pi}(s,a)=E(R(s,a))+\gamma\space\sum_{s’}\space\delta(s,a,s’)V^{\pi}(s’)$</p>
+<ul>
+<li>修改策略：$\pi(s)=argmax_a(Q^{\pi}(s,a))$（贪心策略） 或（$\epsilon$-贪心策略）</li>
+</ul>
+</li>
+</ul>
+<p><strong>KNN 算法</strong></p>
+<p>k近邻分类：</p>
+<ul>
+<li>计算样本 $x$ 和所有训练样本 $x_i$ 之间的距离并排序</li>
+<li>选取 k 个最近的训练样本，采用投票法，将近邻样本中数量最多的类标签分配给 $x$</li>
+</ul>
+<p>k近邻回归：</p>
+<ul>
+<li>计算样本 $x$ 和所有训练样本 $x_i$ 之间的距离并排序</li>
+<li>选取 k 个最近的训练样本，以距离值倒数作为权重，将近邻的标签值加权平均，作为 $x$ 的预测标签值</li>
+</ul>
+<p>训练阶段时间复杂度为 0，测试阶段时间复杂度：$O(nd+nlogk)$</p>
+<p><strong>LDA 算法基本流程</strong></p>
+<ul>
+<li>计算每个类的均值向量 $\mu_c$ 和全局样本的均值向量 $\mu$</li>
+<li>计算类内散度矩阵 $S_w=\sum_{class\space c}p_c\sum_{j\in c}(x_j-\mu_c)(x_j-\mu_c)^T$</li>
+<li>计算类间散度矩阵 $S_b=\sum_{class\space c}(\mu_c-\mu)(\mu_c-\mu)^T$</li>
+<li>计算矩阵 $S_w^{-1}S_b$ 并计算其特征值和特征向量</li>
+<li>根据需要取若干最大特征值对应的特征向量组成投影矩阵</li>
+</ul>
+<p><strong>PCA 算法基本流程</strong></p>
+<ul>
+<li>计算样本的均值向量 $\mu$，并将样本去中心化：$x_i=x_i-\mu$</li>
+<li>计算样本的协方差矩阵 $C=\sum_ix_ix_i^T=XX^T$</li>
+<li>计算协方差矩阵 $C$ 的特征值和特征向量</li>
+<li>根据需要取若干最大特征值对应的特征向量组成投影矩阵</li>
+</ul>
+<p><strong>牛顿法迭代优化算法流程</strong></p>
+<p>根据当前迭代点 $x_k$ 计算雅可比矩阵和海森矩阵：$J_k=J(f(x))|<em>{x=x_k}$，$H_k=H(f(x))|</em>{x=x_k}$ </p>
+<p>计算 $p_k=-H_k^{-1}J_k^T$，得到新的迭代点 $x_{k+1}=x_k+p_k$，直至 $||J_k||\le\epsilon$ 为止</p>
+<p><strong>最小二乘法迭代优化算法流程</strong></p>
+<p>目标函数的形式为：$f(x)=\frac{1}{2}\sum_{j=1}^{m}r^2_j(x)=\frac{1}{2}||r(x)||_2^2$</p>
+<p>根据当前迭代点 $x_k$，有：$x_{k+1}=-(J^T(x)J(x))^{-1}J^T(x)r(x)|_{x=x_k}$，其中 $J(x)$ 为函数 $r(x)$ 的雅可比矩阵</p>
+
         </div>
 
         
