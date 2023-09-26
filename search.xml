@@ -4,6 +4,43 @@
   
     
     <entry>
+      <title>LLM与KG的结合案例demo(基于NebulaGraph)</title>
+      <link href="/2023/09/20/Nebula-Graph-Install/"/>
+      <url>/2023/09/20/Nebula-Graph-Install/</url>
+      
+        <content type="html"><![CDATA[<h1 id="关于-NebulaGraph"><a href="#关于-NebulaGraph" class="headerlink" title="关于 NebulaGraph"></a>关于 NebulaGraph</h1><p>一个可靠的分布式、线性扩容、 性能高效的图数据库，擅长处理千亿节点万亿条边的超大数据集，同时保持毫秒级查询延时的图数据库解决方案</p><h2 id="部署-NebulaGraph-集群"><a href="#部署-NebulaGraph-集群" class="headerlink" title="部署 NebulaGraph 集群"></a>部署 NebulaGraph 集群</h2><h3 id="使用-Docker-Compose-部署-NebulaGraph-集群"><a href="#使用-Docker-Compose-部署-NebulaGraph-集群" class="headerlink" title="使用 Docker Compose 部署 NebulaGraph 集群"></a>使用 Docker Compose 部署 NebulaGraph 集群</h3><p>参考资料：<a href="https://docs.nebula-graph.com.cn/">https://docs.nebula-graph.com.cn/</a></p><blockquote><p>使用 Docker Compose 可以基于准备好的配置文件快速部署 NebulaGraph 服务，仅建议在测试NebulaGraph 功能时使用该方式</p></blockquote><p>主机 Linux 系统：Ubuntu 20.04.6</p><p><strong>安装 Docker</strong></p><blockquote><p>使用 Apt repository 进行安装</p><p>参考文档：<a href="https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository">https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository</a></p></blockquote><ol><li>创建 Docker 的 Apt repository.</li></ol><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Add Docker<span class="string">&#x27;s official GPG key:</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="string">sudo apt-get update</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="string">sudo apt-get install ca-certificates curl gnupg</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="string">sudo install -m 0755 -d /etc/apt/keyrings</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="string">curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="string">sudo chmod a+r /etc/apt/keyrings/docker.gpg</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">Add the repository to Apt sources:</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="string">echo \</span></span></span><br><span class="line"><span class="string"><span class="language-bash">  &quot;deb [arch=&quot;$(dpkg --print-architecture)&quot; signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \</span></span></span><br><span class="line"><span class="string"><span class="language-bash">  &quot;$(. /etc/os-release &amp;&amp; echo &quot;$VERSION_CODENAME&quot;)&quot; stable&quot; | \</span></span></span><br><span class="line"><span class="string"><span class="language-bash">  sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="string">sudo apt-get update</span></span></span><br></pre></td></tr></table></figure><ol start="2"><li>安装最新的 Docker packages</li></ol><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin</span></span><br></pre></td></tr></table></figure><ol start="3"><li>验证 Docker Engine 是否安装成功</li></ol><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo docker run hello-world</span></span><br></pre></td></tr></table></figure><p><strong>安装 Docker Compose</strong></p><blockquote><p>参考文档：<a href="https://docs.docker.com/compose/install/standalone/">https://docs.docker.com/compose/install/standalone/</a></p></blockquote><ol><li>下载并安装 Compose standalone</li></ol><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">curl -SL https://github.com/docker/compose/releases/download/v2.20.3/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose</span></span><br></pre></td></tr></table></figure><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo <span class="built_in">chmod</span> +x /usr/local/bin/docker-compose</span></span><br></pre></td></tr></table></figure><ol start="2"><li>验证 Compose standalone 是否安装成功</li></ol><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker-compose</span></span><br></pre></td></tr></table></figure><p><strong>部署 NebulaGraph</strong></p><ol><li>通过 Git 克隆 <code>nebula-docker-compose</code> 仓库的分支到主机，并切换工作目录</li></ol><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git <span class="built_in">clone</span> -b release-3.6 https://github.com/vesoft-inc/nebula-docker-compose.git</span></span><br></pre></td></tr></table></figure><p>注：执行该命令时出现报错 <code>GnuTLS recv error (-54): Error in the pull function</code>，没有解决，尝试将 <code>release-3.6</code> 更换为 <code>release-3.5</code> 之后连接超时，没有解决，尝试将 <code>release-3.6</code> 更换为 <code>release-3.4</code> 之后成功克隆仓库（具体原因未知）</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> nebula-docker-compose</span></span><br></pre></td></tr></table></figure><ol start="2"><li>启动 NebulaGraph 服务</li></ol><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker-compose up -d</span></span><br></pre></td></tr></table></figure><p><strong>连接 NebulaGraph</strong>（两种方式）</p><ol><li><p>在容器外通过 Nebula Console 连接</p><blockquote><p>因为容器配置文件中将 Graph 服务的外部映射端口也固定为 9669，因此可以直接通过默认端口连接</p></blockquote><ul><li><p>下载所需版本的 NebulaGraph Console 二进制文件</p><ul><li><a href="https://github.com/vesoft-inc/nebula-console/releases">https://github.com/vesoft-inc/nebula-console/releases</a></li></ul></li><li><p>可选：重命名文件为 <code>nebula-console</code>（方便使用）</p></li><li><p>授予 <code>nebula-console</code> 文件的执行权限： <code>sudo chmod 111 nebula-console</code></p></li><li><p>运行 <code>nebula-console</code>，连接 NebulaGraph</p>  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">./nebula-console -addr 127.0.0.1 -port 9669 -u root -p nebula</span></span><br></pre></td></tr></table></figure></li></ul></li><li><p>登录安装了 NebulaGraph Console 的容器，然后再连接 Graph 服务</p> <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker <span class="built_in">exec</span> -it nebuladockercompose_console_1 /bin/sh</span></span><br></pre></td></tr></table></figure> <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/ # ./usr/local/bin/nebula-console -u root -p nebula --address=graphd --port=9669</span><br></pre></td></tr></table></figure></li></ol><p><strong>查看 NebulaGraph 服务的状态和端口</strong></p><blockquote><p>NebulaGraph 默认使用 <code>9669</code> 端口为客户端提供服务，如果需要修改端口，需要修改目录 <code>nebula-docker-compose</code> 内的文件 <code>docker-compose.yaml</code>，然后重启 NebulaGraph 服务</p></blockquote> <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker-compose ps</span></span><br></pre></td></tr></table></figure><h1 id="关于-LLM-与-KG-的结合"><a href="#关于-LLM-与-KG-的结合" class="headerlink" title="关于 LLM 与 KG 的结合"></a>关于 LLM 与 KG 的结合</h1>]]></content>
+      
+      
+      <categories>
+          
+          <category> Project </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> LLM </tag>
+            
+            <tag> LangChain </tag>
+            
+            <tag> Docker </tag>
+            
+            <tag> 知识图谱 </tag>
+            
+            <tag> 图数据库 </tag>
+            
+            <tag> NebulaGraph </tag>
+            
+            <tag> Docker Compose </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>LangChain 学习笔记</title>
       <link href="/2023/08/02/LangChain-Learning-Notes/"/>
       <url>/2023/08/02/LangChain-Learning-Notes/</url>
@@ -84,11 +121,11 @@
             
             <tag> 后端开发 </tag>
             
-            <tag> SpringBoot框架 </tag>
-            
             <tag> 微服务开发 </tag>
             
-            <tag> Docker容器 </tag>
+            <tag> SpringBoot </tag>
+            
+            <tag> Docker </tag>
             
         </tags>
       
