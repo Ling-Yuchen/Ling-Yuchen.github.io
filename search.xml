@@ -4,6 +4,53 @@
   
     
     <entry>
+      <title>南京大学《高级软件工程技术方向实践》项目（ing）</title>
+      <link href="/2023/09/30/NJU-ASETP/"/>
+      <url>/2023/09/30/NJU-ASETP/</url>
+      
+        <content type="html"><![CDATA[<p>又开一个新坑…</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Project </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> NJU </tag>
+            
+            <tag> LLM </tag>
+            
+            <tag> 后端开发 </tag>
+            
+            <tag> Docker </tag>
+            
+            <tag> 知识图谱 </tag>
+            
+            <tag> 图数据库 </tag>
+            
+            <tag> RAG </tag>
+            
+            <tag> LlamaIndex </tag>
+            
+            <tag> Neo4j </tag>
+            
+            <tag> CI/CD </tag>
+            
+            <tag> 前端开发 </tag>
+            
+            <tag> 数据标注 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>将博客同步部署到个人服务器</title>
       <link href="/2023/09/29/blog-deployment/"/>
       <url>/2023/09/29/blog-deployment/</url>
@@ -62,6 +109,8 @@
             <tag> RAG </tag>
             
             <tag> Docker-Compose </tag>
+            
+            <tag> LlamaIndex </tag>
             
         </tags>
       
