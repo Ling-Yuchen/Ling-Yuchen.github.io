@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Yoson Ling">
+
+
+
+
+
+<title>将博客同步部署到个人服务器 | Yoson&#39;s Blog</title>
+
+
+
+    <link rel="icon" href="/ai.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Yoson&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Yoson&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">将博客同步部署到个人服务器</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Yoson Ling</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">九月 29, 2023&nbsp;&nbsp;00:00:00</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Skill/">Skill</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p><strong>以 root 用户的身份登录服务器，执行以下命令：</strong></p>
+<ul>
+<li>安装相关依赖（Optional）</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">apt install git nginx -y</span></span><br><span class="line"></span><br><span class="line">/var/www/hexo</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建文件路径并修改权限</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> /opt/hexo</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">chown</span> -R <span class="variable">$USER</span>:<span class="variable">$USER</span> /opt/hexo</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">chmod</span> -R 755 /opt/hexo</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建 Git 仓库</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> /opt/hexo</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git init --bare blog.git</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>配置 Nginx 托管文件目录</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> /var/www/hexo</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">chown</span> -R <span class="variable">$USER</span>:<span class="variable">$USER</span> /var/www/hexo</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">chmod</span> -R 755 /var/www/hexo</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">vim /etc/nginx/sites-available/default</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">##</span></span></span><br><span class="line">root /var/www/hexo;</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">##</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>配置 Git-hooks</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">vim /opt/hexo/blog.git/hooks/post-receive</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">##</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/sh</span></span><br><span class="line">git --work-tree=/var/www/hexo --git-dir=/opt/hexo/blog.git checkout -f</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">##</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">chmod</span> +x /opt/hexo/blog.git/hooks/post-receive</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>在本机的博客 Git 仓库内，执行以下操作：</strong></p>
+<ul>
+<li>编辑站点配置文件 <code>_config.yml</code> ，修改 Deployment 配置</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Original</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line"> <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line"> <span class="attr">repository:</span> <span class="string">git@github.com:Ling-Yuchen/Ling-Yuchen.github.io.git</span></span><br><span class="line"> <span class="attr">branch:</span> <span class="string">master</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># Now</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="bullet">-</span>  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">   <span class="attr">repository:</span> <span class="string">git@github.com:Ling-Yuchen/Ling-Yuchen.github.io.git</span></span><br><span class="line">   <span class="attr">branch:</span> <span class="string">master</span> </span><br><span class="line"><span class="bullet">-</span>  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">   <span class="attr">repository:</span> <span class="string">root@&lt;ip-address&gt;:/opt/hexo/blog.git</span></span><br><span class="line">   <span class="attr">branch:</span> <span class="string">master</span> </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>打开 Git Bash 终端，执行以下命令尝试部署：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo g -d</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>补充：什么是 Git-hooks ？</strong></p>
+<p><code>git hooks</code> 是 Git 提供的一个特性，允许脚本在某些 Git 操作的关键点被自动执行。这些钩子都被存储在 Git 仓库的 <code>.git/hooks</code> 目录下。当你用 <code>git init</code> 初始化一个新的仓库时，Git 会默认为这个仓库设置一些示例钩子。</p>
+<p>每个钩子都是一个脚本，可以是 Bash 脚本、Python 脚本、Ruby 脚本等。默认情况下，示例钩子都是不会执行的，除非你修改它们并去掉<code>.sample</code>的后缀。</p>
+<p>以下是一些常见的 <code>git hooks</code> 以及它们的使用场景：</p>
+<ol>
+<li><strong>pre-commit</strong>：在提交之前运行。它用于检查即将提交的快照，例如，检查代码风格、运行单元测试、检查lint错误等。如果这个脚本退出时返回非零值，Git 将放弃此次提交。</li>
+<li><strong>prepare-commit-msg</strong>：在提交消息编辑器打开前运行。可以用于格式化提交消息，或者根据提交的内容和提交者等因素设置默认的提交消息。</li>
+<li><strong>commit-msg</strong>：在提交时检查提交消息。可以用来确保提交信息遵循特定的模板。</li>
+<li><strong>post-commit</strong>：在提交完成后运行。通常用于通知或其它不影响提交本身的操作。</li>
+<li><strong>pre-push</strong>：在 <code>git push</code> 命令上传到远程之前。可以用来运行测试，确保不会把有问题的代码推送到主分支。</li>
+<li><strong>post-receive</strong>：在远程仓库中，当推送完成后执行。通常用于部署任务或向其他服务发出通知。</li>
+</ol>
+<p>这只是钩子的一部分，Git 提供了很多其他类型的钩子。</p>
+<p>总之，git hooks 提供了一种强大的机制，使开发者可以在各种Git操作过程中自动运行脚本，从而帮助团队遵循代码质量标准、运行自动化任务、增强开发流程等。</p>
+<blockquote>
+<p>回答来自 GPT-4</p>
+</blockquote>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Yoson Ling</span>
+                    </p>
+                
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Hexo/"># Hexo</a>
+                    
+                        <a href="/tags/Linux/"># Linux</a>
+                    
+                        <a href="/tags/%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2/"># 博客部署</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2023/09/20/Nebula-Graph-Install/">LLM 与 KG 的结合案例 Demo</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Yoson Ling | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
