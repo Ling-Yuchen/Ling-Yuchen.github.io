@@ -127,6 +127,71 @@
                 <div class="container">
     
     
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
 
     
     <article class="post-wrap">
@@ -156,8 +221,19 @@
         </header>
 
         <div class="post-content">
-            <p>又开一个新坑…</p>
-
+            <h1 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h1><h2 id="爬虫"><a href="#爬虫" class="headerlink" title="爬虫"></a>爬虫</h2><h2 id="标注"><a href="#标注" class="headerlink" title="标注"></a>标注</h2><h2 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h2><h1 id="后端"><a href="#后端" class="headerlink" title="后端"></a>后端</h1><h2 id="开发框架"><a href="#开发框架" class="headerlink" title="开发框架"></a>开发框架</h2><h2 id="业务逻辑"><a href="#业务逻辑" class="headerlink" title="业务逻辑"></a>业务逻辑</h2><p><strong>Query 接口</strong>：</p>
+<p>输入：用户提问（自然语言）</p>
+<p>处理流程：</p>
+<ol>
+<li>调用 OpenAI Embedding API 生成 ”用户提问（自然语言）“ 的嵌入向量</li>
+<li>查询所有 Question 节点的嵌入向量，分别计算与用户提问嵌入向量的余弦相似度</li>
+<li>取相似度最高的 K 个 Question 节点，保留其中相似度超过相似度阈值的节点，作为 “相关 Question 节点”</li>
+<li>查询 “相关 Question 节点” 的所有对应 Answer 节点</li>
+<li>将查询结果序列化为字符串，作为上下文信息，结合自然语言的用户提问，生成提示词</li>
+<li>调用 OpenAI Chat Completion API 生成最终回答</li>
+</ol>
+<p>输出：LLM 基于知识图谱查询结果给出的回答</p>
+<h1 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h1>
         </div>
 
         
@@ -198,8 +274,6 @@
                         <a href="/tags/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93/"># 图数据库</a>
                     
                         <a href="/tags/RAG/"># RAG</a>
-                    
-                        <a href="/tags/LlamaIndex/"># LlamaIndex</a>
                     
                         <a href="/tags/Neo4j/"># Neo4j</a>
                     
