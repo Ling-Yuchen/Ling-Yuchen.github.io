@@ -296,16 +296,14 @@
 <li><p><strong>Appium 驱动安装</strong>（针对 Appium 2.x）</p>
  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">appium driver install uiautomator2</span></span><br></pre></td></tr></table></figure></li>
 <li><p><strong>检查 Appium 运行环境</strong></p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo npm install -g appium-doctor</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">appium-doctor --android</span></span><br></pre></td></tr></table></figure></li>
+<li><p><strong>完善 Appium 运行环境</strong>（Optional）</p>
+<ul>
+<li><p>在检查必要依赖时，得到警告 <code>android, apkanalyzer counld NOT be found in /opt/android/sdk</code></p>
 </li>
-</ol>
-  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo npm install -g appium-doctor</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">appium-doctor --android</span></span><br></pre></td></tr></table></figure>
-
-<ol start="6">
-<li><strong>完善 Appium 运行环境</strong>（Optional）</li>
-</ol>
-<p>  在检查必要依赖时，得到警告 <code>android, apkanalyzer counld NOT be found in /opt/android/sdk</code></p>
-<p>  原因：首次启动 Android Studio 默认安装的 SDK 中没有包含 <code>$ANDROID_HOME/tools</code> 和 <code>$ANDROID_HOME/cmdline-tools</code></p>
-<p>  解决方案：</p>
+<li><p>原因：首次启动 Android Studio 默认安装的 SDK 中没有包含 <code>$ANDROID_HOME/tools</code> 和 <code>$ANDROID_HOME/cmdline-tools</code></p>
+</li>
+<li><p>解决方案：</p>
 <ul>
 <li>修改 <code>ANDROID_HOME</code> 文件夹权限：<code>sudo chown $USER:$USER $ANDROID_HOME -R</code></li>
 <li>打开 Android Studio 的 SDK Manager，点击 SDK Tools</li>
@@ -314,10 +312,15 @@
 <li>点击 Apply 并确认下载</li>
 <li>重新检查 Appium 运行环境，警告解除</li>
 </ul>
+</li>
+</ul>
+</li>
+</ol>
 <ol start="6">
 <li><p><strong>客户端安装</strong>（Optional）</p>
  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">pip install Appium-Python-Client</span></span><br></pre></td></tr></table></figure>
 
+<p> $ sudo npm install -g appium-doctor<br> $ appium-doctor –android</p>
 </li>
 </ol>
 
