@@ -29,6 +29,33 @@
     
     
     <entry>
+      <title>解决：PyCharm 无法显示 cv2 成员函数</title>
+      <link href="/2023/11/11/Solution-PyCharm-cv2-FunctionNotDisplayed/"/>
+      <url>/2023/11/11/Solution-PyCharm-cv2-FunctionNotDisplayed/</url>
+      
+        <content type="html"><![CDATA[<p><strong>问题描述</strong>：<code>pip install opencv-python</code> 安装 OpenCV 库后，在 PyCharm 中编写代码时，<code>import cv2</code> 后，IDE 无法显示并自动补全其成员函数，警告找不到函数但程序可以正常运行</p><p><strong>解决方案</strong>：</p><ul><li><p>在 Windows 系统下，找到对应 Python 环境中的 <code>./site-packages/cv2</code> 路径，将该路径下的 <code>cv2.xxx.pyd</code> 文件复制到 <code>./site-packages</code> 路径下，重启 PyCharm</p></li><li><p>在 Linux 系统下，找到对应 Python 环境中的 <code>./site-packages/cv2</code> 路径，将该路径下的 <code>cv2.xxx.so</code> 文件复制到 <code>./site-packages</code> 路径下，重启 PyCharm</p></li></ul><p><strong>参考资料</strong>：<a href="https://blog.csdn.net/hxm_520/article/details/121172546">https://blog.csdn.net/hxm_520/article/details/121172546</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Skill </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> OpenCV </tag>
+            
+            <tag> PyCharm </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>南京大学《高级软件工程技术方向实践》项目（ing）</title>
       <link href="/2023/10/30/NJU-ASETP/"/>
       <url>/2023/10/30/NJU-ASETP/</url>
