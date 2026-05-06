@@ -1,177 +1,165 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
-    <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <meta name="author" content="Yoson Ling">
-
-
-
-
-
-<title>Yoson&#39;s Blog</title>
-
-
-
-    <link rel="icon" href="/ai.ico">
-
-
-
-
-    <!-- stylesheets list from _config.yml -->
-    
-    <link rel="stylesheet" href="/css/style.css">
-    
-
-
-
-    <!-- scripts list from _config.yml -->
-    
-    <script src="/js/script.js"></script>
-    
-    <script src="/js/tocbot.min.js"></script>
-    
-
-
-
-    
-    
-        
-    
-
-
-<meta name="generator" content="Hexo 5.4.2"></head>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Yuchen Ling">
+  <meta name="description" content="Personal homepage of Yuchen Ling">
+  <title>Yuchen Ling</title>
+  <link rel="icon" href="/ai.ico">
+  <link rel="stylesheet" href="/static/site.css">
+</head>
 <body>
-    <script>
-        // this function is used to check current theme before page loaded.
-        (() => {
-            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
-            const isDark = currentTheme === 'dark';
-            const pagebody = document.getElementsByTagName('body')[0]
-            if (isDark) {
-                pagebody.classList.add('dark-theme');
-                // mobile
-                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
-            } else {
-                pagebody.classList.remove('dark-theme');
-                // mobile
-                document.getElementById("mobile-toggle-theme").innerText = "· Light"
-            }
-        })();
-    </script>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="site-name" href="/">Yuchen Ling</a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="#about">About</a>
+          <a href="#research">Research</a>
+          <a href="#experience">Experience</a>
+          <a href="#publications">Publications</a>
+          <a href="#service">Academic Service</a>
+          <a href="#teaching">Teaching</a>
+        </nav>
+      </div>
+    </header>
 
-    <div class="wrapper">
-        <header>
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-header header-logo"><a href="/">Yoson&#39;s Blog</a></div>
-            <div class="menu navbar-right">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/category">Categories</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-                <input id="switch_default" type="checkbox" class="switch_default">
-                <label for="switch_default" class="toggleBtn"></label>
-            </div>
+    <main class="content">
+      <section class="intro" id="about">
+        <div class="intro-copy">
+          <p class="eyebrow">Personal Homepage</p>
+          <h1>Yuchen Ling (凌毓辰)</h1>
+          <p class="title">Ph.D. Student in Software Engineering</p>
+<!--          <p class="summary">-->
+<!--            Write a short self-introduction here. Keep it to 3-5 lines:-->
+<!--            who you are, what you work on, and what visitors should notice first.-->
+<!--          </p>-->
+          <ul class="meta-list">
+            <li><span>Email:</span> yuchenling@smail.nju.edu.cn</li>
+            <li><span>Affiliation:</span> Software Institute, Nanjing University</li>
+            <li><span>Location:</span> Nanjing, China</li>
+          </ul>
+          <div class="link-row">
+            <a href="https://scholar.google.com/citations?user=RzMM75gAAAAJ&hl=zh-CN&oi=ao" target="_blank" rel="noreferrer">Google Scholar</a>
+            <a href="https://orcid.org/0009-0006-9227-3824" target="_blank" rel="noreferrer">ORCID</a>
+          </div>
         </div>
-    </nav>
-
-    
-    <nav class="navbar-mobile" id="nav-mobile">
-        <div class="container">
-            <div class="navbar-header">
-                <div>
-                    <a href="/">Yoson&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
-                </div>
-                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
-            </div>
-            <div class="menu" id="mobile-menu">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/category">Categories</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-            </div>
+        <div class="intro-media">
+          <img src="/image/avatar.jpg" alt="Profile photo">
         </div>
-    </nav>
+      </section>
 
-</header>
-<script>
-    var mobileBtn = function f() {
-        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
-        var mobileMenu = document.getElementById("mobile-menu");
-        if(toggleMenu.classList.contains("active")){
-           toggleMenu.classList.remove("active")
-            mobileMenu.classList.remove("active")
-        }else{
-            toggleMenu.classList.add("active")
-            mobileMenu.classList.add("active")
-        }
-    }
-</script>
-            <div class="main">
-                
-    <div class="container profile-container">
-    <div class="intro">
-        <div class="avatar">
-            <a href="/archives"><img src="/image/cat.jpeg"></a>
+      <section class="section" id="research">
+        <h2>Research Interests</h2>
+        <p>
+          LLM-driven GUI Testing & Automation, Crowdsourced Testing, LLM Agent Safety & Security, Multi-Agent System
+        </p>
+      </section>
+
+      <section class="section" id="experience">
+        <h2>Experience</h2>
+        <div class="item-list">
+          <article class="item">
+            <h3>Ph.D. in Software Engineering</h3>
+            <p>Software Institute, Nanjing University, 2026-Present, Supervised by Associate Professor Chunrong Fang</p>
+          </article>
+          <article class="item">
+            <h3>Master-to-Ph.D. Track in Software Engineering</h3>
+            <p>Software Institute, Nanjing University, 2024-2026, Supervised by Associate Professor Chunrong Fang</p>
+          </article>
+          <article class="item">
+            <h3>B.E. in Software Engineering</h3>
+            <p>Software Institute, Nanjing University, 2020-2024</p>
+          </article>
         </div>
-        <div class="nickname"><b>Yoson Ling</b></div>
-        <div class="description"><p><b>马孔多在下雨 …</b></p>
-</div>
-        <div class="links">
-            
-                
-                    <a class="link-item" title="Blog" href="/archives">
-                        
-                        
-                            <i class="iconfont icon-blog"></i>
-                        
-                    </a>
-                
-                    <a class="link-item" title="Twitter" target="_blank" rel="noopener" href="https://twitter.com/Yoson_Ling">
-                        
-                        
-                            <i class="iconfont icon-twitter"></i>
-                        
-                    </a>
-                
-                    <a class="link-item" title="Github" target="_blank" rel="noopener" href="https://github.com/Ling-Yuchen">
-                        
-                        
-                            <i class="iconfont icon-github"></i>
-                        
-                    </a>
-                
-            
-        </div>
-    </div>
-</div>
+      </section>
 
+      <section class="section" id="publications">
+        <h2>Publications</h2>
+        <ol class="publication-list">
+          <li>
+            <strong>Scenario-Guided LLM-based Mobile App GUI Testing</strong><br>
+            Shengcheng Yu, <strong>Yuchen Ling</strong>, Chunrong Fang*, Quan Zhou, Chunyang Chen, Shaomin Zhu, Zhenyu Chen.<br>
+            <strong>[CCF-A]</strong> ACM Transactions on Software Engineering and Methodology (TOSEM). 2026.
+          </li>
+          <li>
+            <strong>Towards Automated Crowdsourced Testing via Personified-LLM</strong><br>
+            Shengcheng Yu, <strong>Yuchen Ling</strong>, Chunrong Fang, Zhenyu Chen, Chunyang Chen.<br>
+            <strong>[CCF-A]</strong> ACM International Conference on the Foundations of Software Engineering (FSE). 2026.
+          </li>
+          <li>
+            <strong>Human Cognitive Pattern Simulation for Crowdsourced Test Report Consistency Detection</strong><br>
+            <strong>Yuchen Ling</strong>, Shengcheng Yu, Shuguang Chen, Liuming Wang, Chunrong Fang*, Wenbin Guo, Jia Liu, Zhenyu Chen.<br>
+            <strong>[CCF-A]</strong> IEEE Transactions on Software Engineering (TSE). 2026.
+          </li>
+          <li>
+            <strong>LLM-based Crowdsourced Test Report Clustering</strong><br>
+            <strong>Yuchen Ling</strong>, Shengcheng Yu, Chunrong Fang*, Quan Zhou, Zhenyu Chen.<br>
+            <strong>[CCF-A]</strong> ACM International Conference on the Foundations of Software Engineering (FSE). 2025.
+          </li>
+          <li>
+            <strong>Redefining Crowdsourced Test Report Prioritization: An Innovative Approach with Large Language Model</strong><br>
+            <strong>Yuchen Ling</strong>, Shengcheng Yu, Chunrong Fang*, Guobin Pan, Jun Wang, Jia Liu*.<br>
+            <strong>[CCF-B]</strong> Information and Software Technology (IST). 2024.
+          </li>
+          <li>
+            <strong>Effective, Platform-Independent GUI Testing via Image Embedding and Reinforcement Learning</strong><br>
+            Shengcheng Yu, Chunrong Fang*, Xin Li, <strong>Yuchen Ling</strong>, Zhenyu Chen, Zhendong Su.<br>
+            <strong>[CCF-A]</strong> ACM Transactions on Software Engineering and Methodology (TOSEM). 2024.
+          </li>
+          <li>
+            <strong>Practical Non-Intrusive GUI Exploration Testing with Visual-based Robotic Arms</strong><br>
+            Shengcheng Yu, Chunrong Fang*, Mingzhe Du, <strong>Yuchen Ling</strong>, Zhenyu Chen, Zhendong Su.<br>
+            <strong>[CCF-A]</strong> IEEE/ACM International Conference on Software Engineering (ICSE). 2024.
+          </li>
+          <li>
+            <strong>LLM for Test Script Generation and Migration: Challenges, Capabilities, and Opportunities</strong><br>
+            Shengcheng Yu, Chunrong Fang*, <strong>Yuchen Ling</strong>, Chentian Wu, Zhenyu Chen.<br>
+            <strong>[CCF-C]</strong> IEEE International Conference on Software Quality, Reliability and Security (QRS). 2023.
+          </li>
+        </ol>
+      </section>
 
-            </div>
-            <footer id="footer" class="footer">
-    <div class="copyright">
-        <span>© Yoson Ling | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
-	<a href="https://beian.miit.gov.cn/" target="_blank">苏ICP备2023035741号-1</a>
-    </div>
-</footer>
+      <section class="section" id="service">
+        <h2>Academic Service</h2>
+        <ul class="plain-list nested-list">
+          <li>
+            <strong>External Reviewer</strong>
+            <ul>
+              <li>ACM Transactions on Software Engineering and Methodology (TOSEM)</li>
+              <li>IEEE Transactions on Software Engineering (TSE)</li>
+              <li>Empirical Software Engineering (ESE)</li>
+              <li>IEEE Transactions on Information Forensics and Security (TIFS)</li>
+              <li>ACM Transactions on Computing Education (TOCE)</li>
+              <li>IEEE Transactions on Reliability (TR)</li>
+              <li>IEEE/ACM International Conference on Software Engineering (ICSE) (2025, 2026)</li>
+              <li>ACM International Conference on the Foundations of Software Engineering (FSE) (2025, 2026)</li>
+              <li>IEEE/ACM International Conference on Automated Software Engineering (ASE) (2025, 2026)</li>
+              <li>ACM SIGSOFT International Symposium on Software Testing and Analysis (ISSTA) (2025, 2026)</li>
+              <li>International Joint Conferences on Artificial Intelligence (IJCAI) (2025, 2026)</li>
+              <li>ACM Conference on Intelligent User Interfaces (IUI) (2025, 2026)</li>
+            </ul>
+          </li>
+          <li>
+            <strong>Journal Reviewer</strong>
+            <ul>
+              <li>IEEE Transactions on Software Engineering (TSE)</li>
+              <li>IEEE Transactions on Industrial Informatics (TII)</li>
+              <li>International Journal of Computational Intelligence Systems (IJCIS)</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
 
-    </div>
+      <section class="section" id="teaching">
+        <h2>Teaching</h2>
+        <ol class="publication-list">
+          <li><strong>Automated Testing</strong> (Nanjing University, Software Institute): Teaching Assistant (2023 2024 2025)</li>
+          <li><strong>Software Engineering and Computing III</strong> (Nanjing University, Software Institute): Teaching Assistant (2024 2025 2026)</li>
+        </ol>
+      </section>
+    </main>
+  </div>
 </body>
-
 </html>
